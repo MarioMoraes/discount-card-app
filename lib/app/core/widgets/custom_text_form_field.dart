@@ -27,7 +27,10 @@ class CustomTextFormField extends StatelessWidget {
           obscureText: obscureTextVNValue,
           decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: Colors.black, fontSize: 14.0),
+              hintStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 14.0,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(color: Colors.white),

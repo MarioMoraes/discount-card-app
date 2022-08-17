@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/modules/localization/localization_module.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,6 +17,10 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ModuleRoute('/', module: LoginModule()),
+        ModuleRoute('/',
+            module: LoginModule(), transition: TransitionType.rotate),
+        ModuleRoute('/localization',
+            module: LocalizationModule(),
+            transition: TransitionType.leftToRight),
       ];
 }

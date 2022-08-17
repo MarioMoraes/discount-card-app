@@ -2,6 +2,7 @@ import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
 import 'package:discount_card_app/app/modules/login/controller/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/widgets/button_with_loader.dart';
 
@@ -31,35 +32,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final _height = (MediaQuery.of(context).size.height / 2) * .60;
+    final _width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [context.primaryColor, Colors.white],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                ),
-              ),
-            ),
+            wallpaper(),
+            logo(),
+            title(_width),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 50, 20, 100),
-              child: Center(
-                child: Image.asset(
-                  'assets/images/logo-client-crx.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, _height, 20, 20),
+              padding: EdgeInsets.fromLTRB(20, _height + 50, 20, 20),
               child: Container(
-                height: MediaQuery.of(context).size.height * .45,
+                height: MediaQuery.of(context).size.height * .29,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -82,28 +67,96 @@ class _LoginPageState extends State<LoginPage> {
                         inputUserName(),
                         const SizedBox(height: 7),
                         inputPassword(),
-                        const SizedBox(height: 12),
-                        buttonForgotPassword(),
                         const SizedBox(height: 20),
-                        buttonLogin(),
-                        const SizedBox(height: 15),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "CitizensRX. All rights reserved @${DateTime.now().year}",
-                            style: const TextStyle(
-                                color: Colors.black54,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        )
                       ],
                     ),
                   ),
                 ),
               ),
             ),
+            Positioned(
+              left: 50,
+              right: 50,
+              bottom: _height,
+              child: buttonLogin(),
+            ),
+            Positioned(
+              left: 80,
+              right: 80,
+              bottom: _height - 80,
+              child: buttonReset(),
+            ),
+            Positioned(
+              left: 80,
+              right: 80,
+              bottom: _height - 150,
+              child: buttonSignUp(),
+            ),
+            Positioned(
+                left: 20,
+                right: 20,
+                bottom: 10,
+                child: Center(
+                  child: Text(
+                    "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                )),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget wallpaper() {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [context.primaryColor, Colors.white],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+        ),
+      ),
+      child: Opacity(
+        opacity: 0.6,
+        child: Image.asset(
+          'assets/images/fundo-citizens.jpg',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget logo() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 50, 20, 100),
+      child: Center(
+        child: Image.asset(
+          'assets/images/logo-client-crx.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget title(_width) {
+    return Positioned(
+      top: 170,
+      left: _width * 0.20,
+      child: const SizedBox(
+        width: 300,
+        child: Text(
+          'Prescription Drug\n  Discount Cards',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
@@ -124,22 +177,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget buttonForgotPassword() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: InkWell(
-        onTap: () {},
-        child: const Text(
-          'Forgot Password?',
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 14,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buttonLogin() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
@@ -150,9 +187,53 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () async {
           final formValid = _formKey.currentState?.validate() ?? false;
 
-          if (formValid) {}
+          if (formValid) {
+            Modular.to.pushNamed('/localization');
+          }
         },
         label: 'LOGIN',
+        labelCor: Colors.white,
+      ),
+    );
+  }
+
+  Widget buttonSignUp() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.white),
+          color: const Color(0xFF2C4007)),
+      child: const Padding(
+        padding: EdgeInsets.only(top: 12.5, left: 60),
+        child: Text(
+          'Free Sign Up',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buttonReset() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Colors.white),
+        color: const Color(0xFF8EB14F).withOpacity(0.3),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.only(top: 12.5, left: 50),
+        child: Text(
+          'Reset Password',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

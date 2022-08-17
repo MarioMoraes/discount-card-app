@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ButtonWithLoader<B extends StateStreamable<S>, S>
     extends StatelessWidget {
   final BlocWidgetSelector<S, bool> selector;
+
   final B bloc;
   final VoidCallback onPressed;
   final String label;
+  final Color? labelCor;
+  final double? labelSize;
 
   const ButtonWithLoader({
     Key? key,
@@ -14,6 +17,8 @@ class ButtonWithLoader<B extends StateStreamable<S>, S>
     required this.bloc,
     required this.onPressed,
     required this.label,
+    this.labelCor,
+    this.labelSize = 20,
   }) : super(key: key);
 
   @override
@@ -25,7 +30,14 @@ class ButtonWithLoader<B extends StateStreamable<S>, S>
         selector: selector,
         builder: (context, showLoading) {
           if (!showLoading) {
-            return Text(label);
+            return Text(
+              label,
+              style: TextStyle(
+                fontSize: labelSize,
+                fontWeight: FontWeight.w500,
+                color: labelCor ?? Colors.black,
+              ),
+            );
           }
           return Stack(
             children: const [
