@@ -1,3 +1,5 @@
+import 'package:discount_card_app/app/modules/drug/drug__search_module.dart';
+import 'package:discount_card_app/app/modules/home/home_module.dart';
 import 'package:discount_card_app/app/modules/localization/localization_module.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository_impl.dart';
@@ -17,10 +19,25 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ModuleRoute('/',
-            module: LoginModule(), transition: TransitionType.rotate),
-        ModuleRoute('/localization',
-            module: LocalizationModule(),
-            transition: TransitionType.leftToRight),
+        ModuleRoute(
+          '/',
+          module: LoginModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        ModuleRoute(
+          '/localization',
+          module: LocalizationModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        ModuleRoute(
+          '/home',
+          module: HomeModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        ModuleRoute(
+          '/drug',
+          module: DrugSearchModule(),
+          transition: TransitionType.leftToRight,
+        ),
       ];
 }

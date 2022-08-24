@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
           final formValid = _formKey.currentState?.validate() ?? false;
 
           if (formValid) {
-            Modular.to.pushNamed('/localization');
+            Modular.to.pushNamed('/home');
           }
         },
         label: 'LOGIN',
@@ -198,19 +198,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buttonSignUp() {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.white),
-          color: const Color(0xFF2C4007)),
-      child: const Padding(
-        padding: EdgeInsets.only(top: 12.5, left: 60),
-        child: Text(
-          'Free Sign Up',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
+    return InkWell(
+      onTap: () => Modular.to.pushNamed('/localization'),
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: Colors.white),
+            color: const Color(0xFF2C4007)),
+        child: const Padding(
+          padding: EdgeInsets.only(top: 12.5, left: 50),
+          child: Text(
+            'Free Sign Up',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -226,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
         color: const Color(0xFF8EB14F).withOpacity(0.3),
       ),
       child: const Padding(
-        padding: EdgeInsets.only(top: 12.5, left: 50),
+        padding: EdgeInsets.only(top: 12.5, left: 40),
         child: Text(
           'Reset Password',
           style: TextStyle(
