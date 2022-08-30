@@ -1,4 +1,5 @@
-import 'package:discount_card_app/app/core/widgets/Custom_menu_header.dart';
+import 'package:discount_card_app/app/core/widgets/custom_menu_header.dart';
+import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_search_drug.dart';
 import 'package:flutter/material.dart';
 
@@ -26,43 +27,21 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
       'Pharmacy 11',
       'Pharmacy 12',
       'Pharmacy 13',
-      'Pharmacy 14',
-      'Pharmacy 15',
-      'Pharmacy 16',
-      'Pharmacy 17',
-      'Pharmacy 18',
-      'Pharmacy 19',
-      'Pharmacy 20',
     ];
 
     return Scaffold(
-      // appBar: CustomAppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          'Drug Search',
+          style: TextStyle(fontSize: 25),
+        ),
+      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar(
-              elevation: 0,
-              toolbarHeight: 100,
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              automaticallyImplyLeading: true,
-              title: SizedBox(
-                child: Column(
-                  children: [
-                    /*
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    */
-                    Image.asset(
-                      'assets/images/logo-client-crx.png',
-                      fit: BoxFit.cover,
-                      height: 80,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             SliverPersistentHeader(
               delegate: CustomMenuHeader(),
               pinned: true,
@@ -79,12 +58,18 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
               ),
             ),
             SliverList(
-                delegate: SliverChildListDelegate(list
+              delegate: SliverChildListDelegate(
+                list
                     .map((e) => const CardSearchDrug(
                         drugName: 'Amoxicilin ',
                         brand: 'BRAND',
                         type: 'Tablet 50mg'))
-                    .toList()))
+                    .toList(),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: CardPopularSearches(),
+            ),
           ],
         ),
       ),

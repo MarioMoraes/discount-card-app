@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CardSearchDrug extends StatelessWidget {
   final String drugName;
@@ -15,48 +16,51 @@ class CardSearchDrug extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
-      width: MediaQuery.of(context).size.width,
-      height: 60,
-      decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),
-      child: Row(
-        children: [
-          Container(
-            width: 10,
-            height: 60,
-            decoration: BoxDecoration(color: context.primaryColor),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                drugName,
-                style: const TextStyle(fontSize: 18),
-              ),
-              Text(
-                type,
-                style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 80,
-          ),
-          Text(brand),
-          const SizedBox(
-            width: 60,
-          ),
-          const Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-          )
-        ],
+    return InkWell(
+      onTap: () => Modular.to.pushNamed('/drug/pharmacies-list'),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
+        width: MediaQuery.of(context).size.width,
+        height: 60,
+        decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),
+        child: Row(
+          children: [
+            Container(
+              width: 10,
+              height: 60,
+              decoration: BoxDecoration(color: context.primaryColor),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  drugName,
+                  style: const TextStyle(fontSize: 18),
+                ),
+                Text(
+                  type,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 80,
+            ),
+            Text(brand),
+            const SizedBox(
+              width: 60,
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            )
+          ],
+        ),
       ),
     );
   }
