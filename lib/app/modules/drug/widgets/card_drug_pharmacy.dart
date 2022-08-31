@@ -28,7 +28,7 @@ class CardDrugPharmacy extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/images/wallmart.png',
+                  'assets/images/wallgreens.jpg',
                   height: 50,
                   fit: BoxFit.cover,
                 ),
@@ -39,8 +39,30 @@ class CardDrugPharmacy extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              width: 80,
+              width: 70,
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text('\$ 1.99',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff04461F),
+                    )),
+                Text('\$5.0 Bonus Saving',
+                    style:
+                        TextStyle(fontSize: 12, fontWeight: FontWeight.w300)),
+              ],
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 20,
+            )
           ],
         ),
       ),
