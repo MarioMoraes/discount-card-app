@@ -11,24 +11,24 @@ class DrugSearchPage extends StatefulWidget {
 }
 
 class _DrugSearchPageState extends State<DrugSearchPage> {
+  final List<String> list = [
+    'Pharmacy',
+    'Pharmacy 2',
+    'Pharmacy 3',
+    'Pharmacy 4',
+    'Pharmacy 5',
+    'Pharmacy 6',
+    'Pharmacy 7',
+    'Pharmacy 8',
+    'Pharmacy 9',
+    'Pharmacy 10',
+    'Pharmacy 11',
+    'Pharmacy 12',
+    'Pharmacy 13',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final List<String> list = [
-      'Pharmacy',
-      'Pharmacy 2',
-      'Pharmacy 3',
-      'Pharmacy 4',
-      'Pharmacy 5',
-      'Pharmacy 6',
-      'Pharmacy 7',
-      'Pharmacy 8',
-      'Pharmacy 9',
-      'Pharmacy 10',
-      'Pharmacy 11',
-      'Pharmacy 12',
-      'Pharmacy 13',
-    ];
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
