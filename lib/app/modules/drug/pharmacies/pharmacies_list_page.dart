@@ -22,9 +22,6 @@ class _PharmaciesListPageState extends State<PharmaciesListPage> {
     'Pharmacy 8',
     'Pharmacy 9',
     'Pharmacy 10',
-    'Pharmacy 11',
-    'Pharmacy 12',
-    'Pharmacy 13',
   ];
 
   @override

@@ -28,8 +28,9 @@ class CardDrugPharmacy extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/images/wallgreens.jpg',
+                  'assets/images/wal.png',
                   height: 50,
+                  width: 130,
                   fit: BoxFit.cover,
                 ),
                 const Text(
@@ -39,7 +40,7 @@ class CardDrugPharmacy extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              width: 70,
+              width: 35,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -10,6 +10,8 @@ class CardPopularSearches extends StatefulWidget {
 
 class _CardPopularSearchesState extends State<CardPopularSearches> {
   int? _value = 0;
+  int? _value2 = 0;
+  int? _value3 = 0;
 
   final double _height = 100;
 
@@ -70,7 +72,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: ChoiceChip(
                   backgroundColor: Colors.grey.withOpacity(0.15),
-                  labelPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  labelPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   selectedShadowColor: const Color(0xff8EB14F),
                   elevation: 2,
                   label: Text(options[index],
@@ -116,12 +118,12 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                       style: TextStyle(
                           fontSize: 12,
                           color:
-                              _value == index ? Colors.white : Colors.black)),
-                  selected: _value == index,
+                              _value2 == index ? Colors.white : Colors.black)),
+                  selected: _value2 == index,
                   selectedColor: const Color(0xff8EB14F),
                   onSelected: (bool selected) {
                     setState(() {
-                      _value = selected ? index : null;
+                      _value2 = selected ? index : null;
                     });
                   },
                 ),
@@ -155,12 +157,12 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                       style: TextStyle(
                           fontSize: 12,
                           color:
-                              _value == index ? Colors.white : Colors.black)),
-                  selected: _value == index,
+                              _value3 == index ? Colors.white : Colors.black)),
+                  selected: _value3 == index,
                   selectedColor: const Color(0xff8EB14F),
                   onSelected: (bool selected) {
                     setState(() {
-                      _value = selected ? index : null;
+                      _value3 = selected ? index : null;
                     });
                   },
                 ),
