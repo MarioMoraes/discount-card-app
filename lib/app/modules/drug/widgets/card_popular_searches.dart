@@ -9,9 +9,9 @@ class CardPopularSearches extends StatefulWidget {
 }
 
 class _CardPopularSearchesState extends State<CardPopularSearches> {
-  int? _value = 0;
-  int? _value2 = 0;
-  int? _value3 = 0;
+  int? _value = 4;
+  int? _value2 = 4;
+  int? _value3 = 4;
 
   final double _height = 100;
 
@@ -71,7 +71,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: ChoiceChip(
-                  backgroundColor: Colors.grey.withOpacity(0.15),
+                  backgroundColor: const Color(0xff8EB14F),
                   labelPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   selectedShadowColor: const Color(0xff8EB14F),
                   elevation: 2,
@@ -79,7 +79,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                       style: TextStyle(
                           fontSize: 12,
                           color:
-                              _value == index ? Colors.white : Colors.black)),
+                              _value == index ? Colors.black : Colors.white)),
                   selected: _value == index,
                   selectedColor: const Color(0xff8EB14F),
                   onSelected: (bool selected) {
@@ -110,7 +110,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: ChoiceChip(
-                  backgroundColor: Colors.grey.withOpacity(0.15),
+                  backgroundColor: const Color(0xff8EB14F),
                   labelPadding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                   selectedShadowColor: const Color(0xff8EB14F),
                   elevation: 2,
@@ -118,7 +118,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                       style: TextStyle(
                           fontSize: 12,
                           color:
-                              _value2 == index ? Colors.white : Colors.black)),
+                              _value2 == index ? Colors.black : Colors.white)),
                   selected: _value2 == index,
                   selectedColor: const Color(0xff8EB14F),
                   onSelected: (bool selected) {
@@ -149,7 +149,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: ChoiceChip(
-                  backgroundColor: Colors.grey.withOpacity(0.15),
+                  backgroundColor: const Color(0xff8EB14F),
                   labelPadding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                   selectedShadowColor: const Color(0xff8EB14F),
                   elevation: 2,
@@ -157,7 +157,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
                       style: TextStyle(
                           fontSize: 12,
                           color:
-                              _value3 == index ? Colors.white : Colors.black)),
+                              _value3 == index ? Colors.black : Colors.white)),
                   selected: _value3 == index,
                   selectedColor: const Color(0xff8EB14F),
                   onSelected: (bool selected) {

@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/modules/localization/controller/localization_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/widgets/custom_text_form_field.dart';
 
@@ -15,7 +16,7 @@ class LocalizationPage extends StatefulWidget {
 class _LocalizationPageState extends State<LocalizationPage> {
   final _formKey = GlobalKey<FormState>();
 
-  int? _value = 0;
+  int? _value = 5;
 
   final List<String> options = [
     'Sure, I’d like that',
@@ -89,25 +90,31 @@ class _LocalizationPageState extends State<LocalizationPage> {
             child: ListView.builder(
               itemCount: options.length,
               itemBuilder: ((context, index) {
-                return ChoiceChip(
-                  backgroundColor: Colors.grey.withOpacity(0.15),
-                  labelPadding: const EdgeInsets.fromLTRB(30, 3, 30, 3),
-                  selectedShadowColor: const Color(0xff8EB14F),
-                  elevation: 2,
-                  label: Text(options[index],
-                      style: TextStyle(
-                          color:
-                              _value == index ? Colors.white : Colors.black)),
-                  selected: _value == index,
-                  selectedColor: const Color(0xff8EB14F),
-                  onSelected: (bool selected) {
-                    setState(() {
-                      _value = selected ? index : null;
-                      if (_value == 1) {
-                        _showModalBottomSheet(context);
-                      }
-                    });
-                  },
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: ChoiceChip(
+                    backgroundColor: Colors.grey.withOpacity(0.15),
+                    labelPadding: const EdgeInsets.fromLTRB(30, 3, 30, 3),
+                    selectedShadowColor: const Color(0xff8EB14F),
+                    elevation: 2,
+                    label: Text(options[index],
+                        style: TextStyle(
+                            color:
+                                _value == index ? Colors.white : Colors.black)),
+                    selected: _value == index,
+                    selectedColor: const Color(0xff8EB14F),
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? index : null;
+                        if (_value == 0) {
+                          Modular.to.pushReplacementNamed('/home');
+                        }
+                        if (_value == 1) {
+                          _showModalBottomSheet(context);
+                        }
+                      });
+                    },
+                  ),
                 );
               }),
             ),

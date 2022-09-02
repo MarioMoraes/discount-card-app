@@ -1,33 +1,18 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
-import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
-import 'package:discount_card_app/app/modules/login/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../core/widgets/button_with_loader.dart';
+import '../../../core/widgets/custom_text_form_field.dart';
 
-class LoginPage extends StatefulWidget {
-  final LoginController loginController;
-
-  const LoginPage({Key? key, required this.loginController}) : super(key: key);
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>();
-
-  final _emailEC = TextEditingController();
-  final _passwordEC = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _emailEC.dispose();
-    _passwordEC.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +49,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 30),
-                        inputUserName(),
+                        SizedBox(
+                          width: 300,
+                          height: 50,
+                          child: Text(
+                            'Enter your email for reset password. An email should be sended in your Mailbox.',
+                            style: TextStyle(color: Colors.grey.shade600),
+                            overflow: TextOverflow.clip,
+                          ),
+                        ),
                         const SizedBox(height: 7),
-                        inputPassword(),
-                        const SizedBox(height: 20),
+                        inputUserName(),
                       ],
                     ),
                   ),
@@ -75,36 +67,17 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Positioned(
-              left: 50,
-              right: 50,
-              bottom: _height,
-              child: buttonLogin(),
-            ),
-            Positioned(
               left: 80,
               right: 80,
-              bottom: _height - 80,
+              bottom: _height,
               child: buttonReset(),
             ),
             Positioned(
               left: 80,
               right: 80,
-              bottom: _height - 150,
-              child: buttonSignUp(),
+              bottom: _height - 80,
+              child: buttonCancel(),
             ),
-            Positioned(
-                left: 20,
-                right: 20,
-                bottom: 10,
-                child: Center(
-                  child: Text(
-                    "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                )),
           ],
         ),
       ),
@@ -134,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget logo() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 50, 20, 100),
+      padding: const EdgeInsets.fromLTRB(20, 70, 20, 100),
       child: Center(
         child: Image.asset(
           'assets/images/logo_citizensrx_0.5x.png',
@@ -147,12 +120,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget title(_width) {
     return Positioned(
-      top: 170,
+      top: 185,
       left: _width * 0.20,
       child: const SizedBox(
         width: 300,
         child: Text(
-          'Prescription Drug\n  Discount Cards',
+          'Reset Password',
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
@@ -166,65 +139,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget inputUserName() {
     return CustomTextFormField(
       hint: 'Email',
-      controller: _emailEC,
-    );
-  }
-
-  Widget inputPassword() {
-    return CustomTextFormField(
-      hint: 'Password',
-      controller: _passwordEC,
-      obscureText: true,
-    );
-  }
-
-  Widget buttonLogin() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: ButtonWithLoader<LoginController, LoginState>(
-        bloc: widget.loginController,
-        selector: (state) => state == LoginStatus.loading,
-        onPressed: () async {
-          final formValid = _formKey.currentState?.validate() ?? false;
-
-          if (formValid) {
-            Modular.to.pushNamed('/localization');
-          }
-        },
-        label: 'LOGIN',
-        labelCor: Colors.white,
-      ),
-    );
-  }
-
-  Widget buttonSignUp() {
-    return ElevatedButton(
-      onPressed: () => Modular.to.pushNamed('/reset'),
-      style: ElevatedButton.styleFrom(
-        primary: const Color(0xff2C4007),
-        fixedSize: const Size(80, 50),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      child: const Center(
-        child: Text(
-          'Free Sign Up',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-        ),
-      ),
     );
   }
 
   Widget buttonReset() {
     return ElevatedButton(
-      onPressed: () => Modular.to.pushNamed('/reset'),
+      onPressed: () {
+        const snackBar = SnackBar(
+          content: Text('Email Sent'),
+          backgroundColor: (Colors.black12),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
       style: ElevatedButton.styleFrom(
         primary: context.primaryColor,
         fixedSize: const Size(80, 50),
@@ -235,7 +161,31 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: const Center(
         child: Text(
-          'Reset Password',
+          'SEND',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buttonCancel() {
+    return ElevatedButton(
+      onPressed: () => Modular.to.pop(),
+      style: ElevatedButton.styleFrom(
+        primary: const Color(0xff2C4007),
+        fixedSize: const Size(80, 50),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: const Center(
+        child: Text(
+          'BACK',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,

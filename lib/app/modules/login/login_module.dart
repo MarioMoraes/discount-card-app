@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/modules/login/controller/login_controller.dart';
 import 'package:discount_card_app/app/modules/login/login_page.dart';
+import 'package:discount_card_app/app/modules/login/reset/reset_password_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginModule extends Module {
@@ -10,9 +11,15 @@ class LoginModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(Modular.initialRoute,
-            child: (_, args) => LoginPage(
-                  loginController: Modular.get<LoginController>(),
-                )),
+        ChildRoute(
+          Modular.initialRoute,
+          child: (_, args) => LoginPage(
+            loginController: Modular.get<LoginController>(),
+          ),
+        ),
+        ChildRoute(
+          '/reset',
+          child: (_, args) => const ResetPasswordPage(),
+        ),
       ];
 }

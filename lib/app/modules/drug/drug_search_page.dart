@@ -18,13 +18,8 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
     'Pharmacy 4',
     'Pharmacy 5',
     'Pharmacy 6',
-    'Pharmacy 7',
-    'Pharmacy 8',
-    'Pharmacy 9',
-    'Pharmacy 10',
-    'Pharmacy 11',
-    'Pharmacy 12',
-    'Pharmacy 13',
+    'Pharmacy 6',
+    'Pharmacy 6',
   ];
 
   @override
