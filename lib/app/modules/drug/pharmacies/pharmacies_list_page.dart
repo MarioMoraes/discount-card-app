@@ -3,6 +3,7 @@ import 'package:discount_card_app/app/core/widgets/custom_app_bar_title.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_drug_pharmacy.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/custom_filter_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PharmaciesListPage extends StatefulWidget {
   const PharmaciesListPage({Key? key}) : super(key: key);
@@ -49,31 +50,35 @@ class _PharmaciesListPageState extends State<PharmaciesListPage> {
   }
 
   Widget showMap() {
-    return Container(
-      height: 50,
-      width: 150,
-      decoration: BoxDecoration(
-          color: context.primaryColor, borderRadius: BorderRadius.circular(25)),
-      child: Row(
-        children: const [
-          SizedBox(
-            width: 10,
-          ),
-          Icon(
-            Icons.map,
-            color: Colors.white,
-            size: 36,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Center(
-            child: Text(
-              'See Result \n  In Map',
-              style: TextStyle(color: Colors.white),
+    return InkWell(
+      onTap: () => Modular.to.pushNamed('/drug/map'),
+      child: Container(
+        height: 50,
+        width: 150,
+        decoration: BoxDecoration(
+            color: context.primaryColor,
+            borderRadius: BorderRadius.circular(25)),
+        child: Row(
+          children: const [
+            SizedBox(
+              width: 10,
             ),
-          )
-        ],
+            Icon(
+              Icons.map,
+              color: Colors.white,
+              size: 36,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Center(
+              child: Text(
+                'See Result \n  In Map',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

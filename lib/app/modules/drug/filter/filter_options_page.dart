@@ -1,10 +1,15 @@
-import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
+import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/models/chip_model.dart';
 import 'package:flutter/material.dart';
 
-class FilterOptionsPage extends StatelessWidget {
+class FilterOptionsPage extends StatefulWidget {
   const FilterOptionsPage({Key? key}) : super(key: key);
 
+  @override
+  State<FilterOptionsPage> createState() => _FilterOptionsPageState();
+}
+
+class _FilterOptionsPageState extends State<FilterOptionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,23 +54,23 @@ class FilterOptionsPage extends StatelessWidget {
         children: const [
           _CoverageOptions(),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           _TypeOptions(),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           _DosageOptions(),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           _Quantity(),
           SizedBox(
-            height: 10,
+            height: 17,
           ),
           _Distance(),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           _SourceLocation(),
         ],
@@ -92,7 +97,10 @@ class _SourceLocation extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('SOURCE LOCATION'),
+            child: Text(
+              'SOURCE LOCATION',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
@@ -147,18 +155,28 @@ class _SourceLocation extends StatelessWidget {
   }
 }
 
-class _Distance extends StatelessWidget {
+class _Distance extends StatefulWidget {
   const _Distance({Key? key}) : super(key: key);
 
   @override
+  State<_Distance> createState() => _DistanceState();
+}
+
+class _DistanceState extends State<_Distance> {
+  @override
   Widget build(BuildContext context) {
+    int _value = 6;
+
     return Column(
       children: [
         const Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('DISTANCE'),
+            child: Text(
+              'DISTANCE',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
@@ -174,13 +192,21 @@ class _Distance extends StatelessWidget {
                 SizedBox(
                   width: 300,
                   height: 50,
-                  child: RangeSlider(
-                    values: const RangeValues(5, 30),
-                    labels: const RangeLabels('5', '30'),
-                    min: 5,
-                    max: 30,
-                    onChanged: (value) {},
-                  ),
+                  child: Slider(
+                      value: _value.toDouble(),
+                      min: 5.0,
+                      max: 100.0,
+                      divisions: 10,
+                      activeColor: context.primaryColor,
+                      inactiveColor: Colors.grey,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          _value = newValue.round();
+                        });
+                      },
+                      semanticFormatterCallback: (double newValue) {
+                        return '${newValue.round()} miles';
+                      }),
                 ),
               ],
             ),
@@ -204,18 +230,24 @@ class _Quantity extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('QUANTITY'),
+            child: Text(
+              'QUANTITY',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
           height: 10,
         ),
-        SizedBox(
-          width: 100,
-          height: 50,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 28.0),
-            child: CustomTextFormField(hint: '1'),
+        Padding(
+          padding: const EdgeInsets.only(left: 28.0, right: 270),
+          child: TextFormField(
+            decoration: InputDecoration(
+                isDense: true,
+                filled: true,
+                fillColor: context.primaryColor,
+                label: const Text('1'),
+                labelStyle: const TextStyle(color: Colors.white)),
           ),
         ),
       ],
@@ -232,6 +264,7 @@ class _DosageOptions extends StatelessWidget {
       ChipModel(title: '100 ml', selected: false),
       ChipModel(title: '150 ml', selected: false),
       ChipModel(title: '200 ml', selected: true),
+      ChipModel(title: '300 ml', selected: true),
     ];
 
     int? _value = 0;
@@ -242,7 +275,10 @@ class _DosageOptions extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('DOSAGE'),
+            child: Text(
+              'DOSAGE',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
@@ -255,38 +291,40 @@ class _DosageOptions extends StatelessWidget {
             padding: const EdgeInsets.only(left: 25.0),
             child: Row(
               children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: list.length,
-                  itemBuilder: ((context, index) {
-                    var chip = list[index];
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: list.length,
+                    itemBuilder: ((context, index) {
+                      var chip = list[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: ChoiceChip(
-                        visualDensity: VisualDensity.comfortable,
-                        backgroundColor: chip.selected == true
-                            ? const Color(0xff8EB14F)
-                            : Colors.grey.shade200,
-                        labelPadding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                        selectedShadowColor: const Color(0xff8EB14F),
-                        elevation: 2,
-                        label: Text(chip.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14,
-                              color:
-                                  chip.selected ? Colors.white : Colors.black,
-                            )),
-                        selected: _value == index,
-                        selectedColor: chip.selected == true
-                            ? const Color(0xff8EB14F)
-                            : Colors.grey.shade200,
-                        onSelected: (bool selected) {},
-                      ),
-                    );
-                  }),
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: ChoiceChip(
+                          visualDensity: VisualDensity.comfortable,
+                          backgroundColor: chip.selected == true
+                              ? const Color(0xff8EB14F)
+                              : Colors.grey.shade200,
+                          labelPadding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                          selectedShadowColor: const Color(0xff8EB14F),
+                          elevation: 2,
+                          label: Text(chip.title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                                color:
+                                    chip.selected ? Colors.white : Colors.black,
+                              )),
+                          selected: _value == index,
+                          selectedColor: chip.selected == true
+                              ? const Color(0xff8EB14F)
+                              : Colors.grey.shade200,
+                          onSelected: (bool selected) {},
+                        ),
+                      );
+                    }),
+                  ),
                 )
               ],
             ),
@@ -316,7 +354,10 @@ class _TypeOptions extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('TYPE'),
+            child: Text(
+              'TYPE',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
@@ -389,7 +430,10 @@ class _CoverageOptions extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 25.0),
-            child: Text('COVERAGE'),
+            child: Text(
+              'COVERAGE',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
         const SizedBox(
