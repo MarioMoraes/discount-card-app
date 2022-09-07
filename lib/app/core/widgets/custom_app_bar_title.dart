@@ -8,6 +8,7 @@ class CustomAppBarTitle extends AppBar {
       : super(
           key: key,
           elevation: 0,
+          toolbarHeight: 60,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Column(
@@ -22,7 +23,7 @@ class CustomAppBarTitle extends AppBar {
               Text(
                 subtitle,
                 style:
-                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CardDrugPharmacy extends StatelessWidget {
   const CardDrugPharmacy({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class CardDrugPharmacy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Modular.to.pushNamed('/drug/details'),
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
         width: MediaQuery.of(context).size.width,
