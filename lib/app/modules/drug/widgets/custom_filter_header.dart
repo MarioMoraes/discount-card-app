@@ -116,7 +116,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
       context: context,
       builder: (BuildContext bc) {
         return SizedBox(
-          height: 150,
+          height: 180,
           child: Column(
             children: <Widget>[
               const SizedBox(
@@ -159,7 +159,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                 height: 5,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
                   Text(
                     'Nearest Pharmacy',
@@ -169,7 +169,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     ),
                   ),
                   Text(
-                    'Lowest Price    ',
+                    'Lowest Price',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,

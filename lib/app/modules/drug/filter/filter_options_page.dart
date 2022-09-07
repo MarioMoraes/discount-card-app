@@ -85,8 +85,9 @@ class _SourceLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<ChipModel> list = [
-      ChipModel(title: 'FROM DEVICE', selected: false),
-      ChipModel(title: 'USER DEFINED', selected: true),
+      ChipModel(title: 'FROM DEVICE', selected: true),
+      ChipModel(
+          title: 'USER DEFINED', subtitle: 'Current: 123456', selected: false),
     ];
 
     int? _value = 0;
@@ -127,16 +128,26 @@ class _SourceLocation extends StatelessWidget {
                         backgroundColor: chip.selected == true
                             ? const Color(0xff8EB14F)
                             : Colors.grey.shade200,
-                        labelPadding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                        labelPadding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                         selectedShadowColor: const Color(0xff8EB14F),
                         elevation: 2,
-                        label: Text(chip.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14,
-                              color:
-                                  chip.selected ? Colors.white : Colors.black,
-                            )),
+                        label: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(chip.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 14,
+                                  color: chip.selected
+                                      ? Colors.white
+                                      : Colors.black,
+                                )),
+                            chip.subtitle != null
+                                ? Text(chip.subtitle!)
+                                : const SizedBox.shrink()
+                          ],
+                        ),
                         selected: _value == index,
                         selectedColor: chip.selected == true
                             ? const Color(0xff8EB14F)
