@@ -34,7 +34,6 @@ class DrugSearchModule extends Module {
         ChildRoute(
           '/details',
           child: (args, context) => const PharmacyDetailPage(),
-          transition: TransitionType.rightToLeft,
           duration: const Duration(seconds: 1),
         ),
       ];
