@@ -159,20 +159,33 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                 height: 5,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text(
-                    'Nearest Pharmacy',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                  SizedBox(
+                    width: 170,
+                    height: 60,
+                    child: Center(
+                      child: Text(
+                        'Nearest Pharmacy',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                   ),
-                  Text(
-                    'Lowest Price',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                  SizedBox(
+                    width: 170,
+                    height: 60,
+                    child: Center(
+                      child: Text(
+                        'Lowest Price',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ],
