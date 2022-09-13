@@ -55,6 +55,23 @@ class PharmacyDetailPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
+        onPressed: () {},
+        icon: const Icon(
+          Icons.badge,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'SHOW DISCOUNT CARD',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
     );
   }
 }
@@ -242,9 +259,9 @@ class _ShowMapState extends State<_ShowMap> {
       zoom: 12.4746,
     );
 
-    return SizedBox(
+    return Container(
       width: double.infinity,
-      height: 300,
+      height: 500,
       child: Column(
         children: [
           Expanded(
