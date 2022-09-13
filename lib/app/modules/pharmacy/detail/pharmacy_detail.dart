@@ -54,6 +54,9 @@ class _PharmacyAddress extends StatelessWidget {
                   'Sears Pharmacy #3223',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   'Address',
                   style: TextStyle(fontWeight: FontWeight.w400),
@@ -135,7 +138,7 @@ class _ShowMapState extends State<_ShowMap> {
 
     return SizedBox(
       width: double.infinity,
-      height: 500,
+      height: 450,
       child: Column(
         children: [
           Expanded(
