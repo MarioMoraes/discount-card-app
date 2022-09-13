@@ -1,6 +1,7 @@
 import 'package:discount_card_app/app/modules/drug/drug__search_module.dart';
 import 'package:discount_card_app/app/modules/home/home_module.dart';
 import 'package:discount_card_app/app/modules/localization/localization_module.dart';
+import 'package:discount_card_app/app/modules/pharmacy/pharmacy_module.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository.dart';
 import 'package:discount_card_app/app/repositories/auth/auth_repository_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -37,6 +38,11 @@ class AppModule extends Module {
         ModuleRoute(
           '/drug',
           module: DrugSearchModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        ModuleRoute(
+          '/pharmacy',
+          module: PharmacyModule(),
           transition: TransitionType.leftToRight,
         ),
       ];

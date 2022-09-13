@@ -2,32 +2,39 @@ import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarWithFilter extends AppBar {
-  CustomAppBarWithFilter({Key? key})
+  final String msg;
+  final String textSearch;
+
+  CustomAppBarWithFilter(
+      {Key? key, required this.msg, required this.textSearch})
       : super(
-            key: key,
-            elevation: 0,
-            toolbarHeight: 180,
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            title: Column(
+          key: key,
+          elevation: 0,
+          toolbarHeight: 180,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          automaticallyImplyLeading: true,
+          title: SizedBox(
+            height: 180,
+            child: Column(
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
-                Image.asset(
-                  'assets/images/logo-client-crx.png',
-                  fit: BoxFit.cover,
-                  height: 80,
+                Text(
+                  msg,
+                  style: const TextStyle(fontSize: 25),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
-                  hint: 'Drug Name',
+                  hint: textSearch,
                   showIcon: true,
                   icon: Icons.search,
                 ),
               ],
-            ));
+            ),
+          ),
+        );
 }

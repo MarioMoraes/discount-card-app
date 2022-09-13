@@ -2,6 +2,12 @@ import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class CustomMenuHeader extends SliverPersistentHeaderDelegate {
+  String title;
+
+  CustomMenuHeader({
+    required this.title,
+  });
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -15,7 +21,7 @@ class CustomMenuHeader extends SliverPersistentHeaderDelegate {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomTextFormField(
-                hint: 'Drug Name',
+                hint: title,
                 showIcon: true,
                 icon: Icons.search,
               )

@@ -1,7 +1,7 @@
 import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
 import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
-import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_page.dart';
+import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,7 +17,7 @@ class DrugSearchModule extends Module {
         ),
         ChildRoute(
           '/pharmacies-list',
-          child: (args, context) => const PharmaciesListPage(),
+          child: (args, context) => const PharmaciesListDrugPage(),
         ),
         ChildRoute(
           '/filters',
@@ -28,13 +28,11 @@ class DrugSearchModule extends Module {
         ChildRoute(
           '/map',
           child: (args, context) => const PharmaciesMapPage(),
-          transition: TransitionType.downToUp,
           duration: const Duration(seconds: 1),
         ),
         ChildRoute(
           '/details',
           child: (args, context) => const PharmacyDetailPage(),
-          transition: TransitionType.rightToLeft,
           duration: const Duration(seconds: 1),
         ),
       ];

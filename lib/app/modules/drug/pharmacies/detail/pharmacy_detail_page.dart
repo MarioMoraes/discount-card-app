@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/widgets/custom_app_bar_title.dart';
@@ -13,6 +14,37 @@ class PharmacyDetailPage extends StatelessWidget {
       appBar: CustomAppBarTitle(
         msg: 'Drug Search',
         subtitle: 'Pharmacy Detail',
+      ),
+      bottomNavigationBar: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: context.primaryColor,
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
+        onPressed: () {
+          Modular.to.pop();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'SHOW DISCOUNT CARD',
+              style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Image.asset(
+              'assets/images/id-card.png',
+              fit: BoxFit.cover,
+              width: 20,
+              height: 20,
+              color: Colors.white,
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -84,7 +116,7 @@ class _DrugDetails extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 1,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -120,53 +152,66 @@ class _PharmacyAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-      width: double.infinity,
-      height: 140,
-      child: Column(
+      width: MediaQuery.of(context).size.width,
+      height: 110,
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Located At',
-            style: TextStyle(fontWeight: FontWeight.w400),
-          ),
-          const Text(
-            '1003 MADISON ST',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            height: 100,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Located At',
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  '1003 MADISON ST',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Phone',
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  '700884900',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
-            height: 10,
+            width: 45,
           ),
-          const Text(
-            'Phone',
-            style: TextStyle(fontWeight: FontWeight.w400),
-          ),
-          const Text(
-            '700884900',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(50, 30),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
+          SizedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(55, 35),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                   ),
-                ),
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.call,
-                  size: 18,
-                  color: Colors.white,
-                ),
-                label: const Text(
-                  'CALL',
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            ],
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.call,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'CALL',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -174,8 +219,21 @@ class _PharmacyAddress extends StatelessWidget {
   }
 }
 
-class _ShowMap extends StatelessWidget {
+class _ShowMap extends StatefulWidget {
   const _ShowMap({Key? key}) : super(key: key);
+
+  @override
+  State<_ShowMap> createState() => _ShowMapState();
+}
+
+class _ShowMapState extends State<_ShowMap> {
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _addMarker();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,15 +246,25 @@ class _ShowMap extends StatelessWidget {
       width: double.infinity,
       height: 300,
       child: Column(
-        children: const [
+        children: [
           Expanded(
             child: GoogleMap(
               initialCameraPosition: _currentPosition,
               mapType: MapType.normal,
+              markers: Set.from(allMarkers),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  _addMarker() {
+    allMarkers.add(
+      const Marker(
+          markerId: MarkerId('idMarker'),
+          draggable: true,
+          position: LatLng(41.8882523, -87.80376609999999)),
     );
   }
 }

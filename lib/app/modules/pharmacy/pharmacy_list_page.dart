@@ -1,16 +1,11 @@
-import 'package:discount_card_app/app/core/widgets/custom_menu_header.dart';
-import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches.dart';
-import 'package:discount_card_app/app/modules/drug/widgets/card_search_drug.dart';
 import 'package:flutter/material.dart';
 
-class DrugSearchPage extends StatefulWidget {
-  const DrugSearchPage({Key? key}) : super(key: key);
+import '../../core/widgets/custom_menu_header.dart';
+import 'widgets/card_pharmacy.dart';
 
-  @override
-  State<DrugSearchPage> createState() => _DrugSearchPageState();
-}
+class PharmacyListPage extends StatelessWidget {
+  PharmacyListPage({Key? key}) : super(key: key);
 
-class _DrugSearchPageState extends State<DrugSearchPage> {
   final List<String> list = [
     'Pharmacy',
     'Pharmacy 2',
@@ -30,7 +25,7 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          'Drug Search',
+          'Pharmacies List',
           style: TextStyle(fontSize: 25),
         ),
       ),
@@ -38,7 +33,7 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
-              delegate: CustomMenuHeader(title: 'Drug Name'),
+              delegate: CustomMenuHeader(title: 'Pharmacy Name'),
               pinned: true,
             ),
             const SliverVisibility(
@@ -53,18 +48,8 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
               ),
             ),
             SliverList(
-              delegate: SliverChildListDelegate(
-                list
-                    .map((e) => const CardSearchDrug(
-                        drugName: 'Amoxicilin ',
-                        brand: 'BRAND',
-                        type: 'Tablet 50mg'))
-                    .toList(),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: CardPopularSearches(),
-            ),
+                delegate: SliverChildListDelegate(
+                    list.map((e) => const CardPharmacy()).toList())),
           ],
         ),
       ),

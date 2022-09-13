@@ -16,26 +16,26 @@ class HomePage extends StatelessWidget {
             label: 'Drug Search',
             description: 'Search RxDrugs and Get Discount',
             icon: 'assets/images/meds.png',
-            onPress: () => _goToDrug(),
+            onPress: () => _goToDrug('/drug'),
           ),
           CardHome(
             label: 'Pharmacies List',
             description: 'Find Near Pharmacies',
             icon: 'assets/images/pharmacy.png',
-            onPress: () => _goToDrug(),
+            onPress: () => _goToDrug('/pharmacy'),
           ),
           CardHome(
             label: 'Discount Card',
             description: '',
             icon: 'assets/images/id-card.png',
-            onPress: () => _goToDrug(),
+            onPress: () => _goToDrug('/drug'),
           ),
         ],
       ),
     );
   }
 
-  _goToDrug() {
-    Modular.to.pushNamed('/drug');
+  _goToDrug(String page) {
+    Modular.to.pushNamed(page);
   }
 }

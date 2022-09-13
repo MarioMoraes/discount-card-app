@@ -5,14 +5,14 @@ import 'package:discount_card_app/app/modules/drug/widgets/custom_filter_header.
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class PharmaciesListPage extends StatefulWidget {
-  const PharmaciesListPage({Key? key}) : super(key: key);
+class PharmaciesListDrugPage extends StatefulWidget {
+  const PharmaciesListDrugPage({Key? key}) : super(key: key);
 
   @override
-  State<PharmaciesListPage> createState() => _PharmaciesListPageState();
+  State<PharmaciesListDrugPage> createState() => _PharmaciesListDrugPageState();
 }
 
-class _PharmaciesListPageState extends State<PharmaciesListPage> {
+class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
   final List<String> list = [
     'Pharmacy',
     'Pharmacy 2',
