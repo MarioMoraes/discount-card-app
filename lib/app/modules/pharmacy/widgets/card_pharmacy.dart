@@ -36,7 +36,7 @@ class CardPharmacy extends StatelessWidget {
                 ),
                 const Text(
                   '1129 Lake ST - OAK PARK',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 5,
@@ -48,20 +48,12 @@ class CardPharmacy extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              width: 105,
+              width: 140,
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.location_on,
-                    size: 30,
-                  )
-                ],
-              ),
-            ),
+            const Icon(
+              Icons.location_on,
+              size: 30,
+            )
           ],
         ),
       ),

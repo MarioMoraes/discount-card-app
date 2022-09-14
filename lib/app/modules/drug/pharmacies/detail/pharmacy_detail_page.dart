@@ -46,14 +46,14 @@ class PharmacyDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            _DrugDetails(),
-            _PharmacyAddress(),
-            _ShowMap(),
-          ],
-        ),
+      body: Column(
+        children: const [
+          _DrugDetails(),
+          _PharmacyAddress(),
+          Expanded(
+            child: _ShowMap(),
+          ),
+        ],
       ),
     );
   }
@@ -242,20 +242,10 @@ class _ShowMapState extends State<_ShowMap> {
       zoom: 12.4746,
     );
 
-    return SizedBox(
-      width: double.infinity,
-      height: 300,
-      child: Column(
-        children: [
-          Expanded(
-            child: GoogleMap(
-              initialCameraPosition: _currentPosition,
-              mapType: MapType.normal,
-              markers: Set.from(allMarkers),
-            ),
-          ),
-        ],
-      ),
+    return GoogleMap(
+      initialCameraPosition: _currentPosition,
+      mapType: MapType.normal,
+      markers: Set.from(allMarkers),
     );
   }
 
