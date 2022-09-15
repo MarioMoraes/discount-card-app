@@ -48,7 +48,7 @@ class CardPharmacy extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              width: 140,
+              width: 100,
             ),
             const Icon(
               Icons.location_on,
