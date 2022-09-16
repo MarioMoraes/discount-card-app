@@ -26,6 +26,24 @@ class _LocalizationPageState extends State<LocalizationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Visibility(
+        visible: _value == 0 || _value == 1,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+          ),
+          onPressed: () {
+            Modular.to.pushReplacementNamed('/home');
+          },
+          child: const Text(
+            'NEXT',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -106,9 +124,6 @@ class _LocalizationPageState extends State<LocalizationPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         _value = selected ? index : null;
-                        if (_value == 0) {
-                          Modular.to.pushReplacementNamed('/home');
-                        }
                         if (_value == 1) {
                           _showModalBottomSheet(context);
                         }
