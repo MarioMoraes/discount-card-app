@@ -58,9 +58,7 @@ class CardDrugPharmacy extends StatelessWidget {
                         TextStyle(fontSize: 12, fontWeight: FontWeight.w300)),
               ],
             ),
-            const SizedBox(
-              width: 30,
-            ),
+            const Spacer(),
             const Icon(
               Icons.arrow_forward_ios,
               size: 20,

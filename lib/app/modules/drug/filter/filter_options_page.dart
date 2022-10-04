@@ -1,6 +1,10 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/core/widgets/card_select.dart';
 import 'package:discount_card_app/app/models/chip_model.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class FilterOptionsPage extends StatefulWidget {
   const FilterOptionsPage({Key? key}) : super(key: key);
@@ -51,28 +55,30 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
         ),
       ),
       body: ListView(
-        children: const [
-          _CoverageOptions(),
-          SizedBox(
-            height: 15,
-          ),
-          _TypeOptions(),
-          SizedBox(
-            height: 15,
-          ),
-          _DosageOptions(),
-          SizedBox(
-            height: 15,
-          ),
-          _Quantity(),
-          SizedBox(
-            height: 17,
-          ),
-          _Distance(),
-          SizedBox(
-            height: 15,
-          ),
-          _SourceLocation(),
+        children: [
+          _CoverageOptions(
+              coverageController: Modular.get<CoverageController>()),
+
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          // const _TypeOptions(),
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          // const _DosageOptions(),
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          // const _Quantity(),
+          // const SizedBox(
+          //   height: 17,
+          // ),
+          // const _Distance(),
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          // const _SourceLocation(),
         ],
       ),
     );
@@ -423,18 +429,25 @@ class _TypeOptions extends StatelessWidget {
   }
 }
 
-class _CoverageOptions extends StatelessWidget {
-  const _CoverageOptions({Key? key}) : super(key: key);
+class _CoverageOptions extends StatefulWidget {
+  final CoverageController coverageController;
+
+  const _CoverageOptions({Key? key, required this.coverageController})
+      : super(key: key);
+
+  @override
+  State<_CoverageOptions> createState() => _CoverageOptionsState();
+}
+
+class _CoverageOptionsState extends State<_CoverageOptions> {
+  @override
+  void initState() {
+    super.initState();
+    widget.coverageController.getCoverage();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<ChipModel> list = [
-      ChipModel(title: 'BRAND', selected: true),
-      ChipModel(title: 'GENERIC', selected: false),
-    ];
-
-    int? _value = 0;
-
     return Column(
       children: [
         const Align(
@@ -452,44 +465,39 @@ class _CoverageOptions extends StatelessWidget {
         ),
         SizedBox(
           width: double.infinity,
-          height: 50,
+          height: 40,
           child: Padding(
             padding: const EdgeInsets.only(left: 25.0),
             child: Row(
               children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: list.length,
-                  itemBuilder: ((context, index) {
-                    var chip = list[index];
+                BlocBuilder<CoverageController, CoverageState>(
+                  bloc: widget.coverageController,
+                  builder: (context, state) {
+                    if (state is CoverageStateLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
 
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: ChoiceChip(
-                        visualDensity: VisualDensity.comfortable,
-                        backgroundColor: !chip.selected
-                            ? const Color(0xff8EB14F)
-                            : Colors.grey.shade200,
-                        labelPadding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                        selectedShadowColor: const Color(0xff8EB14F),
-                        elevation: 2,
-                        label: Text(chip.title,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 14,
-                                color: _value == index
-                                    ? Colors.black
-                                    : Colors.white)),
-                        selected: _value == index,
-                        selectedColor: !chip.selected
-                            ? const Color(0xff8EB14F)
-                            : Colors.grey.shade200,
-                        onSelected: (bool selected) {},
-                      ),
-                    );
-                  }),
-                )
+                    if (state is CoverageStateLoaded) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.list.length,
+                        itemBuilder: ((context, index) {
+                          var model = state.list[index];
+                          return CardSelect(
+                            controller: widget.coverageController,
+                            title: model.description!,
+                            selected: model.selected!,
+                            index: index,
+                          );
+                        }),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ],
             ),
           ),

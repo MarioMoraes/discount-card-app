@@ -1,13 +1,17 @@
 import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
 class DrugSearchModule extends Module {
   @override
-  List<Bind<Object>> get binds => [];
+  List<Bind<Object>> get binds => [
+        BlocBind.lazySingleton((i) => CoverageController()),
+      ];
 
   @override
   List<ModularRoute> get routes => [
