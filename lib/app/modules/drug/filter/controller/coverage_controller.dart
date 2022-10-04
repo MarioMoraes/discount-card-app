@@ -12,7 +12,6 @@ class CoverageController extends Cubit<CoverageState> {
     listCoverage = [
       CardSelectModel(description: 'BRAND', selected: true),
       CardSelectModel(description: 'GENERIC', selected: false),
-      CardSelectModel(description: 'OTHER', selected: false),
     ];
 
     emit(CoverageStateLoaded(list: listCoverage));
