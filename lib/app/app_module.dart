@@ -23,27 +23,22 @@ class AppModule extends Module {
         ModuleRoute(
           '/',
           module: LoginModule(),
-          transition: TransitionType.leftToRight,
         ),
         ModuleRoute(
           '/localization',
           module: LocalizationModule(),
-          transition: TransitionType.leftToRight,
         ),
         ModuleRoute(
           '/home',
           module: HomeModule(),
-          transition: TransitionType.leftToRight,
         ),
         ModuleRoute(
           '/drug',
           module: DrugSearchModule(),
-          transition: TransitionType.leftToRight,
         ),
         ModuleRoute(
           '/pharmacy',
           module: PharmacyModule(),
-          transition: TransitionType.leftToRight,
         ),
       ];
 }

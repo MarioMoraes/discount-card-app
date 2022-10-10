@@ -13,7 +13,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
   int? _value2 = 4;
   int? _value3 = 4;
 
-  final double _height = 100;
+  var _height = 40.0;
 
   final List<String> options = ['LIPTOR', 'SLIDENAFIL', 'NORVASC'];
   final List<String> options2 = ['ZOLOFT', 'LEXAPRO', 'COZAAR'];
@@ -22,9 +22,13 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
-      child: Container(
-          height: 210,
+      onTap: () {
+        setState(() {
+          _height = _height == 40 ? 210.0 : 40.0;
+        });
+      },
+      child: AnimatedContainer(
+          height: _height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.grey.shade200,
@@ -32,6 +36,7 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
               top: BorderSide(width: 4, color: context.primaryColor),
             ),
           ),
+          duration: const Duration(milliseconds: 500),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

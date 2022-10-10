@@ -27,7 +27,6 @@ class DrugSearchModule extends Module {
           '/filters',
           child: (args, context) => const FilterOptionsPage(),
           transition: TransitionType.downToUp,
-          duration: const Duration(seconds: 1),
         ),
         ChildRoute(
           '/map',

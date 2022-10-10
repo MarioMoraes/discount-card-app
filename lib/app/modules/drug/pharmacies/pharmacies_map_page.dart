@@ -27,14 +27,62 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   Set<Marker> mark = {};
 
   final List _pharmacies = [
-    {"latitude": 41.8882523, "longitude": -87.80376609999999, "price": 1.99},
-    {"latitude": 41.8881604, "longitude": -87.80669739999999, "price": 2.75},
-    {"latitude": 41.8794785, "longitude": -87.80010539999999, "price": 1.78},
-    {"latitude": 41.8795471, "longitude": -87.79454679999999, "price": 4.01},
-    {"latitude": 41.888288, "longitude": -87.81315819999999, "price": 3.50},
-    {"latitude": 41.8801753, "longitude": -87.7863787, "price": 1.99},
-    {"latitude": 41.8796153, "longitude": -87.78349539999999, "price": 2.30},
-    {"latitude": 41.8655024, "longitude": -87.78471859999999, "price": 2.60},
+    {
+      "latitude": 41.8882523,
+      "longitude": -87.80376609999999,
+      "price": 1.99,
+      "pharmacy": "WallMart",
+      "address": "7251 WEST LAKE ST ",
+    },
+    {
+      "latitude": 41.8881604,
+      "longitude": -87.80669739999999,
+      "price": 2.75,
+      "pharmacy": "Walgreens",
+      "address": "1003 MADISON ST ",
+    },
+    {
+      "latitude": 41.8794785,
+      "longitude": -87.80010539999999,
+      "price": 1.78,
+      "pharmacy": "CVS Pharmacy",
+      "address": "811 MADISON ST ",
+    },
+    {
+      "latitude": 41.8795471,
+      "longitude": -87.79454679999999,
+      "price": 4.01,
+      "pharmacy": "Sears Pharmacy",
+      "address": "7523 W LAKE ST",
+    },
+    {
+      "latitude": 41.888288,
+      "longitude": -87.81315819999999,
+      "price": 3.50,
+      "pharmacy": "WallMart",
+      "address": "",
+    },
+    {
+      "latitude": 41.8801753,
+      "longitude": -87.7863787,
+      "price": 1.99,
+      "pharmacy": "Walgreens",
+      "address": "1003 MADISON ST ",
+    },
+    {
+      "latitude": 41.8796153,
+      "longitude": -87.78349539999999,
+      "price": 2.30,
+      "pharmacy": "CVS Pharmacy",
+      "address": "811 MADISON ST",
+    },
+    {
+      "latitude": 41.8655024,
+      "longitude": -87.78471859999999,
+      "price": 2.60,
+      "pharmacy": "Sears Pharmacy7",
+      "address": "7251 WEST LAKE ST ",
+    },
   ];
 
   @override
@@ -82,14 +130,21 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   _addMarkers() async {
     for (int x = 0; x < _pharmacies.length; x++) {
       mark
-          .addLabelMarker(LabelMarker(
-              label: '\$ ' + _pharmacies[x]['price'].toString(),
-              markerId: MarkerId(_pharmacies[x]['latitude'].toString()),
-              position: LatLng(
-                _pharmacies[x]['latitude'],
-                _pharmacies[x]['longitude'],
-              ),
-              backgroundColor: Colors.green))
+          .addLabelMarker(
+        LabelMarker(
+          label: '\$ ' + _pharmacies[x]['price'].toString(),
+          markerId: MarkerId(_pharmacies[x]['latitude'].toString()),
+          position: LatLng(
+            _pharmacies[x]['latitude'],
+            _pharmacies[x]['longitude'],
+          ),
+          backgroundColor: Colors.green,
+          infoWindow: InfoWindow(
+            title: _pharmacies[x]['pharmacy'],
+            snippet: _pharmacies[x]['address'],
+          ),
+        ),
+      )
           .then(
         (value) {
           setState(() {});

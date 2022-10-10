@@ -34,6 +34,7 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
           style: TextStyle(fontSize: 25),
         ),
       ),
+      bottomNavigationBar: const CardPopularSearches(),
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -62,9 +63,11 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
                     .toList(),
               ),
             ),
+            /*
             const SliverToBoxAdapter(
               child: CardPopularSearches(),
             ),
+            */
           ],
         ),
       ),
