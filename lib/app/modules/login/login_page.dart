@@ -34,78 +34,80 @@ class _LoginPageState extends State<LoginPage> {
     final _height = (MediaQuery.of(context).size.height / 2) * .60;
     final _width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            wallpaper(),
-            logo(),
-            title(_width),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, _height + 50, 20, 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * .29,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(right: 20, left: 20, bottom: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 30),
-                        inputUserName(),
-                        const SizedBox(height: 7),
-                        inputPassword(),
-                        const SizedBox(height: 20),
-                      ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              wallpaper(),
+              logo(),
+              title(_width),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, _height + 50, 20, 20),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * .29,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const <BoxShadow>[
+                      BoxShadow(
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          inputUserName(),
+                          const SizedBox(height: 7),
+                          inputPassword(),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              left: 50,
-              right: 50,
-              bottom: _height,
-              child: buttonLogin(),
-            ),
-            Positioned(
-              left: 80,
-              right: 80,
-              bottom: _height - 80,
-              child: buttonReset(),
-            ),
-            Positioned(
-              left: 80,
-              right: 80,
-              bottom: _height - 150,
-              child: buttonSignUp(),
-            ),
-            Positioned(
-                left: 20,
-                right: 20,
-                bottom: 10,
-                child: Center(
-                  child: Text(
-                    "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+              Positioned(
+                left: 50,
+                right: 50,
+                bottom: _height,
+                child: buttonLogin(),
+              ),
+              Positioned(
+                left: 80,
+                right: 80,
+                bottom: _height - 80,
+                child: buttonReset(),
+              ),
+              Positioned(
+                left: 80,
+                right: 80,
+                bottom: _height - 150,
+                child: buttonSignUp(),
+              ),
+              Positioned(
+                  left: 20,
+                  right: 20,
+                  bottom: 10,
+                  child: Center(
+                    child: Text(
+                      "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                )),
-          ],
+                  )),
+            ],
+          ),
         ),
       ),
     );
@@ -202,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
     return ElevatedButton(
       onPressed: () => Modular.to.pushNamed('/reset'),
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xff2C4007),
+        backgroundColor: const Color(0xff2C4007),
         fixedSize: const Size(80, 50),
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: Colors.white),
@@ -226,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
     return ElevatedButton(
       onPressed: () => Modular.to.pushNamed('/reset'),
       style: ElevatedButton.styleFrom(
-        primary: context.primaryColor,
+        backgroundColor: context.primaryColor,
         fixedSize: const Size(80, 50),
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: Colors.white),
