@@ -32,7 +32,7 @@ class CustomTextFormField extends StatelessWidget {
             obscureText: obscureTextVNValue,
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey.shade200,
+                fillColor: Colors.grey.shade300,
                 isDense: true,
                 hintText: hint,
                 hintStyle: const TextStyle(
@@ -42,10 +42,11 @@ class CustomTextFormField extends StatelessWidget {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 0, color: Colors.white),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(width: 0, color: Colors.white),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 0, color: Colors.white),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 prefixIcon: showIcon ? Icon(icon, size: 25) : null,
                 suffixIcon: obscureText
