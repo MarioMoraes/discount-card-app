@@ -22,18 +22,32 @@ class HomePage2 extends StatelessWidget {
               color: context.primaryColor,
             ),
             child: Column(
-              children: [
-                logo(),
-                title(context),
+              children: const [
+                _Logo(),
+                _Title(),
               ],
             ),
           ),
-        )
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              const _ItemChoice(),
+              const _ItemChoice(),
+              const _ItemChoice(),
+            ],
+          ),
+        ),
       ],
     );
   }
+}
 
-  Widget logo() {
+class _Logo extends StatelessWidget {
+  const _Logo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 50),
       child: Center(
@@ -45,8 +59,13 @@ class HomePage2 extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget title(context) {
+class _Title extends StatelessWidget {
+  const _Title({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
           top: 50, left: MediaQuery.of(context).size.width * .15),
@@ -59,6 +78,28 @@ class HomePage2 extends StatelessWidget {
             fontSize: 28,
             fontWeight: FontWeight.w500,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ItemChoice extends StatelessWidget {
+  const _ItemChoice({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.green.shade100,
+        ),
+        child: ListTile(
+          title: const Text('Search Drugs'),
+          subtitle: const Text('Search Rx Drugs and Get Discount'),
+          trailing: Image.asset('assets/images/meds.png', width: 25),
         ),
       ),
     );
