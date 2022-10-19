@@ -8,6 +8,7 @@ class HomePage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Items Menu
     final items = <ItemModel>[
       ItemModel(
         title: 'Drug Search',
@@ -66,6 +67,29 @@ class HomePage2 extends StatelessWidget {
               .toList()),
         ),
       ],
+    );
+  }
+}
+
+class _MenuDrawer extends StatelessWidget {
+  const _MenuDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.05, left: 10),
+          child: const SizedBox(
+            width: 30,
+            height: 30,
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 30,
+            ),
+          )),
     );
   }
 }
