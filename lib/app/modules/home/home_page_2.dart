@@ -1,6 +1,7 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/models/item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage2 extends StatelessWidget {
   const HomePage2({Key? key}) : super(key: key);
@@ -13,18 +14,22 @@ class HomePage2 extends StatelessWidget {
         subtitle: 'Search Rx Drugs and Get Discount',
         icon: 'assets/images/meds.png',
         color: const Color(0xffc7d8a7),
+        route: '/drug',
       ),
       ItemModel(
         title: 'Pharmacies List',
         subtitle: 'Find Near Pharmacies',
         icon: 'assets/images/pharmacy.png',
         color: const Color(0xffbbd095),
+        route: '/pharmacy',
       ),
       ItemModel(
-          title: 'Discount Card',
-          subtitle: 'Get Your Discount Card',
-          icon: 'assets/images/id-card.png',
-          color: const Color(0xffb0c884)),
+        title: 'Discount Card',
+        subtitle: 'Get Your Discount Card',
+        icon: 'assets/images/id-card.png',
+        color: const Color(0xffb0c884),
+        route: '/',
+      ),
     ];
 
     return CustomScrollView(
@@ -52,13 +57,12 @@ class HomePage2 extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildListDelegate(items
-              .map(
-                (e) => _ItemChoice(
-                    title: e.title,
-                    subtitle: e.subtitle,
-                    icon: e.icon,
-                    color: e.color),
-              )
+              .map((e) => _ItemChoice(
+                  title: e.title,
+                  subtitle: e.subtitle,
+                  icon: e.icon,
+                  color: e.color,
+                  route: e.route))
               .toList()),
         ),
       ],
@@ -89,11 +93,11 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 50, left: MediaQuery.of(context).size.width * .20),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
         child: const Text(
           'Prescription Drug\n  Discount Cards',
           style: TextStyle(
@@ -112,6 +116,7 @@ class _ItemChoice extends StatelessWidget {
   final String subtitle;
   final String icon;
   final Color color;
+  final String route;
 
   const _ItemChoice({
     Key? key,
@@ -119,32 +124,36 @@ class _ItemChoice extends StatelessWidget {
     required this.subtitle,
     required this.icon,
     required this.color,
+    required this.route,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
+    return InkWell(
+      onTap: () => Modular.to.pushNamed(route),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+        child: Container(
+          height: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.black,
+              width: 1,
+            ),
+            color: color,
           ),
-          color: color,
-        ),
-        child: ListTile(
-          title: Text(
-            title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          child: ListTile(
+            title: Text(
+              title,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            ),
+            subtitle: Text(
+              subtitle,
+              style: const TextStyle(fontSize: 14),
+            ),
+            trailing: Image.asset(icon, width: 25),
           ),
-          subtitle: Text(
-            subtitle,
-            style: const TextStyle(fontSize: 16),
-          ),
-          trailing: Image.asset(icon, width: 25),
         ),
       ),
     );
