@@ -20,116 +20,104 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     final _width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            wallpaper(),
-            logo(),
-            title(_width),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, _height + 50, 20, 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * .29,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/fundo-citizens.jpg'),
+              fit: BoxFit.cover,
+              opacity: 0.8,
+            ),
+          ),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(right: 20, left: 20, bottom: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 30),
-                        SizedBox(
-                          width: 300,
-                          height: 50,
-                          child: Text(
-                            'Enter your email for reset password. An email should be sended in your Mailbox.',
-                            style: TextStyle(color: Colors.grey.shade600),
-                            overflow: TextOverflow.clip,
-                          ),
-                        ),
-                        const SizedBox(height: 7),
-                        inputUserName(),
-                      ],
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.08),
+                  child: const _Logo(),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.25),
+                  child: const Text(
+                    'Prescription Drug\n  Discount Cards',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              left: 80,
-              right: 80,
-              bottom: _height,
-              child: buttonReset(),
-            ),
-            Positioned(
-              left: 80,
-              right: 80,
-              bottom: _height - 80,
-              child: buttonCancel(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget wallpaper() {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [context.primaryColor, Colors.white],
-          begin: Alignment.bottomRight,
-          end: Alignment.topLeft,
-        ),
-      ),
-      child: Opacity(
-        opacity: 0.6,
-        child: Image.asset(
-          'assets/images/fundo-citizens.jpg',
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget logo() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 70, 20, 100),
-      child: Center(
-        child: Image.asset(
-          'assets/images/logo_citizensrx_0.5x.png',
-          height: 100,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget title(_width) {
-    return Positioned(
-      top: 185,
-      left: _width * 0.20,
-      child: const SizedBox(
-        width: 300,
-        child: Text(
-          'Reset Password',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: MediaQuery.of(context).size.height * .4),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * .29,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          right: 20, left: 20, bottom: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            SizedBox(
+                              width: 300,
+                              height: 50,
+                              child: Text(
+                                'Enter your email for reset password. An email should be sended in your Mailbox.',
+                                style: TextStyle(color: Colors.grey.shade600),
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
+                            const SizedBox(height: 7),
+                            inputUserName(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * .65),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: buttonReset(),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * .75),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: buttonCancel(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -152,7 +140,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       },
       style: ElevatedButton.styleFrom(
-        primary: context.primaryColor,
+        backgroundColor: context.primaryColor,
         fixedSize: const Size(80, 50),
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: Colors.white),
@@ -176,7 +164,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     return ElevatedButton(
       onPressed: () => Modular.to.pop(),
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xff2C4007),
+        backgroundColor: const Color(0xff2C4007),
         fixedSize: const Size(80, 50),
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: Colors.white),
@@ -193,6 +181,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Logo extends StatelessWidget {
+  const _Logo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/logo_citizensrx_0.5x.png',
+      height: 100,
+      fit: BoxFit.cover,
     );
   }
 }
