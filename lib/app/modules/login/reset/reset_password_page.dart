@@ -16,9 +16,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _height = (MediaQuery.of(context).size.height / 2) * .60;
-    final _width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -100,9 +97,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * .65),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * .5,
-                    child: buttonReset(),
+                  child: const SizedBox(
+                    width: 200,
+                    child: _ButtonReset(),
                   ),
                 ),
               ),
@@ -111,9 +108,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * .75),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * .5,
-                    child: buttonCancel(),
+                  child: const SizedBox(
+                    width: 200,
+                    child: _ButtonCancel(),
                   ),
                 ),
               ),
@@ -129,8 +126,47 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       hint: 'Email',
     );
   }
+}
 
-  Widget buttonReset() {
+class _ButtonCancel extends StatelessWidget {
+  const _ButtonCancel({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => Modular.to.pop(),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xff2C4007),
+        fixedSize: const Size(80, 50),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: const Center(
+        child: Text(
+          'BACK',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ButtonReset extends StatefulWidget {
+  const _ButtonReset({Key? key}) : super(key: key);
+
+  @override
+  State<_ButtonReset> createState() => __ButtonResetState();
+}
+
+class __ButtonResetState extends State<_ButtonReset> {
+  @override
+  Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         const snackBar = SnackBar(
@@ -150,30 +186,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       child: const Center(
         child: Text(
           'SEND',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buttonCancel() {
-    return ElevatedButton(
-      onPressed: () => Modular.to.pop(),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xff2C4007),
-        fixedSize: const Size(80, 50),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      child: const Center(
-        child: Text(
-          'BACK',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
