@@ -48,8 +48,9 @@ class HomePage2 extends StatelessWidget {
               ),
               color: context.primaryColor,
             ),
-            child: Column(
+            child: Stack(
               children: const [
+                _MenuDrawer(),
                 _Logo(),
                 _Title(),
               ],
@@ -79,17 +80,18 @@ class _MenuDrawer extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.05, left: 10),
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.menu,
-              color: Colors.white,
-              size: 30,
-            ),
-          )),
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.05, left: 10),
+        child: const SizedBox(
+          width: 30,
+          height: 30,
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -99,9 +101,10 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
-      child: Center(
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .12),
         child: Image.asset(
           'assets/images/logo_citizensrx_0.5x.png',
           height: 90,
@@ -120,8 +123,7 @@ class _Title extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Padding(
-        padding:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
         child: const Text(
           'Prescription Drug\n  Discount Cards',
           style: TextStyle(

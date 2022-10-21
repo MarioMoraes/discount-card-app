@@ -105,114 +105,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.65,
-                      left: 50,
-                      right: 50),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: ButtonWithLoader<LoginController, LoginState>(
-                      bloc: widget.loginController,
-                      selector: (state) => state == LoginStatus.loading,
-                      onPressed: () async {
-                        final formValid =
-                            _formKey.currentState?.validate() ?? false;
 
-                        if (formValid) {
-                          Modular.to.pushNamed('/localization');
-                        }
-                      },
-                      label: 'LOGIN',
-                      labelCor: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-
-              // Reset Button
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.75,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () => Modular.to.pushNamed('/reset'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.primaryColor.withOpacity(0.5),
-                      fixedSize: const Size(200, 50),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Reset Password',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // Free SignUP
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.85,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () => Modular.to.pushNamed('/reset'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff2C4007),
-                      fixedSize: const Size(200, 50),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Free Sign Up',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // Copyright
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height - 40,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              _ButtonLogin(widget: widget, formKey: _formKey),
+              _ButtonReset(widget: widget, formKey: _formKey),
+              const _FreeSignUp(),
+              const _Footter(),
             ],
           ),
         ),
@@ -245,6 +142,147 @@ class _Logo extends StatelessWidget {
       'assets/images/logo_citizensrx_0.5x.png',
       height: 100,
       fit: BoxFit.cover,
+    );
+  }
+}
+
+class _Footter extends StatelessWidget {
+  const _Footter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height - 40,
+        ),
+        child: Center(
+          child: Text(
+            "All Right Reserved. CitizensRx Inc. @${DateTime.now().year}",
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FreeSignUp extends StatelessWidget {
+  const _FreeSignUp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.85,
+        ),
+        child: ElevatedButton(
+          onPressed: () => Modular.to.pushNamed('/reset'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff2C4007),
+            fixedSize: const Size(200, 50),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              'Free Sign Up',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ButtonLogin extends StatelessWidget {
+  final dynamic widget;
+  final dynamic formKey;
+
+  const _ButtonLogin({Key? key, required this.widget, required this.formKey})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.65,
+            left: 50,
+            right: 50),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          child: ButtonWithLoader<LoginController, LoginState>(
+            bloc: widget.loginController,
+            selector: (state) => state == LoginStatus.loading,
+            onPressed: () async {
+              final formValid = formKey.currentState?.validate() ?? false;
+
+              if (formValid) {
+                Modular.to.pushNamed('/localization');
+              }
+            },
+            label: 'LOGIN',
+            labelCor: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ButtonReset extends StatelessWidget {
+  final dynamic widget;
+  final dynamic formKey;
+
+  const _ButtonReset({Key? key, required this.widget, required this.formKey})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.75,
+        ),
+        child: ElevatedButton(
+          onPressed: () => Modular.to.pushNamed('/reset'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: context.primaryColor.withOpacity(0.5),
+            fixedSize: const Size(200, 50),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              'Reset Password',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
