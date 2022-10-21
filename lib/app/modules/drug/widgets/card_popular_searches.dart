@@ -28,35 +28,50 @@ class _CardPopularSearchesState extends State<CardPopularSearches> {
         });
       },
       child: AnimatedContainer(
+          curve: Curves.fastOutSlowIn,
           height: _height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade300,
             border: Border(
               top: BorderSide(width: 4, color: context.primaryColor),
             ),
           ),
           duration: const Duration(milliseconds: 500),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Popular Searches'),
-                const SizedBox(
-                  height: 5,
-                ),
-                firstRow(),
-                secondRow(),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text('Recent Searches'),
-                const SizedBox(
-                  height: 5,
-                ),
-                thirdRow(),
-              ],
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 5),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Text('Popular Searches'),
+                      const Spacer(),
+                      Icon(
+                        (_height == 40)
+                            ? Icons.expand_less_rounded
+                            : Icons.keyboard_arrow_down,
+                        size: 22,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  firstRow(),
+                  secondRow(),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text('Recent Searches'),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  thirdRow(),
+                ],
+              ),
             ),
           )),
     );
