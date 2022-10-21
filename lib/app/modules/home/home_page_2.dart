@@ -81,7 +81,7 @@ class _MenuDrawer extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Padding(
         padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.05, left: 10),
+            top: MediaQuery.of(context).size.height * 0.07, left: 20),
         child: const SizedBox(
           width: 30,
           height: 30,
