@@ -25,41 +25,45 @@ class _LocalizationPageState extends State<LocalizationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Visibility(
-        visible: _value == 0 || _value == 1,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: Visibility(
+          visible: _value == 0 || _value == 1,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
             ),
-          ),
-          onPressed: () {
-            Modular.to.pushReplacementNamed('/home');
-          },
-          child: const Text(
-            'NEXT',
-            style: TextStyle(color: Colors.white),
+            onPressed: () {
+              Modular.to.pushReplacementNamed('/home');
+            },
+            child: const Text(
+              'NEXT',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            imageLocal(),
-            const SizedBox(
-              height: 50,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                imageLocal(),
+                const SizedBox(
+                  height: 50,
+                ),
+                const Text(
+                  'Allow Your Location',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                textAuth(),
+              ],
             ),
-            const Text(
-              'Allow Your Location',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            textAuth(),
-          ],
+          ),
         ),
       ),
     );

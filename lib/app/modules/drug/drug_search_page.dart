@@ -24,51 +24,53 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text(
-          'Drug Search',
-          style: TextStyle(fontSize: 25),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: const Text(
+            'Drug Search',
+            style: TextStyle(fontSize: 25),
+          ),
         ),
-      ),
-      bottomNavigationBar: const CardPopularSearches(),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              delegate: CustomMenuHeader(title: 'Drug Name'),
-              pinned: true,
-            ),
-            const SliverVisibility(
-              visible: false,
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: CircularProgressIndicator.adaptive(),
+        bottomNavigationBar: const CardPopularSearches(),
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverPersistentHeader(
+                delegate: CustomMenuHeader(title: 'Drug Name'),
+                pinned: true,
+              ),
+              const SliverVisibility(
+                visible: false,
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 50,
+                    child: Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                list
-                    .map((e) => const CardSearchDrug(
-                        drugName: 'Amoxicilin ',
-                        brand: 'BRAND',
-                        type: 'Tablet 50mg'))
-                    .toList(),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  list
+                      .map((e) => const CardSearchDrug(
+                          drugName: 'Amoxicilin ',
+                          brand: 'BRAND',
+                          type: 'Tablet 50mg'))
+                      .toList(),
+                ),
               ),
-            ),
-            /*
-            const SliverToBoxAdapter(
-              child: CardPopularSearches(),
-            ),
-            */
-          ],
+              /*
+              const SliverToBoxAdapter(
+                child: CardPopularSearches(),
+              ),
+              */
+            ],
+          ),
         ),
       ),
     );
