@@ -139,7 +139,7 @@ class _Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/images/logo_citizensrx_0.5x.png',
+      'assets/images/logo-citizens.png',
       height: 100,
       fit: BoxFit.cover,
     );

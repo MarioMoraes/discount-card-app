@@ -1,4 +1,3 @@
-import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +24,6 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   );
 
   List<Marker> allMarkers = [];
-  final List<MarkerData> _markers = [];
   Set<Marker> mark = {};
 
   final List _pharmacies = [
@@ -94,7 +92,7 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   }
 
   _loadMarkers() async {
-    await _customAddMarker();
+    await _addMarkers();
   }
 
   @override
@@ -118,18 +116,10 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
       body: Column(
         children: [
           Expanded(
-            child: CustomGoogleMapMarkerBuilder(
-              customMarkers: _markers,
-              builder: (BuildContext context, Set<Marker>? markers) {
-                if (markers == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return GoogleMap(
-                  initialCameraPosition: _currentPosition,
-                  markers: markers,
-                  onMapCreated: (GoogleMapController controller) {},
-                );
-              },
+            child: GoogleMap(
+              initialCameraPosition: _currentPosition,
+              mapType: MapType.normal,
+              markers: Set.from(mark.toList()),
             ),
           ),
         ],
@@ -161,47 +151,5 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
         },
       );
     }
-  }
-
-  _customAddMarker() async {
-    for (int x = 0; x < _pharmacies.length; x++) {
-      _markers.add(
-        MarkerData(
-          marker: Marker(
-              markerId: MarkerId(_pharmacies[x]['latitude'].toString()),
-              position: LatLng(
-                _pharmacies[x]['latitude'],
-                _pharmacies[x]['longitude'],
-              )),
-          child: const _CardPharmacy(),
-        ),
-      );
-    }
-  }
-}
-
-class _CardPharmacy extends StatelessWidget {
-  const _CardPharmacy({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 50,
-        height: 20,
-        color: Colors.grey.withOpacity(0.5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: const [
-              Text(
-                'Pharmacy Name',
-                style: TextStyle(fontSize: 6, color: Colors.black),
-              ),
-              Text(
-                'Address',
-                style: TextStyle(fontSize: 6, color: Colors.black),
-              ),
-            ],
-          ),
-        ));
   }
 }

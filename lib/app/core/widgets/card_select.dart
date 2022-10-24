@@ -19,8 +19,8 @@ class CardSelect extends StatelessWidget {
     return InkWell(
       onTap: () => _onTap(),
       child: Container(
-        margin: const EdgeInsets.only(right: 12),
-        width: 100,
+        margin: const EdgeInsets.only(right: 10),
+        width: 80,
         decoration: BoxDecoration(
           color: selected ? const Color(0xff8EB14F) : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(8),
@@ -36,13 +36,13 @@ class CardSelect extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.only(top: 11.0),
           child: Text(
             title,
             style: TextStyle(
               color: selected ? Colors.white : Colors.black,
               fontWeight: FontWeight.w300,
-              fontSize: 16,
+              fontSize: 12,
             ),
             textAlign: TextAlign.center,
           ),
