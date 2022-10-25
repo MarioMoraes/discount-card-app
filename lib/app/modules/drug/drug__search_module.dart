@@ -1,5 +1,6 @@
 import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
@@ -17,6 +18,7 @@ class DrugSearchModule extends Module {
         BlocBind.lazySingleton((i) => TypeController()),
         BlocBind.lazySingleton((i) => DosageController()),
         BlocBind.lazySingleton((i) => QuantityController()),
+        BlocBind.lazySingleton((i) => DistanceController()),
       ];
 
   @override

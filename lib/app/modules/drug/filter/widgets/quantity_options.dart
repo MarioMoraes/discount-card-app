@@ -41,23 +41,19 @@ class _QuantityOptionsState extends State<QuantityOptions> {
               color: context.primaryColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Center(child: TextFormField()),
+            child: TextFormField(
+              decoration: InputDecoration(
+                label: Text(
+                  widget.quantityController.quantity.toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ),
-        )
-
-/*         Slider(
-          value: _currentSliderValue,
-          max: 100,
-          divisions: 5,
-          label: _currentSliderValue.round().toString(),
-          onChanged: (double value) {
-            widget.quantityController.setQuantity(value);
-            setState(() {
-              _currentSliderValue = value;
-            });
-          },
-        )
- */
+        ),
       ],
     );
   }

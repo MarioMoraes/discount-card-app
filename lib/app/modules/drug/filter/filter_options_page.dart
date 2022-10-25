@@ -1,7 +1,9 @@
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/widgets/distance_options.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/dosage_options.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/quantity_options.dart';
 import 'package:flutter/material.dart';
@@ -77,15 +79,11 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
               ),
               QuantityOptions(
                   quantityController: Modular.get<QuantityController>()),
-              // const _Quantity(),
-              // const SizedBox(
-              //   height: 17,
-              // ),
-              // const _Distance(),
-              // const SizedBox(
-              //   height: 15,
-              // ),
-              // const _SourceLocation(),
+              const SizedBox(
+                height: 15,
+              ),
+              DistanceOptions(
+                  distanceController: Modular.get<DistanceController>()),
             ],
           ),
         ),
