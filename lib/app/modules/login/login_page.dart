@@ -229,13 +229,11 @@ class _ButtonLogin extends StatelessWidget {
           height: 50,
           child: ButtonWithLoader<LoginController, LoginState>(
             bloc: widget.loginController,
-            selector: (state) => state == LoginStatus.loading,
+            selector: (state) => state == LoginStateLoading(),
             onPressed: () async {
               final formValid = formKey.currentState?.validate() ?? false;
 
-              if (formValid) {
-                Modular.to.pushNamed('/localization');
-              }
+              if (formValid) {}
             },
             label: 'LOGIN',
             labelCor: Colors.white,
