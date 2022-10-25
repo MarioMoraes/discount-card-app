@@ -1,5 +1,9 @@
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/widgets/dosage_options.dart';
+import 'package:discount_card_app/app/modules/drug/filter/widgets/quantity_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -64,15 +68,15 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
                 height: 15,
               ),
               TypeOptions(typeController: Modular.get<TypeController>()),
-
-              // const _TypeOptions(),
-              // const SizedBox(
-              //   height: 15,
-              // ),
-              // const _DosageOptions(),
-              // const SizedBox(
-              //   height: 15,
-              // ),
+              const SizedBox(
+                height: 15,
+              ),
+              DosageOptions(dosageController: Modular.get<DosageController>()),
+              const SizedBox(
+                height: 15,
+              ),
+              QuantityOptions(
+                  quantityController: Modular.get<QuantityController>()),
               // const _Quantity(),
               // const SizedBox(
               //   height: 17,

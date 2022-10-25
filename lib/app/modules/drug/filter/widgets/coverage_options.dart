@@ -28,7 +28,7 @@ class CoverageOptionsState extends State<CoverageOptions> {
         const Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.only(left: 25.0),
+            padding: EdgeInsets.only(left: 15.0),
             child: Text(
               'COVERAGE',
               style: TextStyle(fontWeight: FontWeight.w700),
@@ -42,7 +42,7 @@ class CoverageOptionsState extends State<CoverageOptions> {
           width: double.infinity,
           height: 40,
           child: Padding(
-            padding: const EdgeInsets.only(left: 25.0),
+            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Row(
               children: [
                 BlocBuilder<CoverageController, CoverageState>(

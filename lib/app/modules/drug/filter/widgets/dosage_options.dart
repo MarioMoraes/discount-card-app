@@ -1,23 +1,24 @@
+import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/card_select.dart';
-import '../controller/type_state.dart';
 
-class TypeOptions extends StatefulWidget {
-  final TypeController typeController;
+class DosageOptions extends StatefulWidget {
+  final DosageController dosageController;
 
-  const TypeOptions({Key? key, required this.typeController}) : super(key: key);
+  const DosageOptions({Key? key, required this.dosageController})
+      : super(key: key);
 
   @override
-  State<TypeOptions> createState() => TypeOptionsState();
+  State<DosageOptions> createState() => DosageOptionsState();
 }
 
-class TypeOptionsState extends State<TypeOptions> {
+class DosageOptionsState extends State<DosageOptions> {
   @override
   void initState() {
     super.initState();
-    widget.typeController.getTypes();
+    widget.dosageController.getDosage();
   }
 
   @override
@@ -29,7 +30,7 @@ class TypeOptionsState extends State<TypeOptions> {
           child: Padding(
             padding: EdgeInsets.only(left: 15.0),
             child: Text(
-              'TYPE',
+              'DOSAGE',
               style: TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
@@ -44,16 +45,16 @@ class TypeOptionsState extends State<TypeOptions> {
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Row(
               children: [
-                BlocBuilder<TypeController, TypeState>(
-                  bloc: widget.typeController,
+                BlocBuilder<DosageController, DosageState>(
+                  bloc: widget.dosageController,
                   builder: (context, state) {
-                    if (state is TypeStateLoading) {
+                    if (state is DosageStateLoading) {
                       return const Center(
                         child: CircularProgressIndicator.adaptive(),
                       );
                     }
 
-                    if (state is TypeStateLoaded) {
+                    if (state is DosageStateLoaded) {
                       return Flexible(
                         flex: 1,
                         child: ListView.builder(
@@ -63,7 +64,7 @@ class TypeOptionsState extends State<TypeOptions> {
                           itemBuilder: ((context, index) {
                             var model = state.list[index];
                             return CardSelect(
-                              controller: widget.typeController,
+                              controller: widget.dosageController,
                               title: model.description!,
                               selected: model.selected!,
                               index: index,
