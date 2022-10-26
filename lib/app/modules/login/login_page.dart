@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../core/widgets/button_with_loader.dart';
 import '../../core/widgets/custom_text_form_field.dart';
@@ -58,6 +59,8 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
         }
         if (state is LoginStateLoaded) {
           showSuccess('Login Efetuado Com Sucesso');
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home', (route) => false);
         }
 
         if (state is LoginStateError) {
@@ -76,112 +79,118 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
                 opacity: 0.8,
               ),
             ),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.08),
-                    child: const _Logo(),
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.08),
+                      child: const _Logo(),
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.25),
-                    child: const Text(
-                      'Prescription Drug\n  Discount Cards',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w500,
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.25),
+                      child: const Text(
+                        'Prescription Drug\n  Discount Cards',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                // Form
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.40,
-                        left: 20,
-                        right: 20),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * .29,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const <BoxShadow>[
-                          BoxShadow(
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            right: 20, left: 20, bottom: 20),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 30),
-                              CustomTextFormField(
-                                hint: 'Email',
-                                controller: _emailEC,
-                              ),
-                              const SizedBox(height: 7),
-                              CustomTextFormField(
-                                hint: 'Password',
-                                controller: _passwordEC,
-                                obscureText: true,
-                              ),
-                              const SizedBox(height: 20),
-                            ],
+                  // Form
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.40,
+                          left: 20,
+                          right: 20),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * .29,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const <BoxShadow>[
+                            BoxShadow(
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 20, left: 20, bottom: 20),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 30),
+                                CustomTextFormField(
+                                  hint: 'Username',
+                                  controller: _emailEC,
+                                  validator: Validatorless.required(
+                                      'Username Required'),
+                                ),
+                                const SizedBox(height: 7),
+                                CustomTextFormField(
+                                  hint: 'Password',
+                                  controller: _passwordEC,
+                                  validator: Validatorless.required(
+                                      'Password Required'),
+                                  obscureText: true,
+                                ),
+                                const SizedBox(height: 20),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.65,
-                        left: 50,
-                        right: 50),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ButtonWithLoader<LoginController, LoginState>(
-                        bloc: widget.loginController,
-                        selector: (state) => state == LoginStateLoading(),
-                        onPressed: () async {
-                          final formValid =
-                              _formKey.currentState?.validate() ?? false;
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.65,
+                          left: 50,
+                          right: 50),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: ButtonWithLoader<LoginController, LoginState>(
+                          bloc: widget.loginController,
+                          selector: (state) => state == LoginStateLoading(),
+                          onPressed: () async {
+                            final formValid =
+                                _formKey.currentState?.validate() ?? false;
 
-                          if (formValid) {
-                            widget.loginController
-                                .getAuth(_emailEC.text, _passwordEC.text);
-                          }
-                        },
-                        label: 'LOGIN',
-                        labelCor: Colors.white,
+                            if (formValid) {
+                              widget.loginController
+                                  .getAuth(_emailEC.text, _passwordEC.text);
+                            }
+                          },
+                          label: 'LOGIN',
+                          labelCor: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                _ButtonReset(widget: widget, formKey: _formKey),
+                  _ButtonReset(widget: widget, formKey: _formKey),
 
-                const _FreeSignUp(),
+                  const _FreeSignUp(),
 
-                const _Footter(),
-              ],
+                  const _Footter(),
+                ],
+              ),
             ),
           ),
         ),
