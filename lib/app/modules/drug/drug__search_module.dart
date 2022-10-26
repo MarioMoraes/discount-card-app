@@ -9,6 +9,8 @@ import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.da
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
+import 'package:discount_card_app/app/repositories/drugs/drugs_repository.dart';
+import 'package:discount_card_app/app/repositories/drugs/drugs_repository_impl.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,9 +24,11 @@ class DrugSearchModule extends Module {
         BlocBind.lazySingleton((i) => DosageController()),
         BlocBind.lazySingleton((i) => QuantityController()),
         BlocBind.lazySingleton((i) => DistanceController()),
+        Bind.lazySingleton<DrugsRepository>(
+            (i) => DrugsRepositoryImpl(dio: i())),
         Bind.lazySingleton<DrugsService>(
             (i) => DrugsServiceImpl(drugsRepository: i())),
-        Bind.lazySingleton((i) => DrugSearchController(drugsService: i())),
+        BlocBind.lazySingleton((i) => DrugSearchController(drugsService: i())),
       ];
 
   @override
