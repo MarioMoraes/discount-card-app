@@ -13,7 +13,12 @@ class LoginController extends Cubit<LoginState> {
 
   Future<void> getAuth(String email, String password) async {
     emit(LoginStateLoading());
-    final response = await _authService.signIn(email, password);
-    emit(LoginStateLoaded(auth: response));
+
+    try {
+      await _authService.signIn(email, password);
+      emit(LoginStateLoaded());
+    } on Exception {
+      emit(LoginStateError());
+    }
   }
 }

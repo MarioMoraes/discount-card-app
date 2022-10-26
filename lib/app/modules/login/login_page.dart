@@ -1,6 +1,8 @@
+import 'package:discount_card_app/app/core/helpers/messages.dart';
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/modules/login/controller/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/widgets/button_with_loader.dart';
@@ -15,7 +17,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
@@ -29,106 +31,142 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/fundo-citizens.jpg'),
-              fit: BoxFit.cover,
-              opacity: 0.8,
-            ),
-          ),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.08),
-                  child: const _Logo(),
-                ),
+    return BlocListener<LoginController, LoginState>(
+      bloc: widget.loginController,
+      listener: (context, state) {
+        if (state is LoginStateLoading) {
+          const CircularProgressIndicator.adaptive();
+        }
+        if (state is LoginStateLoaded) {
+          showSuccess('Login Efetuado Com Sucesso');
+        }
+
+        if (state is LoginStateError) {
+          showError('Não Foi Possivel Fazer o Login');
+        }
+      },
+      child: Scaffold(
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/fundo-citizens.jpg'),
+                fit: BoxFit.cover,
+                opacity: 0.8,
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.25),
-                  child: const Text(
-                    'Prescription Drug\n  Discount Cards',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w500,
+            ),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.08),
+                    child: const _Logo(),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.25),
+                    child: const Text(
+                      'Prescription Drug\n  Discount Cards',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              // Form
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.40,
-                      left: 20,
-                      right: 20),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * .29,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const <BoxShadow>[
-                        BoxShadow(
-                          color: Colors.grey,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20, left: 20, bottom: 20),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            inputUserName(),
-                            const SizedBox(height: 7),
-                            inputPassword(),
-                            const SizedBox(height: 20),
-                          ],
+                // Form
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.40,
+                        left: 20,
+                        right: 20),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * .29,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20, left: 20, bottom: 20),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 30),
+                              CustomTextFormField(
+                                hint: 'Email',
+                                controller: _emailEC,
+                              ),
+                              const SizedBox(height: 7),
+                              CustomTextFormField(
+                                hint: 'Password',
+                                controller: _passwordEC,
+                                obscureText: true,
+                              ),
+                              const SizedBox(height: 20),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.65,
+                        left: 50,
+                        right: 50),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: ButtonWithLoader<LoginController, LoginState>(
+                        bloc: widget.loginController,
+                        selector: (state) => state == LoginStateLoading(),
+                        onPressed: () async {
+                          final formValid =
+                              _formKey.currentState?.validate() ?? false;
 
-              _ButtonLogin(widget: widget, formKey: _formKey),
-              _ButtonReset(widget: widget, formKey: _formKey),
-              const _FreeSignUp(),
-              const _Footter(),
-            ],
+                          if (formValid) {
+                            widget.loginController
+                                .getAuth(_emailEC.text, _passwordEC.text);
+                          }
+                        },
+                        label: 'LOGIN',
+                        labelCor: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
+                _ButtonReset(widget: widget, formKey: _formKey),
+
+                const _FreeSignUp(),
+
+                const _Footter(),
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget inputUserName() {
-    return CustomTextFormField(
-      hint: 'Email',
-      controller: _emailEC,
-    );
-  }
-
-  Widget inputPassword() {
-    return CustomTextFormField(
-      hint: 'Password',
-      controller: _passwordEC,
-      obscureText: true,
     );
   }
 }
@@ -201,42 +239,6 @@ class _FreeSignUp extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ButtonLogin extends StatelessWidget {
-  final dynamic widget;
-  final dynamic formKey;
-
-  const _ButtonLogin({Key? key, required this.widget, required this.formKey})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.65,
-            left: 50,
-            right: 50),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 50,
-          child: ButtonWithLoader<LoginController, LoginState>(
-            bloc: widget.loginController,
-            selector: (state) => state == LoginStateLoading(),
-            onPressed: () async {
-              final formValid = formKey.currentState?.validate() ?? false;
-
-              if (formValid) {}
-            },
-            label: 'LOGIN',
-            labelCor: Colors.white,
           ),
         ),
       ),

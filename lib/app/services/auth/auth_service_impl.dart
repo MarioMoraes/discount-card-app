@@ -1,4 +1,5 @@
 import 'package:discount_card_app/app/repositories/auth/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './auth_service.dart';
 
@@ -10,6 +11,9 @@ class AuthServiceImpl implements AuthService {
   }) : _authRepository = authRepository;
 
   @override
-  Future<bool> signIn(String email, String password) =>
-      _authRepository.signIn(email, password);
+  Future<void> signIn(String email, String password) async {
+    final token = await _authRepository.signIn(email, password);
+    var sp = await SharedPreferences.getInstance();
+    sp.setString('token', token);
+  }
 }

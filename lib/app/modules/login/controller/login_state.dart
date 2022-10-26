@@ -8,12 +8,6 @@ class LoginStateInitial extends LoginState {}
 
 class LoginStateLoading extends LoginState {}
 
-class LoginStateLoaded extends LoginState {
-  bool auth = false;
-
-  LoginStateLoaded({required this.auth});
-
-  List<Object> get props => [auth];
-}
+class LoginStateLoaded extends LoginState {}
 
 class LoginStateError extends LoginState {}

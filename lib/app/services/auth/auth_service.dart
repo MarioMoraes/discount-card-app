@@ -1,3 +1,3 @@
 abstract class AuthService {
-  Future<bool> signIn(String email, String password);
+  Future<void> signIn(String email, String password);
 }
