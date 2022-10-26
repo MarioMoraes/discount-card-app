@@ -1,114 +1,75 @@
 import 'dart:convert';
 
 class DrugModel {
+  String? type;
+  String? gpi4;
+  String? gpi2;
+  String? coverage;
+  String? otcRxIndicator;
+  String? typeDescription;
+  String? dosage;
+  String? name;
+  String? strengthUnit;
+  String? gpi12;
+  int? strength;
+  String? gpi14;
+
   DrugModel({
-    required this.dosage,
-    required this.gpi12,
-    required this.coverageInfo,
-    required this.gpi2,
-    required this.gpi10,
-    required this.name,
-    required this.strength,
-    required this.typeDescription,
-    required this.type,
-    required this.gpi4,
-    required this.gpi14,
-    required this.coverage,
-    required this.strengthUnit,
+    this.type,
+    this.gpi4,
+    this.gpi2,
+    this.coverage,
+    this.otcRxIndicator,
+    this.typeDescription,
+    this.dosage,
+    this.name,
+    this.strengthUnit,
+    this.gpi12,
+    this.strength,
+    this.gpi14,
   });
 
-  String dosage;
-  String gpi12;
-  CoverageInfo coverageInfo;
-  String gpi2;
-  String gpi10;
-  String name;
-  String strength;
-  String typeDescription;
-  String type;
-  String gpi4;
-  String gpi14;
-  String coverage;
-  String strengthUnit;
+  Map<String, dynamic> toMap() {
+    return {
+      'type': type,
+      'gpi4': gpi4,
+      'gpi2': gpi2,
+      'coverage': coverage,
+      'otc_rx_indicator': otcRxIndicator,
+      'type_description': typeDescription,
+      'dosage': dosage,
+      'name': name,
+      'strength_unit': strengthUnit,
+      'gpi12': gpi12,
+      'strength': strength,
+      'gpi14': gpi14,
+    };
+  }
 
-  factory DrugModel.fromJson(String str) => DrugModel.fromMap(json.decode(str));
+  factory DrugModel.fromMap(Map<String, dynamic> map) {
+    return DrugModel(
+      type: map['type'],
+      gpi4: map['gpi4'],
+      gpi2: map['gpi2'],
+      coverage: map['coverage'],
+      otcRxIndicator: map['otc_rx_indicator'],
+      typeDescription: map['type_description'],
+      dosage: map['dosage'],
+      name: map['name'],
+      strengthUnit: map['strength_unit'],
+      gpi12: map['gpi12'],
+      strength: map['strength']?.toInt(),
+      gpi14: map['gpi14'],
+    );
+  }
 
   String toJson() => json.encode(toMap());
 
-  factory DrugModel.fromMap(Map<String, dynamic> json) => DrugModel(
-        dosage: json["dosage"],
-        gpi12: json["gpi12"],
-        coverageInfo: CoverageInfo.fromMap(json["coverage_info"]),
-        gpi2: json["gpi2"],
-        gpi10: json["gpi10"],
-        name: json["name"],
-        strength: json["strength"],
-        typeDescription: json["type_description"],
-        type: json["type"],
-        gpi4: json["gpi4"],
-        gpi14: json["gpi14"],
-        coverage: json["coverage"],
-        strengthUnit: json["strength_unit"],
-      );
+  factory DrugModel.fromJson(String source) =>
+      DrugModel.fromMap(json.decode(source));
 
-  Map<String, dynamic> toMap() => {
-        "dosage": dosage,
-        "gpi12": gpi12,
-        "coverage_info": coverageInfo.toMap(),
-        "gpi2": gpi2,
-        "gpi10": gpi10,
-        "name": name,
-        "strength": strength,
-        "type_description": typeDescription,
-        "type": type,
-        "gpi4": gpi4,
-        "gpi14": gpi14,
-        "coverage": coverage,
-        "strength_unit": strengthUnit,
-      };
-}
-
-class CoverageInfo {
-  CoverageInfo({
-    required this.formulary,
-    required this.otc,
-    required this.specialty,
-    required this.otcRxIndicator,
-    required this.quantityLimit,
-    required this.priorAuth,
-    required this.stepTherapy,
-  });
-
-  bool formulary;
-  bool otc;
-  bool specialty;
-  String otcRxIndicator;
-  bool quantityLimit;
-  bool priorAuth;
-  bool stepTherapy;
-
-  factory CoverageInfo.fromJson(String str) =>
-      CoverageInfo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory CoverageInfo.fromMap(Map<String, dynamic> json) => CoverageInfo(
-        formulary: json["formulary"],
-        otc: json["otc"],
-        specialty: json["specialty"],
-        otcRxIndicator: json["otc_rx_indicator"],
-        quantityLimit: json["quantity_limit"],
-        priorAuth: json["prior_auth"],
-        stepTherapy: json["step_therapy"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "formulary": formulary,
-        "otc": otc,
-        "specialty": specialty,
-        "otc_rx_indicator": otcRxIndicator,
-        "quantity_limit": quantityLimit,
-        "prior_auth": priorAuth,
-        "step_therapy": stepTherapy,
-      };
+  @override
+  String toString() {
+    return 'DrugModel(type: $type, gpi4: $gpi4, gpi2: $gpi2, coverage: $coverage, otcRxIndicator: $otcRxIndicator, typeDescription: $typeDescription, dosage: $dosage, name: $name, strengthUnit: $strengthUnit, gpi12: $gpi12, strength: $strength, gpi14: $gpi14)';
+  }
 }

@@ -24,7 +24,7 @@ class DrugsRepositoryImpl extends DrugsRepository {
       );
 
       if (response.statusCode == 200) {
-        return response.data
+        return response.data['data']
             .map<DrugModel>((e) => DrugModel.fromMap(e))
             .toList();
       }

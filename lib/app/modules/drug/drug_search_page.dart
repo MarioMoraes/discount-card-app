@@ -26,57 +26,65 @@ class _DrugSearchPageState extends State<DrugSearchPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text(
-          'Drug Search',
-          style: TextStyle(fontSize: 25),
+    return BlocListener<DrugSearchController, DrugSearchState>(
+      bloc: widget.controller,
+      listener: (context, state) {
+        if (state is DrugSearchStateLoading) {
+          showLoader();
+        }
+        if (state is DrugSearchStateLoaded) {
+          hideLoader();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: const Text(
+            'Drug Search',
+            style: TextStyle(fontSize: 25),
+          ),
         ),
-      ),
-      bottomNavigationBar: const CardPopularSearches(),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              delegate: CustomMenuHeader(title: 'Drug Name'),
-              pinned: true,
-            ),
-            const SliverVisibility(
-              visible: false,
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: CircularProgressIndicator.adaptive(),
+        bottomNavigationBar: const CardPopularSearches(),
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverPersistentHeader(
+                delegate: CustomMenuHeader(title: 'Drug Name'),
+                pinned: true,
+              ),
+              const SliverVisibility(
+                visible: false,
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 50,
+                    child: Center(
+                      child: CircularProgressIndicator.adaptive(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.green)),
+                    ),
                   ),
                 ),
               ),
-            ),
-            BlocBuilder<DrugSearchController, DrugSearchState>(
-              bloc: widget.controller,
-              builder: (context, state) {
-                if (state is DrugSearchStateLoaded) {
-                  return SliverList(
-                    delegate: SliverChildListDelegate(
-                      state.listDrugs
-                          .map(
-                            (e) => CardSearchDrug(
-                              drugName: e.name,
-                              brand: e.coverage,
-                              type: e.dosage,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            ),
-          ],
+              BlocBuilder<DrugSearchController, DrugSearchState>(
+                bloc: widget.controller,
+                builder: (context, state) {
+                  if (state is DrugSearchStateLoaded) {
+                    return SliverList(
+                        delegate: SliverChildListDelegate(state.listDrugs
+                            .map((e) => CardSearchDrug(
+                                  drugName: e.name ?? '',
+                                  brand: e.coverage ?? '',
+                                  type: e.dosage ?? '',
+                                ))
+                            .toList()));
+                  }
+                  return const SliverToBoxAdapter();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

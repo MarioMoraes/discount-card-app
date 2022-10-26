@@ -37,14 +37,17 @@ class CardSearchDrug extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  drugName,
-                  style: const TextStyle(fontSize: 18),
+                SizedBox(
+                  child: Text(
+                    drugName,
+                    style: const TextStyle(fontSize: 14),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Text(
                   type,
                   style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w300),
+                      fontSize: 10, fontWeight: FontWeight.w300),
                 ),
               ],
             ),
