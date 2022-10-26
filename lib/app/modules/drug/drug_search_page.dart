@@ -1,10 +1,13 @@
 import 'package:discount_card_app/app/core/widgets/custom_menu_header.dart';
+import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_search_drug.dart';
 import 'package:flutter/material.dart';
 
 class DrugSearchPage extends StatefulWidget {
-  const DrugSearchPage({Key? key}) : super(key: key);
+  final DrugSearchController controller;
+
+  const DrugSearchPage({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<DrugSearchPage> createState() => _DrugSearchPageState();
@@ -21,6 +24,12 @@ class _DrugSearchPageState extends State<DrugSearchPage> {
     'Pharmacy 6',
     'Pharmacy 6',
   ];
+
+  @override
+  void initState() {
+    widget.controller.getDrugs('abilify');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

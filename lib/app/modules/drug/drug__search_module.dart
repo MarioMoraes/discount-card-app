@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
@@ -8,6 +9,8 @@ import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.da
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
+import 'package:discount_card_app/app/services/drugs/drugs_service.dart';
+import 'package:discount_card_app/app/services/drugs/drugs_service_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
@@ -19,13 +22,17 @@ class DrugSearchModule extends Module {
         BlocBind.lazySingleton((i) => DosageController()),
         BlocBind.lazySingleton((i) => QuantityController()),
         BlocBind.lazySingleton((i) => DistanceController()),
+        Bind.lazySingleton<DrugsService>(
+            (i) => DrugsServiceImpl(drugsRepository: i())),
+        Bind.lazySingleton((i) => DrugSearchController(drugsService: i())),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ChildRoute(
           Modular.initialRoute,
-          child: (args, context) => const DrugSearchPage(),
+          child: (args, context) =>
+              DrugSearchPage(controller: Modular.get<DrugSearchController>()),
         ),
         ChildRoute(
           '/pharmacies-list',
