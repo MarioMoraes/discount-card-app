@@ -20,7 +20,10 @@ class _DrugSearchPageState extends State<DrugSearchPage>
     with Messages<DrugSearchPage>, Loader<DrugSearchPage> {
   @override
   void initState() {
-    widget.controller.getDrugs('abilify');
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showLoader();
+      widget.controller.getDrugs('abilify');
+    });
     super.initState();
   }
 
@@ -29,9 +32,6 @@ class _DrugSearchPageState extends State<DrugSearchPage>
     return BlocListener<DrugSearchController, DrugSearchState>(
       bloc: widget.controller,
       listener: (context, state) {
-        if (state is DrugSearchStateLoading) {
-          showLoader();
-        }
         if (state is DrugSearchStateLoaded) {
           hideLoader();
         }
