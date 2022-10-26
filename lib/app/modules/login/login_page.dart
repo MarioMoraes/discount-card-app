@@ -4,6 +4,7 @@ import 'package:discount_card_app/app/modules/login/controller/login_controller.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/widgets/button_with_loader.dart';
 import '../../core/widgets/custom_text_form_field.dart';
@@ -21,6 +22,24 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _authenticated();
+      },
+    );
+    super.initState();
+  }
+
+  _authenticated() async {
+    var sp = await SharedPreferences.getInstance();
+    final token = sp.getString('token');
+    if (token != null) {
+      Navigator.of(context).pushNamed('/home');
+    }
+  }
 
   @override
   void dispose() {
