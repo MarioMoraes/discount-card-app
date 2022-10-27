@@ -18,66 +18,53 @@ class DrugSearchPage extends StatefulWidget {
 class _DrugSearchPageState extends State<DrugSearchPage>
     with Loader<DrugSearchPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocListener<DrugSearchController, DrugSearchState>(
-      bloc: widget.controller,
-      listener: (context, state) {
-        if (state is DrugSearchStateLoading) {
-          const CircularProgressIndicator(
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 90, 3, 3)));
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: const Text(
-            'Drug Search',
-            style: TextStyle(fontSize: 25),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          'Drug Search',
+          style: TextStyle(fontSize: 25),
         ),
-        bottomNavigationBar: const CardPopularSearches(),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                delegate: CustomMenuHeader(
-                  title: 'Drug Name',
-                  controller: widget.controller,
-                ),
-                pinned: true,
+      ),
+      bottomNavigationBar: const CardPopularSearches(),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              delegate: CustomMenuHeader(
+                title: 'Drug Name',
+                controller: widget.controller,
               ),
-              BlocBuilder<DrugSearchController, DrugSearchState>(
-                bloc: widget.controller,
-                builder: (context, state) {
-                  if (state is DrugSearchStateLoading) {
-                    const CircularProgressIndicator(
+              pinned: true,
+            ),
+            BlocBuilder<DrugSearchController, DrugSearchState>(
+              bloc: widget.controller,
+              builder: (context, state) {
+                if (state is DrugSearchStateLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            Color.fromARGB(255, 90, 3, 3)));
-                  }
+                            Color.fromARGB(255, 90, 3, 3))),
+                  );
+                }
 
-                  if (state is DrugSearchStateLoaded) {
-                    return SliverList(
-                        delegate: SliverChildListDelegate(state.listDrugs
-                            .map((e) => CardSearchDrug(
-                                  drugName: e.name ?? '',
-                                  brand: e.coverage ?? '',
-                                  type: e.dosage ?? '',
-                                ))
-                            .toList()));
-                  }
-                  return const SliverToBoxAdapter();
-                },
-              ),
-            ],
-          ),
+                if (state is DrugSearchStateLoaded) {
+                  return SliverList(
+                      delegate: SliverChildListDelegate(state.listDrugs
+                          .map((e) => CardSearchDrug(
+                                drugName: e.name ?? '',
+                                brand: e.coverage ?? '',
+                                type: e.dosage ?? '',
+                              ))
+                          .toList()));
+                }
+                return const SliverToBoxAdapter();
+              },
+            ),
+          ],
         ),
       ),
     );
