@@ -21,7 +21,7 @@ class DrugsServiceImpl extends DrugsService {
     if (searchSaved != null) {
       searchSaved.add(drug.toUpperCase());
     } else {
-      searchSaved = [];
+      searchSaved = <String>[];
       searchSaved.add(drug.toUpperCase());
     }
     sp.setStringList('recents', searchSaved);
