@@ -6,20 +6,18 @@ class DrugSearchController extends Cubit<DrugSearchState> {
   DrugSearchController({required this.drugsService})
       : super(DrugSearchStateInitial());
 
-  Future<List<DrugModel>> getDrugs(String drug) async {
+  Future<void> getDrugs(String drug) async {
     emit(DrugSearchStateLoading());
 
     try {
       final listDrugs = await drugsService.getDrugs(drug);
 
-      if (listDrugs != []) {
+      if (listDrugs.isNotEmpty) {
         emit(DrugSearchStateLoaded(listDrugs: listDrugs));
       }
     } on Exception catch (e, s) {
       log('Erro ao Buscar Drugs', error: e, stackTrace: s);
       emit(DrugSearchStateError());
     }
-
-    return [];
   }
 }

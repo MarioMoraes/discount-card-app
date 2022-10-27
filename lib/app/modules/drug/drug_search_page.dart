@@ -1,5 +1,4 @@
 import 'package:discount_card_app/app/core/helpers/loader.dart';
-import 'package:discount_card_app/app/core/helpers/messages.dart';
 import 'package:discount_card_app/app/core/widgets/custom_menu_header.dart';
 import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches.dart';
@@ -17,11 +16,10 @@ class DrugSearchPage extends StatefulWidget {
 }
 
 class _DrugSearchPageState extends State<DrugSearchPage>
-    with Messages<DrugSearchPage>, Loader<DrugSearchPage> {
+    with Loader<DrugSearchPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      showLoader();
       widget.controller.getDrugs('abilify');
     });
     super.initState();
@@ -32,8 +30,8 @@ class _DrugSearchPageState extends State<DrugSearchPage>
     return BlocListener<DrugSearchController, DrugSearchState>(
       bloc: widget.controller,
       listener: (context, state) {
-        if (state is DrugSearchStateLoaded) {
-          hideLoader();
+        if (state is DrugSearchStateLoading) {
+          showLoader();
         }
       },
       child: Scaffold(
@@ -71,12 +69,13 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                 bloc: widget.controller,
                 builder: (context, state) {
                   if (state is DrugSearchStateLoaded) {
+                    hideLoader();
                     return SliverList(
                         delegate: SliverChildListDelegate(state.listDrugs
-                            .map((e) => CardSearchDrug(
-                                  drugName: e.name ?? '',
-                                  brand: e.coverage ?? '',
-                                  type: e.dosage ?? '',
+                            .map((e) => const CardSearchDrug(
+                                  drugName: 'Aaa',
+                                  brand: 'Bbb',
+                                  type: 'Ccc',
                                 ))
                             .toList()));
                   }
