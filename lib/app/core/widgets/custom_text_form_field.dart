@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final IconData? icon;
   final bool showIcon;
+  final void Function(String) onChange;
 
   CustomTextFormField({
     Key? key,
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.icon,
     this.showIcon = false,
+    required this.onChange,
   })  : _obscureTextVN = ValueNotifier<bool>(obscureText),
         super(key: key);
 
@@ -27,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
       builder: (_, obscureTextVNValue, child) {
         return Expanded(
           child: TextFormField(
+            onFieldSubmitted: (value) => onChange(value),
             controller: controller,
             validator: validator,
             obscureText: obscureTextVNValue,

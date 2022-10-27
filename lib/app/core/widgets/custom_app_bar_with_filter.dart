@@ -29,6 +29,7 @@ class CustomAppBarWithFilter extends AppBar {
                   height: 10,
                 ),
                 CustomTextFormField(
+                  onChange: (value) {},
                   hint: textSearch,
                   showIcon: true,
                   icon: Icons.search,

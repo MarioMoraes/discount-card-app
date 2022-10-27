@@ -162,6 +162,7 @@ class _LocalizationPageState extends State<LocalizationPage> {
                         height: 50,
                         child: CustomTextFormField(
                           hint: 'ZIPCODE',
+                          onChange: (value) {},
                         ),
                       ),
                     ),

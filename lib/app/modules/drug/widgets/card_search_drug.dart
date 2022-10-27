@@ -31,33 +31,28 @@ class CardSearchDrug extends StatelessWidget {
               decoration: BoxDecoration(color: context.primaryColor),
             ),
             const SizedBox(
-              width: 20,
+              width: 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
+                  width: MediaQuery.of(context).size.width * .75,
                   child: Text(
                     drugName,
-                    style: const TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Text(
                   type,
                   style: const TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w300),
+                      fontSize: 12, fontWeight: FontWeight.w300),
                 ),
               ],
             ),
-            const SizedBox(
-              width: 80,
-            ),
-            Text(brand),
-            const SizedBox(
-              width: 60,
-            ),
+            const Spacer(),
             const Icon(
               Icons.arrow_forward_ios,
               size: 16,

@@ -19,9 +19,6 @@ class _DrugSearchPageState extends State<DrugSearchPage>
     with Loader<DrugSearchPage> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.controller.getDrugs('abilify');
-    });
     super.initState();
   }
 
@@ -31,7 +28,9 @@ class _DrugSearchPageState extends State<DrugSearchPage>
       bloc: widget.controller,
       listener: (context, state) {
         if (state is DrugSearchStateLoading) {
-          showLoader();
+          const CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 90, 3, 3)));
         }
       },
       child: Scaffold(
@@ -49,33 +48,28 @@ class _DrugSearchPageState extends State<DrugSearchPage>
           child: CustomScrollView(
             slivers: <Widget>[
               SliverPersistentHeader(
-                delegate: CustomMenuHeader(title: 'Drug Name'),
-                pinned: true,
-              ),
-              const SliverVisibility(
-                visible: false,
-                sliver: SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 50,
-                    child: Center(
-                      child: CircularProgressIndicator.adaptive(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.green)),
-                    ),
-                  ),
+                delegate: CustomMenuHeader(
+                  title: 'Drug Name',
+                  controller: widget.controller,
                 ),
+                pinned: true,
               ),
               BlocBuilder<DrugSearchController, DrugSearchState>(
                 bloc: widget.controller,
                 builder: (context, state) {
+                  if (state is DrugSearchStateLoading) {
+                    const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Color.fromARGB(255, 90, 3, 3)));
+                  }
+
                   if (state is DrugSearchStateLoaded) {
-                    hideLoader();
                     return SliverList(
                         delegate: SliverChildListDelegate(state.listDrugs
-                            .map((e) => const CardSearchDrug(
-                                  drugName: 'Aaa',
-                                  brand: 'Bbb',
-                                  type: 'Ccc',
+                            .map((e) => CardSearchDrug(
+                                  drugName: e.name ?? '',
+                                  brand: e.coverage ?? '',
+                                  type: e.dosage ?? '',
                                 ))
                             .toList()));
                   }

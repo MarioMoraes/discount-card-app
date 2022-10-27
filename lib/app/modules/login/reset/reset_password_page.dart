@@ -123,6 +123,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Widget inputUserName() {
     return CustomTextFormField(
+      onChange: (value) {},
       hint: 'Email',
     );
   }

@@ -134,6 +134,7 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
                               children: [
                                 const SizedBox(height: 30),
                                 CustomTextFormField(
+                                  onChange: (value) {},
                                   hint: 'Username',
                                   controller: _emailEC,
                                   validator: Validatorless.required(
@@ -141,6 +142,7 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
                                 ),
                                 const SizedBox(height: 7),
                                 CustomTextFormField(
+                                  onChange: (value) {},
                                   hint: 'Password',
                                   controller: _passwordEC,
                                   validator: Validatorless.required(

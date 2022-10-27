@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/widgets/custom_menu_header.dart';
 import 'widgets/card_pharmacy.dart';
 
 class PharmacyListPage extends StatelessWidget {
@@ -32,10 +31,10 @@ class PharmacyListPage extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverPersistentHeader(
-              delegate: CustomMenuHeader(title: 'Pharmacy Name'),
-              pinned: true,
-            ),
+            // SliverPersistentHeader(
+            //   delegate: CustomMenuHeader(title: 'Pharmacy Name'),
+            //   pinned: true,
+            // ),
             const SliverVisibility(
               visible: false,
               sliver: SliverToBoxAdapter(
