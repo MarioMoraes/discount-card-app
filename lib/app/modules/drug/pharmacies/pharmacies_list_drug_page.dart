@@ -26,8 +26,9 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
     widget.controller.getPharmaciesAndPrices(
         gpi14: widget.model.gpi14 ?? '',
         name: widget.model.name ?? '',
-        lat: 41.8880619,
-        long: 87.8037819);
+        lat: 41.8881604,
+        long: -87.80669739999999);
+
     super.initState();
   }
 
