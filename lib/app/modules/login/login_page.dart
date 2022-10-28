@@ -54,17 +54,12 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
     return BlocListener<LoginController, LoginState>(
       bloc: widget.loginController,
       listener: (context, state) {
-        if (state is LoginStateLoading) {
-          const CircularProgressIndicator.adaptive();
-        }
-        if (state is LoginStateLoaded) {
-          showSuccess('Login Efetuado Com Sucesso');
+        if (state.status == LoginStatus.completed) {
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/home', (route) => false);
         }
-
-        if (state is LoginStateError) {
-          showError('Não Foi Possivel Fazer o Login');
+        if (state.status == LoginStatus.failure) {
+          showError('Login Failed!');
         }
       },
       child: Scaffold(
@@ -169,7 +164,8 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
                         height: 50,
                         child: ButtonWithLoader<LoginController, LoginState>(
                           bloc: widget.loginController,
-                          selector: (state) => state == LoginStateLoading(),
+                          selector: (state) =>
+                              state.status == LoginStatus.loading,
                           onPressed: () async {
                             final formValid =
                                 _formKey.currentState?.validate() ?? false;

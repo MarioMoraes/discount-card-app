@@ -61,7 +61,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                         height: MediaQuery.of(context).size.height * .50,
                         child: Center(
                           child: LoadingAnimationWidget.fourRotatingDots(
-                              color: context.primaryColor, size: 20),
+                              color: context.primaryColor, size: 35),
                         ),
                       ),
                     ),
@@ -76,9 +76,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                     return SliverList(
                         delegate: SliverChildListDelegate(list
                             .map((e) => CardSearchDrug(
-                                  drugName: e.name ?? '',
-                                  brand: e.coverage ?? '',
-                                  type: e.dosage ?? '',
+                                  model: e,
                                 ))
                             .toList()));
                   })

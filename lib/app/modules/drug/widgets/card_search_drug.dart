@@ -1,23 +1,21 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CardSearchDrug extends StatelessWidget {
-  final String drugName;
-  final String type;
-  final String brand;
+  final DrugModel model;
 
-  const CardSearchDrug(
-      {Key? key,
-      required this.drugName,
-      required this.type,
-      required this.brand})
-      : super(key: key);
+  const CardSearchDrug({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Modular.to.pushNamed('/drug/pharmacies-list'),
+      onTap: () =>
+          Modular.to.pushNamed('/drug/pharmacies-list', arguments: model),
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
         width: MediaQuery.of(context).size.width,
@@ -40,13 +38,13 @@ class CardSearchDrug extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * .75,
                   child: Text(
-                    drugName,
+                    model.name ?? '',
                     style: const TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Text(
-                  type,
+                  model.type ?? '',
                   style: const TextStyle(
                       fontSize: 12, fontWeight: FontWeight.w300),
                 ),

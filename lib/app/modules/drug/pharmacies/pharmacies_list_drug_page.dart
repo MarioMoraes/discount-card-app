@@ -1,30 +1,35 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/core/widgets/custom_app_bar_title.dart';
-import 'package:discount_card_app/app/modules/drug/widgets/card_drug_pharmacy.dart';
+import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/custom_filter_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../models/drug_model.dart';
+
 class PharmaciesListDrugPage extends StatefulWidget {
-  const PharmaciesListDrugPage({Key? key}) : super(key: key);
+  final PharmacyDetailController controller;
+  final DrugModel model;
+
+  const PharmaciesListDrugPage(
+      {Key? key, required this.model, required this.controller})
+      : super(key: key);
 
   @override
   State<PharmaciesListDrugPage> createState() => _PharmaciesListDrugPageState();
 }
 
 class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
-  final List<String> list = [
-    'Pharmacy',
-    'Pharmacy 2',
-    'Pharmacy 3',
-    'Pharmacy 4',
-    'Pharmacy 5',
-    'Pharmacy 6',
-    'Pharmacy 7',
-    'Pharmacy 8',
-    'Pharmacy 9',
-    'Pharmacy 10',
-  ];
+  @override
+  void initState() {
+    // API Pharmacies
+    widget.controller.getPharmaciesAndPrices(
+        gpi14: widget.model.gpi14 ?? '',
+        name: widget.model.name ?? '',
+        lat: 41.8880619,
+        long: 87.8037819);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +44,13 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
             delegate: CustomFilterHeader(),
             pinned: true,
           ),
+          /*
           SliverList(
             delegate: SliverChildListDelegate(
-              list.map((e) => const CardDrugPharmacy()).toList(),
-            ),
+                // model.map((e) => const CardDrugPharmacy()).toList(),
+                ),
           ),
+          */
         ],
       ),
       floatingActionButton: showMap(),

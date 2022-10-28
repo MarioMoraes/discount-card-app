@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:discount_card_app/app/services/auth/auth_service.dart';
+import 'package:equatable/equatable.dart';
 
 part 'login_state.dart';
 
@@ -9,16 +10,16 @@ class LoginController extends Cubit<LoginState> {
   LoginController({
     required AuthService authService,
   })  : _authService = authService,
-        super(LoginStateInitial());
+        super(const LoginState.initial());
 
   Future<void> getAuth(String email, String password) async {
-    emit(LoginStateLoading());
+    emit(state.copyWith(status: LoginStatus.loading));
 
     try {
       await _authService.signIn(email, password);
-      emit(LoginStateLoaded());
+      emit(state.copyWith(status: LoginStatus.completed));
     } on Exception {
-      emit(LoginStateError());
+      emit(state.copyWith(status: LoginStatus.failure));
     }
   }
 }
