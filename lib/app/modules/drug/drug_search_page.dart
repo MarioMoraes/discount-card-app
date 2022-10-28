@@ -1,4 +1,5 @@
 import 'package:discount_card_app/app/core/helpers/loader.dart';
+import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/core/widgets/custom_menu_header.dart';
 import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches.dart';
@@ -40,17 +41,29 @@ class _DrugSearchPageState extends State<DrugSearchPage>
               ),
               pinned: true,
             ),
+            BlocSelector<DrugSearchController, DrugSearchState, bool>(
+              bloc: widget.controller,
+              selector: (state) => (state is DrugSearchStateLoading),
+              builder: (context, showLoading) {
+                return SliverVisibility(
+                  visible: showLoading,
+                  sliver: SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 50,
+                      child: Center(
+                        child: CircularProgressIndicator.adaptive(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              context.primaryColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
             BlocBuilder<DrugSearchController, DrugSearchState>(
               bloc: widget.controller,
               builder: (context, state) {
-                if (state is DrugSearchStateLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Color.fromARGB(255, 90, 3, 3))),
-                  );
-                }
-
                 if (state is DrugSearchStateLoaded) {
                   return SliverList(
                       delegate: SliverChildListDelegate(state.listDrugs
