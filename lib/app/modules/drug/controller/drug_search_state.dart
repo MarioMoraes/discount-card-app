@@ -3,23 +3,43 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service.dart';
+import 'package:equatable/equatable.dart';
 
 part 'drug_search_controller.dart';
 
-abstract class DrugSearchState {
-  DrugSearchState();
+enum SearchStatus {
+  initial,
+  loading,
+  empty,
+  completed,
+  failure,
 }
 
-class DrugSearchStateInitial extends DrugSearchState {}
+class DrugSearchState extends Equatable {
+  final List<DrugModel> listDrugs;
+  final SearchStatus status;
 
-class DrugSearchStateLoading extends DrugSearchState {}
+  const DrugSearchState._({
+    required this.listDrugs,
+    required this.status,
+  });
 
-class DrugSearchStateLoaded extends DrugSearchState {
-  List<DrugModel> listDrugs;
+  DrugSearchState.initial()
+      : this._(
+          listDrugs: [],
+          status: SearchStatus.initial,
+        );
 
-  DrugSearchStateLoaded({required this.listDrugs});
+  @override
+  List<Object?> get props => [listDrugs, status];
 
-  List<Object> get props => [listDrugs];
+  DrugSearchState copyWith({
+    List<DrugModel>? listDrugs,
+    SearchStatus? status,
+  }) {
+    return DrugSearchState._(
+      listDrugs: listDrugs ?? this.listDrugs,
+      status: status ?? this.status,
+    );
+  }
 }
-
-class DrugSearchStateError extends DrugSearchState {}

@@ -16,14 +16,10 @@ class DrugsServiceImpl extends DrugsService {
 
     List<String>? searchSaved;
     var sp = await SharedPreferences.getInstance();
-    searchSaved = sp.getStringList('recents');
 
-    if (searchSaved != null) {
-      searchSaved.add(drug.toUpperCase());
-    } else {
-      searchSaved = <String>[];
-      searchSaved.add(drug.toUpperCase());
-    }
+    searchSaved = sp.getStringList('recents') ?? [];
+
+    searchSaved.add(drug.toUpperCase());
     sp.setStringList('recents', searchSaved);
 
     return _drugsRepository.getDrugs(drug);
