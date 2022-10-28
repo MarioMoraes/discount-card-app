@@ -26,7 +26,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
       bloc: widget.controller,
       listener: (context, state) {
         if (state.status == SearchStatus.empty) {
-          showError('No Data Found');
+          showError('No Records Found');
         }
       },
       child: Scaffold(
