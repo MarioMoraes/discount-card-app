@@ -15,7 +15,7 @@ class LoginState extends Equatable {
   const LoginState.initial() : this._(status: LoginStatus.initial);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [status];
 
   LoginState copyWith({
     LoginStatus? status,
