@@ -26,8 +26,7 @@ class PharmaciesListDrugPage extends StatefulWidget {
 class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
   @override
   void initState() {
-    // API Pharmacies/Prices
-    //! TO DO CHANGE PARAMETERS LONG AND LAT FOR DEVICE
+    //! CHANGE LONGITUDE AND LATITUDE FOR DEVICE POINT
     widget.controller.getPharmaciesAndPrices(
         gpi14: widget.model.gpi14 ?? '',
         name: widget.model.name ?? '',
