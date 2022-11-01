@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class DrugModel {
@@ -11,7 +12,7 @@ class DrugModel {
   String? name;
   String? strengthUnit;
   String? gpi12;
-  int? strength;
+  String? strength;
   String? gpi14;
 
   DrugModel({
@@ -30,16 +31,16 @@ class DrugModel {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'type': type,
       'gpi4': gpi4,
       'gpi2': gpi2,
       'coverage': coverage,
-      'otc_rx_indicator': otcRxIndicator,
-      'type_description': typeDescription,
+      'otcRxIndicator': otcRxIndicator,
+      'typeDescription': typeDescription,
       'dosage': dosage,
       'name': name,
-      'strength_unit': strengthUnit,
+      'strengthUnit': strengthUnit,
       'gpi12': gpi12,
       'strength': strength,
       'gpi14': gpi14,
@@ -48,28 +49,28 @@ class DrugModel {
 
   factory DrugModel.fromMap(Map<String, dynamic> map) {
     return DrugModel(
-      type: map['type'],
-      gpi4: map['gpi4'],
-      gpi2: map['gpi2'],
-      coverage: map['coverage'],
-      otcRxIndicator: map['otc_rx_indicator'],
-      typeDescription: map['type_description'],
-      dosage: map['dosage'],
-      name: map['name'],
-      strengthUnit: map['strength_unit'],
-      gpi12: map['gpi12'],
-      strength: map['strength']?.toInt(),
-      gpi14: map['gpi14'],
+      type: map['type'] != null ? map['type'] as String : null,
+      gpi4: map['gpi4'] != null ? map['gpi4'] as String : null,
+      gpi2: map['gpi2'] != null ? map['gpi2'] as String : null,
+      coverage: map['coverage'] != null ? map['coverage'] as String : null,
+      otcRxIndicator: map['otcRxIndicator'] != null
+          ? map['otcRxIndicator'] as String
+          : null,
+      typeDescription: map['typeDescription'] != null
+          ? map['typeDescription'] as String
+          : null,
+      dosage: map['dosage'] != null ? map['dosage'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
+      strengthUnit:
+          map['strengthUnit'] != null ? map['strengthUnit'] as String : null,
+      gpi12: map['gpi12'] != null ? map['gpi12'] as String : null,
+      strength: map['strength'] != null ? map['strength'] as String : null,
+      gpi14: map['gpi14'] != null ? map['gpi14'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory DrugModel.fromJson(String source) =>
-      DrugModel.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'DrugModel(type: $type, gpi4: $gpi4, gpi2: $gpi2, coverage: $coverage, otcRxIndicator: $otcRxIndicator, typeDescription: $typeDescription, dosage: $dosage, name: $name, strengthUnit: $strengthUnit, gpi12: $gpi12, strength: $strength, gpi14: $gpi14)';
-  }
+      DrugModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

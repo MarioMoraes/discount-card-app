@@ -14,7 +14,7 @@ enum SearchStatus {
 }
 
 class PharmacyDetailState extends Equatable {
-  final List<PharmacyAndPrices> listPharmacies;
+  final List<PharmacyAndPricesModel> listPharmacies;
   final SearchStatus status;
 
   const PharmacyDetailState._({
@@ -32,7 +32,7 @@ class PharmacyDetailState extends Equatable {
   List<Object?> get props => [listPharmacies, status];
 
   PharmacyDetailState copyWith({
-    List<PharmacyAndPrices>? listPharmacies,
+    List<PharmacyAndPricesModel>? listPharmacies,
     SearchStatus? status,
   }) {
     return PharmacyDetailState._(

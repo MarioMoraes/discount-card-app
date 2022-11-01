@@ -13,7 +13,7 @@ class PharmacyAndPriceRepositoryImpl extends PharmacyAndPriceRepository {
   PharmacyAndPriceRepositoryImpl({required this.dio});
 
   @override
-  Future<List<PharmacyAndPrices>?> getPharmacies(
+  Future<List<PharmacyAndPricesModel>?> getPharmacies(
       String gpi14, String name, double lat, double long) async {
     try {
       final response = await dio.auth().get('/drugs/$gpi14/pharmacies/prices',
@@ -21,7 +21,8 @@ class PharmacyAndPriceRepositoryImpl extends PharmacyAndPriceRepository {
 
       if (response.statusCode == 200) {
         return response.data['data']
-            .map<PharmacyAndPrices>((e) => PharmacyAndPrices.fromJson(e))
+            .map<PharmacyAndPricesModel>(
+                (e) => PharmacyAndPricesModel.fromMap(e))
             .toList();
       }
     } on DioError catch (e, s) {

@@ -7,7 +7,7 @@ class Medication {
   String strength;
   String strengthUnit;
   int quantity;
-  String price;
+  double price;
 
   Medication({
     required this.name,
@@ -20,7 +20,7 @@ class Medication {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'name': name,
       'type': type,
       'coverage': coverage,
@@ -33,18 +33,18 @@ class Medication {
 
   factory Medication.fromMap(Map<String, dynamic> map) {
     return Medication(
-      name: map['name'] ?? '',
-      type: map['type'] ?? '',
-      coverage: map['coverage'] ?? '',
-      strength: map['strength'] ?? '',
-      strengthUnit: map['strength_unit'] ?? '',
-      quantity: map['quantity']?.toInt() ?? 0,
-      price: map['price'] ?? '',
+      name: map['name'] as String,
+      type: map['type'] as String,
+      coverage: map['coverage'] as String,
+      strength: map['strength'] as String,
+      strengthUnit: map['strength_unit'] as String,
+      quantity: map['quantity'] as int,
+      price: map['price'] as double,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Medication.fromJson(String source) =>
-      Medication.fromMap(json.decode(source));
+      Medication.fromMap(json.decode(source) as Map<String, dynamic>);
 }
