@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CardDrugPharmacy extends StatelessWidget {
-  const CardDrugPharmacy({Key? key}) : super(key: key);
+  final String name;
+  final double distance;
+  final double price;
+
+  const CardDrugPharmacy(
+      {Key? key,
+      required this.name,
+      required this.distance,
+      required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,44 +33,56 @@ class CardDrugPharmacy extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/images/wal.png',
-                  height: 50,
-                  width: 130,
-                  fit: BoxFit.cover,
-                ),
-                const Text(
-                  '1.81 miles',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-                )
-              ],
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    name.toString(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    '${distance.toStringAsFixed(2)} miles',
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  )
+                ],
+              ),
             ),
-            const SizedBox(
-              width: 35,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('\$ 1.99',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff04461F),
-                    )),
-                Text('\$5.0 Bonus Saving',
-                    style:
-                        TextStyle(fontSize: 12, fontWeight: FontWeight.w300)),
-              ],
+            Flexible(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('\$$price',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff04461F),
+                      )),
+                  const Text('\$5.0 Bonus Saving',
+                      style:
+                          TextStyle(fontSize: 9, fontWeight: FontWeight.w400)),
+                ],
+              ),
             ),
             const Spacer(),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 20,
+            Flexible(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: const [
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 20,
+                  ),
+                ],
+              ),
             )
           ],
         ),

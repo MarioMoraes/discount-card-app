@@ -74,7 +74,13 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
             builder: (context, state) {
               return SliverList(
                 delegate: SliverChildListDelegate(
-                  state.map((e) => const CardDrugPharmacy()).toList(),
+                  state
+                      .map((e) => CardDrugPharmacy(
+                            name: e.pharmacy.name,
+                            distance: e.pharmacy.distance,
+                            price: e.medication.price,
+                          ))
+                      .toList(),
                 ),
               );
             },
