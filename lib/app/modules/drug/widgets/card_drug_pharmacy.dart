@@ -42,7 +42,11 @@ class CardDrugPharmacy extends StatelessWidget {
                   Text(
                     name.toString(),
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff04461F),
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     '${distance.toStringAsFixed(2)} miles',
