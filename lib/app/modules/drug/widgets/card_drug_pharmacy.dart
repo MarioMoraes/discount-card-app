@@ -37,7 +37,7 @@ class CardDrugPharmacy extends StatelessWidget {
               width: MediaQuery.of(context).size.width * .6,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     name.toString(),
@@ -51,7 +51,9 @@ class CardDrugPharmacy extends StatelessWidget {
                   Text(
                     '${distance.toStringAsFixed(2)} miles',
                     style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                    ),
                   )
                 ],
               ),
@@ -68,9 +70,13 @@ class CardDrugPharmacy extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Color(0xff04461F),
                       )),
-                  const Text('\$5.0 Bonus Saving',
-                      style:
-                          TextStyle(fontSize: 9, fontWeight: FontWeight.w400)),
+                  const Text(
+                    '\$5.0 Bonus Saving',
+                    style: TextStyle(
+                      fontSize: 8,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ],
               ),
             ),
