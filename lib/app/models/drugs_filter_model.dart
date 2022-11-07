@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class DrugsFilterModel {
@@ -35,4 +36,9 @@ class DrugsFilterModel {
 
   factory DrugsFilterModel.fromJson(String source) =>
       DrugsFilterModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'DrugsFilterModel(coverage: $coverage, type: $type, strengthUnit: $strengthUnit, strength: $strength)';
+  }
 }

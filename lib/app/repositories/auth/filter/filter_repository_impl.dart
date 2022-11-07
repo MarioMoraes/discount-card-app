@@ -19,7 +19,7 @@ class FilterRepositoryImpl extends FilterRepository {
       final response = await _dio.get('/drugs/$nabp/filters');
 
       if (response.statusCode == 200) {
-        response.data['data']
+        return response.data['data']
             .map<DrugsFilterModel>((e) => DrugsFilterModel.fromMap(e))
             .toList();
       }

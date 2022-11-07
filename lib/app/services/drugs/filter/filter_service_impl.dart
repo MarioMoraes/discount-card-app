@@ -1,4 +1,3 @@
-import 'package:discount_card_app/app/models/drugs_filter_model.dart';
 import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
 
 import './filter_service.dart';
@@ -11,6 +10,22 @@ class FilterServiceImpl implements FilterService {
   });
 
   @override
-  Future<List<DrugsFilterModel>> getFilters(String nabp) =>
-      filterRepository.getFilter(nabp);
+  Future<void> getFilters(String nabp) async {
+    final list = await filterRepository.getFilter(nabp);
+
+    print(list);
+
+    final coverage = list.first;
+
+    final coverageList =
+        list.where((element) => element.coverage == coverage.coverage);
+
+    final type = coverageList.where(
+      (e) => e.coverage == coverage.coverage,
+    );
+
+    //final dosage = type.where((element) => true);
+
+    print('a');
+  }
 }
