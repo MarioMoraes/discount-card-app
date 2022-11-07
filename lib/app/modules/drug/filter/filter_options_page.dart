@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/distance_options.dart';
@@ -13,13 +15,24 @@ import 'widgets/coverage_options.dart';
 import 'widgets/type_options.dart';
 
 class FilterOptionsPage extends StatefulWidget {
-  const FilterOptionsPage({Key? key}) : super(key: key);
+  final FilterOptionsController controller;
+
+  const FilterOptionsPage({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   State<FilterOptionsPage> createState() => _FilterOptionsPageState();
 }
 
 class _FilterOptionsPageState extends State<FilterOptionsPage> {
+  @override
+  void initState() {
+    widget.controller.getFilter('59250015002020');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

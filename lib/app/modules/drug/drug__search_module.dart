@@ -3,23 +3,29 @@ import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.dart';
-import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
+import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
+import 'package:discount_card_app/app/repositories/auth/filter/filter_repository_impl.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository_impl.dart';
 import 'package:discount_card_app/app/repositories/prices/pharmacy_and_price_repository.dart';
 import 'package:discount_card_app/app/repositories/prices/pharmacy_and_price_repository_impl.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service_impl.dart';
+import 'package:discount_card_app/app/services/drugs/filter/filter_service.dart';
+import 'package:discount_card_app/app/services/drugs/filter/filter_service_impl.dart';
 import 'package:discount_card_app/app/services/prices/pharmacy_and_price_service.dart';
 import 'package:discount_card_app/app/services/prices/pharmacy_and_price_service_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+
+import 'pharmacies/controller/pharmacy_list_state.dart';
 
 class DrugSearchModule extends Module {
   @override
@@ -43,7 +49,14 @@ class DrugSearchModule extends Module {
             (i) => PharmacyAndPriceRepositoryImpl(dio: i())),
         Bind.lazySingleton<PharmacyAndPriceService>(
             (i) => PharmacyAndPriceServiceImpl(repository: i())),
-        BlocBind.lazySingleton((i) => PharmacyDetailController(service: i())),
+        BlocBind.lazySingleton((i) => PharmacyListController(service: i())),
+
+        // Filters
+        Bind.lazySingleton<FilterRepository>(
+            (i) => FilterRepositoryImpl(dio: i())),
+        Bind.lazySingleton<FilterService>(
+            (i) => FilterServiceImpl(filterRepository: i())),
+        BlocBind.lazySingleton((i) => FilterOptionsController(service: i())),
       ];
 
   @override
@@ -56,13 +69,14 @@ class DrugSearchModule extends Module {
         ChildRoute(
           '/pharmacies-list',
           child: (_, args) => PharmaciesListDrugPage(
-            controller: Modular.get<PharmacyDetailController>(),
+            controller: Modular.get<PharmacyListController>(),
             model: args.data,
           ),
         ),
         ChildRoute(
           '/filters',
-          child: (args, context) => const FilterOptionsPage(),
+          child: (args, context) => FilterOptionsPage(
+              controller: Modular.get<FilterOptionsController>()),
           transition: TransitionType.downToUp,
         ),
         ChildRoute(

@@ -1,7 +1,6 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/core/widgets/custom_app_bar_title.dart';
 import 'package:discount_card_app/app/models/pharmacy_and_prices_model.dart';
-import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:discount_card_app/app/modules/drug/widgets/custom_filter_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +9,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../models/drug_model.dart';
 import '../widgets/card_drug_pharmacy.dart';
+import 'controller/pharmacy_list_state.dart';
 
 class PharmaciesListDrugPage extends StatefulWidget {
-  final PharmacyDetailController controller;
+  final PharmacyListController controller;
   final DrugModel model;
 
   const PharmaciesListDrugPage(
@@ -49,7 +49,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
             delegate: CustomFilterHeader(),
             pinned: true,
           ),
-          BlocSelector<PharmacyDetailController, PharmacyDetailState, bool>(
+          BlocSelector<PharmacyListController, PharmacyDetailState, bool>(
             bloc: widget.controller,
             selector: (state) => state.status == SearchStatus.loading,
             builder: (context, showLoading) {
@@ -67,7 +67,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
               );
             },
           ),
-          BlocSelector<PharmacyDetailController, PharmacyDetailState,
+          BlocSelector<PharmacyListController, PharmacyDetailState,
               List<PharmacyAndPricesModel>>(
             bloc: widget.controller,
             selector: (state) => state.listPharmacies,
