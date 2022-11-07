@@ -20,9 +20,11 @@ class FilterServiceImpl implements FilterService {
     final coverageList =
         list.where((element) => element.coverage == coverage.coverage);
 
-    final type = coverageList.where(
+    final type = coverageList.every(
       (e) => e.coverage == coverage.coverage,
     );
+
+    print(type);
 
     //final dosage = type.where((element) => true);
 
