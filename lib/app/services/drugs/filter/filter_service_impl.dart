@@ -1,6 +1,7 @@
 import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
 
 import './filter_service.dart';
+import '../../../models/drugs_filter_model.dart';
 
 class FilterServiceImpl implements FilterService {
   FilterRepository filterRepository;
@@ -10,24 +11,29 @@ class FilterServiceImpl implements FilterService {
   });
 
   @override
-  Future<void> getFilters(String nabp) async {
+  Future<List<DrugsFilterModel>> getFilters(String nabp) async {
     final list = await filterRepository.getFilter(nabp);
 
-    print(list);
+    return list;
 
+    /*
     final coverage = list.first;
 
     final coverageList =
-        list.where((element) => element.coverage == coverage.coverage);
+        list.where((element) => element.coverage == coverage.coverage).toList();
 
-    final type = coverageList.every(
-      (e) => e.coverage == coverage.coverage,
-    );
+    final lista2 = coverageList.map((element) => element.type).toSet().toList();
 
-    print(type);
+    final type = lista2[0];
 
-    //final dosage = type.where((element) => true);
+    final typeList =
+        list.where((element) => element.type == type).toSet().toList();
 
-    print('a');
+    for (var i = 0; i < typeList.length; i++) {
+      print(typeList[i].strength + typeList[i].strengthUnit);
+    }
+
+    print(1);
+   */
   }
 }

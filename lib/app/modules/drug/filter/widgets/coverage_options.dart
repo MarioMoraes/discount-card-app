@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/models/card_select_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,12 +16,6 @@ class CoverageOptions extends StatefulWidget {
 }
 
 class CoverageOptionsState extends State<CoverageOptions> {
-  @override
-  void initState() {
-    super.initState();
-    widget.coverageController.getCoverage();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,34 +40,21 @@ class CoverageOptionsState extends State<CoverageOptions> {
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Row(
               children: [
-                BlocBuilder<CoverageController, CoverageState>(
-                  bloc: widget.coverageController,
-                  builder: (context, state) {
-                    if (state is CoverageStateLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    }
-
-                    if (state is CoverageStateLoaded) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.list.length,
-                        itemBuilder: ((context, index) {
-                          var model = state.list[index];
-                          return CardSelect(
-                            controller: widget.coverageController,
-                            title: model.description!,
-                            selected: model.selected!,
-                            index: index,
-                          );
-                        }),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
+                BlocSelector<CoverageController, CoverageState,
+                        List<CardSelectModel>>(
+                    bloc: widget.coverageController,
+                    selector: (state) => state.list,
+                    builder: (context, list) {
+                      return SliverList(
+                          delegate: SliverChildListDelegate(list
+                              .map((e) => CardSelect(
+                                    controller: widget.coverageController,
+                                    title: e.description!,
+                                    selected: e.selected!,
+                                    index: e.hashCode,
+                                  ))
+                              .toList()));
+                    })
               ],
             ),
           ),

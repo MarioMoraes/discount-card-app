@@ -1,22 +1,42 @@
 import 'package:bloc/bloc.dart';
 import 'package:discount_card_app/app/models/card_select_model.dart';
+import 'package:equatable/equatable.dart';
 
 part 'coverage_controller.dart';
 
-class CoverageState {
-  CoverageState();
+enum SearchStatus {
+  initial,
+  loading,
+  empty,
+  completed,
+  failure,
 }
 
-class CoverageStateInitial extends CoverageState {}
+class CoverageState extends Equatable {
+  final List<CardSelectModel> list;
+  final SearchStatus status;
 
-class CoverageStateLoading extends CoverageState {}
+  const CoverageState._({
+    required this.list,
+    required this.status,
+  });
 
-class CoverageStateLoaded extends CoverageState {
-  List<CardSelectModel> list;
+  CoverageState.initial()
+      : this._(
+          list: [],
+          status: SearchStatus.initial,
+        );
 
-  CoverageStateLoaded({required this.list});
+  @override
+  List<Object?> get props => [list, status];
 
-  List<Object> get props => [list];
+  CoverageState copyWith({
+    List<CardSelectModel>? list,
+    SearchStatus? status,
+  }) {
+    return CoverageState._(
+      list: list ?? this.list,
+      status: status ?? this.status,
+    );
+  }
 }
-
-class CoverageStateError extends CoverageState {}

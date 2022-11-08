@@ -1,25 +1,29 @@
 part of 'coverage_state.dart';
 
 class CoverageController extends Cubit<CoverageState> {
-  CoverageController() : super(CoverageStateInitial());
+  CoverageController() : super(CoverageState.initial());
 
   var listCoverage = <CardSelectModel>[];
 
-  Future<void> getCoverage() async {
-    emit(CoverageStateLoading());
+  Future<void> getCoverage(List<String> list) async {
+    emit(state.copyWith(list: [], status: SearchStatus.loading));
 
-    // API Service
-    listCoverage = [
-      CardSelectModel(description: 'BRAND', selected: true),
-      CardSelectModel(description: 'GENERIC', selected: false),
-    ];
+    for (var i = 0; i < list.length; i--) {
+      listCoverage.add(
+        CardSelectModel(
+          description: list[i],
+          selected: i == 0 ? true : false,
+        ),
+      );
+    }
 
-    emit(CoverageStateLoaded(list: listCoverage));
+    print(listCoverage);
+    emit(state.copyWith(list: listCoverage, status: SearchStatus.completed));
   }
 
   changeType(int index) {
     listCoverage.any((element) => element.selected = false);
     listCoverage[index].selected = true;
-    emit(CoverageStateLoaded(list: listCoverage));
+    emit(state.copyWith(list: listCoverage, status: SearchStatus.completed));
   }
 }

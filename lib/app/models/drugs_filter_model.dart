@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class DrugsFilterModel {
@@ -40,5 +39,23 @@ class DrugsFilterModel {
   @override
   String toString() {
     return 'DrugsFilterModel(coverage: $coverage, type: $type, strengthUnit: $strengthUnit, strength: $strength)';
+  }
+
+  @override
+  bool operator ==(covariant DrugsFilterModel other) {
+    if (identical(this, other)) return true;
+
+    return other.coverage == coverage &&
+        other.type == type &&
+        other.strengthUnit == strengthUnit &&
+        other.strength == strength;
+  }
+
+  @override
+  int get hashCode {
+    return coverage.hashCode ^
+        type.hashCode ^
+        strengthUnit.hashCode ^
+        strength.hashCode;
   }
 }
