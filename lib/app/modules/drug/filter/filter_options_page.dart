@@ -1,9 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/distance_options.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/dosage_options.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/quantity_options.dart';
@@ -81,21 +76,23 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
               const SizedBox(
                 height: 15,
               ),
-              TypeOptions(typeController: Modular.get<TypeController>()),
+              TypeOptions(
+                  typeController: Modular.get<FilterOptionsController>()),
               const SizedBox(
                 height: 15,
               ),
-              DosageOptions(dosageController: Modular.get<DosageController>()),
+              DosageOptions(
+                  dosageController: Modular.get<FilterOptionsController>()),
               const SizedBox(
                 height: 15,
               ),
               QuantityOptions(
-                  quantityController: Modular.get<QuantityController>()),
+                  quantityController: Modular.get<FilterOptionsController>()),
               const SizedBox(
                 height: 15,
               ),
               DistanceOptions(
-                  distanceController: Modular.get<DistanceController>()),
+                  distanceController: Modular.get<FilterOptionsController>()),
             ],
           ),
         ),

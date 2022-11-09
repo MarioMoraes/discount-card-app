@@ -1,9 +1,8 @@
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../controller/distance_state.dart';
-
 class DistanceOptions extends StatefulWidget {
-  final DistanceController distanceController;
+  final FilterOptionsController distanceController;
 
   const DistanceOptions({Key? key, required this.distanceController})
       : super(key: key);
@@ -31,12 +30,13 @@ class DistanceOptionsState extends State<DistanceOptions> {
           height: 10,
         ),
         Slider(
-          value: widget.distanceController.value,
+          value: 0,
+          //value: widget.distanceController.value,
           max: 100,
           divisions: 5,
-          label: widget.distanceController.value.round().toString(),
+          //label: widget.distanceController.value.round().toString(),
           onChanged: (double value) {
-            widget.distanceController.setDistance(value);
+            //widget.distanceController.setDistance(value);
             setState(() {});
           },
         ),

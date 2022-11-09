@@ -1,11 +1,14 @@
+import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/widgets/card_select.dart';
-import '../controller/type_state.dart';
+import '../../../../models/card_select_model.dart';
 
 class TypeOptions extends StatefulWidget {
-  final TypeController typeController;
+  final FilterOptionsController typeController;
 
   const TypeOptions({Key? key, required this.typeController}) : super(key: key);
 
@@ -15,71 +18,78 @@ class TypeOptions extends StatefulWidget {
 
 class TypeOptionsState extends State<TypeOptions> {
   @override
-  void initState() {
-    super.initState();
-    widget.typeController.getTypes();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.only(left: 15.0),
-            child: Text(
-              'TYPE',
-              style: TextStyle(fontWeight: FontWeight.w700),
+    return SizedBox(
+      width: double.infinity,
+      height: 70,
+      child: Column(
+        children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.0),
+              child: Text(
+                'TYPE',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          width: double.infinity,
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Row(
-              children: [
-                BlocBuilder<TypeController, TypeState>(
-                  bloc: widget.typeController,
-                  builder: (context, state) {
-                    if (state is TypeStateLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    }
-
-                    if (state is TypeStateLoaded) {
-                      return Flexible(
-                        flex: 1,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: state.list.length,
-                          itemBuilder: ((context, index) {
-                            var model = state.list[index];
-                            return CardSelect(
-                              controller: widget.typeController,
-                              title: model.description!,
-                              selected: model.selected!,
-                              index: index,
-                            );
-                          }),
-                        ),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15),
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    BlocSelector<FilterOptionsController, FilterOptionsState,
+                        bool>(
+                      bloc: widget.typeController,
+                      selector: (state) => state.status == SearchStatus.loading,
+                      builder: (context, showLoading) {
+                        if (showLoading) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * .30,
+                            child: Center(
+                              child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: context.primaryColor, size: 35),
+                            ),
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
+                    BlocSelector<FilterOptionsController, FilterOptionsState,
+                            List<CardSelectModel>>(
+                        bloc: widget.typeController,
+                        selector: (state) => state.listTypes,
+                        builder: (context, list) {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: list.length,
+                            itemBuilder: (context, index) {
+                              return CardSelect(
+                                controller: widget.typeController,
+                                index: index,
+                                title: list[index].description ?? '',
+                                selected: list[index].selected ?? false,
+                              );
+                            },
+                          );
+                        })
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

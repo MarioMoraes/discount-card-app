@@ -1,7 +1,8 @@
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 
 class CardSelect extends StatelessWidget {
-  final dynamic controller;
+  final FilterOptionsController controller;
   final int index;
   final String title;
   final bool selected;

@@ -1,11 +1,6 @@
 import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:discount_card_app/app/modules/drug/drug_search_page.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/type_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
@@ -30,13 +25,6 @@ import 'pharmacies/controller/pharmacy_list_state.dart';
 class DrugSearchModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        // Filters
-        BlocBind.lazySingleton((i) => CoverageController()),
-        BlocBind.lazySingleton((i) => TypeController()),
-        BlocBind.lazySingleton((i) => DosageController()),
-        BlocBind.lazySingleton((i) => QuantityController()),
-        BlocBind.lazySingleton((i) => DistanceController()),
-
         // Drugs
         Bind.lazySingleton<DrugsRepository>(
             (i) => DrugsRepositoryImpl(dio: i())),

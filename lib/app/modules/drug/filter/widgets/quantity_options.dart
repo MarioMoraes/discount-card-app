@@ -1,9 +1,9 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/quantity_state.dart';
+import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 
 class QuantityOptions extends StatefulWidget {
-  final QuantityController quantityController;
+  final FilterOptionsController quantityController;
   const QuantityOptions({Key? key, required this.quantityController})
       : super(key: key);
 
@@ -42,10 +42,10 @@ class _QuantityOptionsState extends State<QuantityOptions> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 label: Text(
-                  widget.quantityController.quantity.toString(),
-                  style: const TextStyle(
+                  '',
+                  style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,
                   ),
