@@ -42,49 +42,47 @@ class TypeOptionsState extends State<TypeOptions> {
             height: 40,
             child: Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15),
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    BlocSelector<FilterOptionsController, FilterOptionsState,
-                        bool>(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  BlocSelector<FilterOptionsController, FilterOptionsState,
+                      bool>(
+                    bloc: widget.typeController,
+                    selector: (state) => state.status == SearchStatus.loading,
+                    builder: (context, showLoading) {
+                      if (showLoading) {
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * .30,
+                          child: Center(
+                            child: LoadingAnimationWidget.fourRotatingDots(
+                                color: context.primaryColor, size: 35),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                  BlocSelector<FilterOptionsController, FilterOptionsState,
+                          List<CardSelectModel>>(
                       bloc: widget.typeController,
-                      selector: (state) => state.status == SearchStatus.loading,
-                      builder: (context, showLoading) {
-                        if (showLoading) {
-                          return SizedBox(
-                            height: MediaQuery.of(context).size.height * .30,
-                            child: Center(
-                              child: LoadingAnimationWidget.fourRotatingDots(
-                                  color: context.primaryColor, size: 35),
-                            ),
-                          );
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      },
-                    ),
-                    BlocSelector<FilterOptionsController, FilterOptionsState,
-                            List<CardSelectModel>>(
-                        bloc: widget.typeController,
-                        selector: (state) => state.listTypes,
-                        builder: (context, list) {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: list.length,
-                            itemBuilder: (context, index) {
-                              return CardSelect(
-                                controller: widget.typeController,
-                                index: index,
-                                title: list[index].description ?? '',
-                                selected: list[index].selected ?? false,
-                              );
-                            },
-                          );
-                        })
-                  ],
-                ),
+                      selector: (state) => state.listTypes,
+                      builder: (context, list) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            return CardSelect(
+                              controller: widget.typeController,
+                              index: index,
+                              title: list[index].description ?? '',
+                              selected: list[index].selected ?? false,
+                            );
+                          },
+                        );
+                      })
+                ],
               ),
             ),
           )
