@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
+import 'package:discount_card_app/app/models/card_select_model.dart';
 import 'package:discount_card_app/app/models/drugs_filter_model.dart';
-import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/services/drugs/filter/filter_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 part 'filter_options_state.dart';
 
@@ -19,23 +17,30 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     try {
       emit(state.copyWith(status: SearchStatus.loading));
       final list = await service.getFilters(nabp);
-      emit(state.copyWith(status: SearchStatus.completed, list: list));
-      mountWidgets(list);
+
+      final listCoverages = mountWidgets(list);
+
+      emit(state.copyWith(
+          status: SearchStatus.completed, listCoverages: listCoverages));
     } on Exception {
       emit(state.copyWith(status: SearchStatus.failure));
     }
   }
 
-  Future<void> mountWidgets(List<DrugsFilterModel> list) async {
-    final coverageController = Modular.get<CoverageController>();
+  List<CardSelectModel> mountWidgets(List<DrugsFilterModel> list) {
+    List<CardSelectModel>? listCards = [];
 
-    // final coverage = list.first;
-    // final coverageList =
-    //    list.where((element) => element.coverage == coverage.coverage).toList();
+    final items = list.map((element) => element.coverage).toSet().toList();
 
-    final coverageConverted =
-        list.map((element) => element.coverage).toSet().toList();
-
-    coverageController.getCoverage(coverageConverted);
+    for (var i = 0; i < items.length; i++) {
+      print(i);
+      listCards.add(
+        CardSelectModel(
+          description: items[i],
+          selected: i == 0 ? true : false,
+        ),
+      );
+    }
+    return listCards;
   }
 }

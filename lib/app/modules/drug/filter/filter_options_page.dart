@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:discount_card_app/app/modules/drug/filter/controller/coverage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/distance_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/dosage_state.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
@@ -78,7 +77,7 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
           child: ListView(
             children: [
               CoverageOptions(
-                  coverageController: Modular.get<CoverageController>()),
+                  coverageController: Modular.get<FilterOptionsController>()),
               const SizedBox(
                 height: 15,
               ),

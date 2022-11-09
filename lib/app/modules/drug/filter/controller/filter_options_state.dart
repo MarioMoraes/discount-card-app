@@ -9,7 +9,7 @@ enum SearchStatus {
 }
 
 class FilterOptionsState extends Equatable {
-  final List<DrugsFilterModel> listCoverages;
+  final List<CardSelectModel> listCoverages;
   final List<DrugsFilterModel> listTypes;
   final List<DrugsFilterModel> listDosages;
 
@@ -34,7 +34,7 @@ class FilterOptionsState extends Equatable {
   List<Object?> get props => [listCoverages, listTypes, listDosages, status];
 
   FilterOptionsState copyWith({
-    List<DrugsFilterModel>? listCoverages,
+    List<CardSelectModel>? listCoverages,
     List<DrugsFilterModel>? listTypes,
     List<DrugsFilterModel>? listDosages,
     SearchStatus? status,

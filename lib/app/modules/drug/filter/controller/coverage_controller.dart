@@ -7,17 +7,6 @@ class CoverageController extends Cubit<CoverageState> {
 
   Future<void> getCoverage(List<String> list) async {
     emit(state.copyWith(list: [], status: SearchStatus.loading));
-
-    for (var i = 0; i < list.length; i--) {
-      listCoverage.add(
-        CardSelectModel(
-          description: list[i],
-          selected: i == 0 ? true : false,
-        ),
-      );
-    }
-
-    print(listCoverage);
     emit(state.copyWith(list: listCoverage, status: SearchStatus.completed));
   }
 
