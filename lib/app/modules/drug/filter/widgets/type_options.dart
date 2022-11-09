@@ -1,4 +1,5 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/models/filters.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class TypeOptionsState extends State<TypeOptions> {
           const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
+              padding: EdgeInsets.only(left: 15.0),
               child: Text(
                 'TYPE',
                 style: TextStyle(fontWeight: FontWeight.w700),
@@ -35,13 +36,13 @@ class TypeOptionsState extends State<TypeOptions> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           SizedBox(
             width: double.infinity,
             height: 40,
             child: Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -68,18 +69,22 @@ class TypeOptionsState extends State<TypeOptions> {
                       bloc: widget.typeController,
                       selector: (state) => state.listTypes,
                       builder: (context, list) {
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: list.length,
-                          itemBuilder: (context, index) {
-                            return CardSelect(
-                              controller: widget.typeController,
-                              index: index,
-                              title: list[index].description ?? '',
-                              selected: list[index].selected ?? false,
-                            );
-                          },
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width * .9,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: list.length,
+                            itemBuilder: (context, index) {
+                              return CardSelect(
+                                widget: Filters.type,
+                                controller: widget.typeController,
+                                index: index,
+                                title: list[index].description ?? '',
+                                selected: list[index].selected ?? false,
+                              );
+                            },
+                          ),
                         );
                       })
                 ],

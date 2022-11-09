@@ -26,10 +26,13 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
       listCoverages = createCoverage(list);
       listTypes = createType(list);
 
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: SearchStatus.completed,
           listCoverages: listCoverages,
-          listTypes: listTypes));
+          listTypes: listTypes,
+        ),
+      );
     } on Exception {
       emit(state.copyWith(status: SearchStatus.failure));
     }
@@ -68,6 +71,7 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
   }
 
   changeType(int index) {
+    emit(state.copyWith(status: SearchStatus.loading));
     listCoverages.any((element) => element.selected = false);
     listCoverages[index].selected = true;
     emit(state.copyWith(

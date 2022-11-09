@@ -30,7 +30,7 @@ class _QuantityOptionsState extends State<QuantityOptions> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15),

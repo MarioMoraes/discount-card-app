@@ -1,8 +1,10 @@
+import 'package:discount_card_app/app/models/filters.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
 
 class CardSelect extends StatelessWidget {
   final FilterOptionsController controller;
+  final Filters widget;
   final int index;
   final String title;
   final bool selected;
@@ -13,6 +15,7 @@ class CardSelect extends StatelessWidget {
     required this.index,
     required this.title,
     required this.selected,
+    required this.widget,
   }) : super(key: key);
 
   @override
@@ -53,6 +56,14 @@ class CardSelect extends StatelessWidget {
   }
 
   _onTap() {
-    controller.changeType(index);
+    if (widget == Filters.coverage) {
+      controller.changeType(index);
+    }
+    if (widget == Filters.type) {
+      controller.changeType(index);
+    }
+    if (widget == Filters.dosage) {
+      controller.changeType(index);
+    }
   }
 }

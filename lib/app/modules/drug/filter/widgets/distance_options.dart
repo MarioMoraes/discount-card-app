@@ -27,7 +27,7 @@ class DistanceOptionsState extends State<DistanceOptions> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         Slider(
           value: 0,

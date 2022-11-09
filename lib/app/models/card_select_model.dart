@@ -5,7 +5,6 @@ class CardSelectModel {
   CardSelectModel({this.description, this.selected});
 
   @override
-  String toString() {
-    return 'CardSelectModel (description: $description, selected: $selected)';
-  }
+  String toString() =>
+      'CardSelectModel(description: $description, selected: $selected)';
 }
