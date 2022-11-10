@@ -61,6 +61,12 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
   List<CardSelectModel> createType(List<DrugsFilterModel> list) {
     List<CardSelectModel>? listCards = [];
 
+    final coverage = listCoverages[0].description;
+
+    final list = [...listComplete]
+        .where((element) => element.coverage == coverage)
+        .toList();
+
     final items = list.map((element) => element.type).toSet().toList();
 
     for (var i = 0; i < items.length; i++) {
