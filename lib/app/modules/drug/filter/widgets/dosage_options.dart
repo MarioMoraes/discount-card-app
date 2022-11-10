@@ -70,7 +70,7 @@ class DosageOptionsState extends State<DosageOptions> {
                     child: BlocSelector<FilterOptionsController,
                             FilterOptionsState, List<CardSelectModel>>(
                         bloc: widget.dosageController,
-                        selector: (state) => state.listCoverages,
+                        selector: (state) => state.listDosages,
                         builder: (context, list) {
                           return ListView.builder(
                             scrollDirection: Axis.horizontal,

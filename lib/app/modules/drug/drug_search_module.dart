@@ -5,10 +5,10 @@ import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.da
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
-import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
-import 'package:discount_card_app/app/repositories/auth/filter/filter_repository_impl.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository_impl.dart';
+import 'package:discount_card_app/app/repositories/drugs/filter/filter_repository.dart';
+import 'package:discount_card_app/app/repositories/drugs/filter/filter_repository_impl.dart';
 import 'package:discount_card_app/app/repositories/prices/pharmacy_and_price_repository.dart';
 import 'package:discount_card_app/app/repositories/prices/pharmacy_and_price_repository_impl.dart';
 import 'package:discount_card_app/app/services/drugs/drugs_service.dart';

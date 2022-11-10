@@ -15,16 +15,19 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     required this.service,
   }) : super(FilterOptionsState.initial());
 
+  var listComplete;
   var listCoverages;
   var listTypes;
+  var listDosages;
 
   Future<void> getFilter(String nabp) async {
     try {
       emit(state.copyWith(status: SearchStatus.loading));
-      final list = await service.getFilters(nabp);
+      listComplete = await service.getFilters(nabp);
 
-      listCoverages = createCoverage(list);
-      listTypes = createType(list);
+      listCoverages = createCoverage([...listComplete]);
+      listTypes = createType([...listComplete]);
+      listDosages = createDosage([...listComplete]);
 
       emit(
         state.copyWith(
@@ -70,11 +73,95 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     return listCards;
   }
 
+  List<CardSelectModel> createDosage(List<DrugsFilterModel> list) {
+    List<CardSelectModel>? listCards = [];
+
+    final dosage = listTypes[0].description;
+
+    final list =
+        [...listComplete].where((element) => element.type == dosage).toList();
+
+    final items = list.map((element) => element.type).toSet().toList();
+
+    for (var i = 0; i < items.length; i++) {
+      listCards.add(
+        CardSelectModel(
+          description: list[i].strength + ' ' + list[i].strengthUnit,
+          selected: i == 0 ? true : false,
+        ),
+      );
+    }
+    return listCards;
+  }
+
   changeType(int index) {
-    emit(state.copyWith(status: SearchStatus.loading));
+    final coverage = listCoverages[index].description;
+
+    // Coverage
+    updateCoverage(index);
+
+    // Type
+    updateType(coverage);
+
+    // Dosage
+    updateDosage();
+  }
+
+  updateCoverage(int index) {
+    emit(state.copyWith(status: SearchStatus.loading, listCoverages: []));
     listCoverages.any((element) => element.selected = false);
     listCoverages[index].selected = true;
     emit(state.copyWith(
         listCoverages: listCoverages, status: SearchStatus.completed));
+  }
+
+  updateType(String filter) {
+    List<CardSelectModel>? listCards = [];
+
+    final list = [...listComplete]
+        .where((element) => element.coverage == filter)
+        .toList();
+
+    final items = list.map((element) => element.type).toSet().toList();
+
+    for (var i = 0; i < items.length; i++) {
+      listCards.add(
+        CardSelectModel(
+          description: items[i],
+          selected: i == 0 ? true : false,
+        ),
+      );
+    }
+
+    emit(state.copyWith(status: SearchStatus.loading, listTypes: []));
+    listTypes.any((element) => element.selected = false);
+    listTypes[0].selected = true;
+    emit(state.copyWith(listTypes: listCards, status: SearchStatus.completed));
+  }
+
+  updateDosage() {
+    List<CardSelectModel>? listCards = [];
+
+    final dosage = listTypes[0].description;
+
+    final list =
+        [...listComplete].where((element) => element.type == dosage).toList();
+
+    final items = list.map((element) => element.type).toSet().toList();
+
+    for (var i = 0; i < list.length; i++) {
+      listCards.add(
+        CardSelectModel(
+          description: list[i].strength + ' ' + list[i].strengthUnit,
+          selected: i == 0 ? true : false,
+        ),
+      );
+    }
+
+    emit(state.copyWith(status: SearchStatus.loading, listDosages: []));
+    listDosages.any((element) => element.selected = false);
+    listDosages[0].selected = true;
+    emit(
+        state.copyWith(listDosages: listCards, status: SearchStatus.completed));
   }
 }

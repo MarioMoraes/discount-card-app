@@ -1,7 +1,6 @@
-import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
-
 import './filter_service.dart';
 import '../../../models/drugs_filter_model.dart';
+import '../../../repositories/drugs/filter/filter_repository.dart';
 
 class FilterServiceImpl implements FilterService {
   FilterRepository filterRepository;

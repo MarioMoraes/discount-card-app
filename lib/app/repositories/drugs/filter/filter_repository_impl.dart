@@ -4,7 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:discount_card_app/app/core/rest/custom_dio.dart';
 import 'package:discount_card_app/app/exceptions/repository_exception.dart';
 import 'package:discount_card_app/app/models/drugs_filter_model.dart';
-import 'package:discount_card_app/app/repositories/auth/filter/filter_repository.dart';
+
+import 'filter_repository.dart';
 
 class FilterRepositoryImpl extends FilterRepository {
   final CustomDio _dio;
