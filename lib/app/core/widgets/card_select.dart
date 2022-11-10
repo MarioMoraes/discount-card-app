@@ -57,13 +57,13 @@ class CardSelect extends StatelessWidget {
 
   _onTap() {
     if (widget == Filters.coverage) {
-      controller.changeType(index);
+      controller.changeCoverage(index);
     }
     if (widget == Filters.type) {
       controller.changeType(index);
     }
     if (widget == Filters.dosage) {
-      controller.changeType(index);
+      controller.changeDosage(index);
     }
   }
 }
