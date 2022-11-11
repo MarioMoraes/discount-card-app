@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:discount_card_app/app/core/widgets/custom_text_form_field.dart';
 import 'package:discount_card_app/app/modules/drug/controller/drug_search_state.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +11,6 @@ class CustomMenuHeader extends SliverPersistentHeaderDelegate {
     required this.title,
     required this.controller,
   });
-
-  Timer? _debounce;
 
   @override
   Widget build(
