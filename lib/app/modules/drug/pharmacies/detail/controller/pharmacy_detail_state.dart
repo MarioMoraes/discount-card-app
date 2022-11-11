@@ -1,4 +1,6 @@
-import 'package:discount_card_app/app/models/pharmacy_and_prices_model.dart';
+import 'package:bloc/bloc.dart';
+import 'package:discount_card_app/app/models/pharmacy_info_model.dart';
+import 'package:discount_card_app/app/services/pharmacy/pharmacy_info_service.dart';
 import 'package:equatable/equatable.dart';
 
 part 'pharmacy_detail_controller.dart';
@@ -12,26 +14,25 @@ enum SearchStatus {
 }
 
 class PharmacyDetailState extends Equatable {
-  final List<PharmacyAndPricesModel> listPharmacies;
+  final PharmacyInfoModel? pharmacy;
   final SearchStatus status;
 
   const PharmacyDetailState._({
-    required this.listPharmacies,
+    this.pharmacy,
     required this.status,
   });
 
-  PharmacyDetailState.initial()
-      : this._(listPharmacies: [], status: SearchStatus.initial);
+  const PharmacyDetailState.initial() : this._(status: SearchStatus.initial);
 
   @override
-  List<Object?> get props => [listPharmacies, status];
+  List<Object?> get props => [pharmacy, status];
 
   PharmacyDetailState copyWith({
-    List<PharmacyAndPricesModel>? listPharmacies,
+    PharmacyInfoModel? pharmacy,
     SearchStatus? status,
   }) {
     return PharmacyDetailState._(
-      listPharmacies: listPharmacies ?? this.listPharmacies,
+      pharmacy: pharmacy ?? this.pharmacy,
       status: status ?? this.status,
     );
   }

@@ -7,7 +7,6 @@ class AddressListModel {
   String addressListCity;
   String addressListZipCode;
   String addressListAddressLine1;
-  String addressListAddressLine2;
 
   AddressListModel({
     required this.addressListState,
@@ -16,30 +15,27 @@ class AddressListModel {
     required this.addressListCity,
     required this.addressListZipCode,
     required this.addressListAddressLine1,
-    required this.addressListAddressLine2,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'addressListState': addressListState,
-      'addressListPharmacyId': addressListPharmacyId,
-      'addressListType': addressListType,
-      'addressListCity': addressListCity,
-      'addressListZipCode': addressListZipCode,
-      'addressListAddressLine1': addressListAddressLine1,
-      'addressListAddressLine2': addressListAddressLine2,
+      'address_list_state': addressListState,
+      'address_list_pharmacy_id': addressListPharmacyId,
+      'address_list_type': addressListType,
+      'address_list_city': addressListCity,
+      'address_list_zip_code': addressListZipCode,
+      'address_list_address_line1': addressListAddressLine1,
     };
   }
 
   factory AddressListModel.fromMap(Map<String, dynamic> map) {
     return AddressListModel(
-      addressListState: map['addressListState'] as String,
-      addressListPharmacyId: map['addressListPharmacyId'] as int,
-      addressListType: map['addressListType'] as String,
-      addressListCity: map['addressListCity'] as String,
-      addressListZipCode: map['addressListZipCode'] as String,
-      addressListAddressLine1: map['addressListAddressLine1'] as String,
-      addressListAddressLine2: map['addressListAddressLine2'] as String,
+      addressListState: map['address_list_state'] as String,
+      addressListPharmacyId: map['address_list_pharmacy_id'] as int,
+      addressListType: map['address_list_type'] as String,
+      addressListCity: map['address_list_city'] as String,
+      addressListZipCode: map['address_list_zip_code'] as String,
+      addressListAddressLine1: map['address_list_address_line1'] as String,
     );
   }
 

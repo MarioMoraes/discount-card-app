@@ -16,19 +16,20 @@ class ComunicationList {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'communicationListComm': communicationListComm,
-      'communicationListPharmacyId': communicationListPharmacyId,
-      'communicationListSupportSms': communicationListSupportSms,
-      'communicationListType': communicationListType,
+      'communication_list_comm': communicationListComm,
+      'communication_list_pharmacy_id': communicationListPharmacyId,
+      'communication_list_support_sms': communicationListSupportSms,
+      'communication_list_type': communicationListType,
     };
   }
 
   factory ComunicationList.fromMap(Map<String, dynamic> map) {
     return ComunicationList(
-      communicationListComm: map['communicationListComm'] as String,
-      communicationListPharmacyId: map['communicationListPharmacyId'] as int,
-      communicationListSupportSms: map['communicationListSupportSms'] as bool,
-      communicationListType: map['communicationListType'] as String,
+      communicationListComm: map['communication_list_comm'] as String,
+      communicationListPharmacyId: map['communication_list_pharmacy_id'] as int,
+      communicationListSupportSms:
+          map['communication_list_support_sms'] as bool,
+      communicationListType: map['communication_list_type'] as String,
     );
   }
 

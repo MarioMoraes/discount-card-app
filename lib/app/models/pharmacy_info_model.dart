@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:discount_card_app/app/models/address_list_model.dart';
@@ -38,43 +37,43 @@ class PharmacyInfoModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'nabp': nabp,
-      'flag24Hours': flag24Hours,
+      'flag_24hours': flag24Hours,
       'latitude': latitude,
-      'communicationList': communicationList.map((x) => x.toMap()).toList(),
-      'timeZone': timeZone,
+      'communication_list': communicationList.map((x) => x.toMap()).toList(),
+      'time_zone': timeZone,
       'name': name,
       'longitude': longitude,
       'id': id,
       'npi': npi,
-      'timeZoneOffset': timeZoneOffset,
-      'addressList': addressList.map((x) => x.toMap()).toList(),
-      'hoursOfOperation': hoursOfOperation.map((x) => x.toMap()).toList(),
+      'time_zone_offset': timeZoneOffset,
+      'address_list': addressList.map((x) => x.toMap()).toList(),
+      'hours_of_operation': hoursOfOperation.map((x) => x.toMap()).toList(),
     };
   }
 
   factory PharmacyInfoModel.fromMap(Map<String, dynamic> map) {
     return PharmacyInfoModel(
       nabp: map['nabp'] as String,
-      flag24Hours: map['flag24Hours'] as bool,
+      flag24Hours: map['flag_24hours'] as bool,
       latitude: map['latitude'] as double,
       communicationList: List<ComunicationList>.from(
-        (map['communicationList'] as List<int>).map<ComunicationList>(
+        (map['communication_list'] as List<dynamic>).map<ComunicationList>(
           (x) => ComunicationList.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      timeZone: map['timeZone'] as String,
+      timeZone: map['time_zone'] as String,
       name: map['name'] as String,
       longitude: map['longitude'] as double,
       id: map['id'] as int,
       npi: map['npi'] as String,
-      timeZoneOffset: map['timeZoneOffset'] as int,
+      timeZoneOffset: map['time_zone_offset'] as int,
       addressList: List<AddressListModel>.from(
-        (map['addressList'] as List<int>).map<AddressListModel>(
+        (map['address_list'] as List<dynamic>).map<AddressListModel>(
           (x) => AddressListModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       hoursOfOperation: List<HoursOfOperation>.from(
-        (map['hoursOfOperation'] as List<int>).map<HoursOfOperation>(
+        (map['hours_of_operation'] as List<dynamic>).map<HoursOfOperation>(
           (x) => HoursOfOperation.fromMap(x as Map<String, dynamic>),
         ),
       ),

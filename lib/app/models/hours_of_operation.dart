@@ -16,23 +16,23 @@ class HoursOfOperation {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'hoursOfOperationListCloseHour': hoursOfOperationListCloseHour,
-      'hoursOfOperationListOpenHour': hoursOfOperationListOpenHour,
-      'hoursOfOperationListDayOfWeek': hoursOfOperationListDayOfWeek,
-      'hoursOfOperationListPharmacyId': hoursOfOperationListPharmacyId,
+      'hours_of_operation_list_close_hour': hoursOfOperationListCloseHour,
+      'hours_of_operation_list_open_hour': hoursOfOperationListOpenHour,
+      'hours_of_operation_list_day_of_week': hoursOfOperationListDayOfWeek,
+      'hours_of_operation_list_pharmacy_id': hoursOfOperationListPharmacyId,
     };
   }
 
   factory HoursOfOperation.fromMap(Map<String, dynamic> map) {
     return HoursOfOperation(
       hoursOfOperationListCloseHour:
-          map['hoursOfOperationListCloseHour'] as String,
+          map['hours_of_operation_list_close_hour'] as String,
       hoursOfOperationListOpenHour:
-          map['hoursOfOperationListOpenHour'] as String,
+          map['hours_of_operation_list_open_hour'] as String,
       hoursOfOperationListDayOfWeek:
-          map['hoursOfOperationListDayOfWeek'] as String,
+          map['hours_of_operation_list_day_of_week'] as String,
       hoursOfOperationListPharmacyId:
-          map['hoursOfOperationListPharmacyId'] as int,
+          map['hours_of_operation_list_pharmacy_id'] as int,
     );
   }
 

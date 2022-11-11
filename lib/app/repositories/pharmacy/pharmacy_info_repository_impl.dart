@@ -8,10 +8,10 @@ import 'package:discount_card_app/app/models/pharmacy_info_model.dart';
 
 import './pharmacy_info_repository.dart';
 
-class PharmacynfoRepositoryImpl implements PharmacyInfoRepository {
+class PharmacyInfoRepositoryImpl implements PharmacyInfoRepository {
   final CustomDio dio;
 
-  PharmacynfoRepositoryImpl({
+  PharmacyInfoRepositoryImpl({
     required this.dio,
   });
 
@@ -21,8 +21,7 @@ class PharmacynfoRepositoryImpl implements PharmacyInfoRepository {
       final response = await dio.auth().get('/pharmacies/$nabp');
 
       if (response.statusCode == 200) {
-        return response.data['data']
-            .map<PharmacyInfoModel>((e) => PharmacyInfoModel.fromMap(e));
+        return PharmacyInfoModel.fromMap(response.data['data']);
       }
     } on DioError catch (e, s) {
       log('Error in Get Pharmacy Info', error: e, stackTrace: s);

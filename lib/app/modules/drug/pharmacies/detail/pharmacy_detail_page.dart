@@ -1,12 +1,27 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/widgets/custom_app_bar_title.dart';
 
-class PharmacyDetailPage extends StatelessWidget {
-  const PharmacyDetailPage({Key? key}) : super(key: key);
+class PharmacyDetailPage extends StatefulWidget {
+  final PharmacyDetailController controller;
+
+  const PharmacyDetailPage({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  State<PharmacyDetailPage> createState() => _PharmacyDetailPageState();
+}
+
+class _PharmacyDetailPageState extends State<PharmacyDetailPage> {
+  @override
+  void initState() {
+    widget.controller.getInfo('1436674');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
