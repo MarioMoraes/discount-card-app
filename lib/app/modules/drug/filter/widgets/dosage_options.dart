@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/widgets/card_select.dart';
-import '../../../../models/card_select_model.dart';
 
 class DosageOptions extends StatefulWidget {
   final FilterOptionsController dosageController;
@@ -47,42 +46,31 @@ class DosageOptionsState extends State<DosageOptions> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  BlocSelector<FilterOptionsController, FilterOptionsState,
-                      bool>(
-                    bloc: widget.dosageController,
-                    selector: (state) => state.status == SearchStatus.loading,
-                    builder: (context, showLoading) {
-                      if (showLoading) {
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height * .30,
-                          child: Center(
-                            child: LoadingAnimationWidget.fourRotatingDots(
-                                color: context.primaryColor, size: 35),
-                          ),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .9,
-                    child: BlocSelector<FilterOptionsController,
-                            FilterOptionsState, List<CardSelectModel>>(
+                    child: BlocBuilder<FilterOptionsController,
+                            FilterOptionsState>(
                         bloc: widget.dosageController,
-                        selector: (state) => state.listDosages,
-                        builder: (context, list) {
+                        builder: (context, state) {
+                          if (state.status == SearchStatus.loading) {
+                            return Center(
+                              child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: context.primaryColor, size: 35),
+                            );
+                          }
                           return ListView.builder(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            itemCount: list.length,
+                            itemCount: state.listDosages.length,
                             itemBuilder: (context, index) {
                               return CardSelect(
                                 widget: Filters.dosage,
                                 controller: widget.dosageController,
                                 index: index,
-                                title: list[index].description ?? '',
-                                selected: list[index].selected ?? false,
+                                title:
+                                    state.listDosages[index].description ?? '',
+                                selected:
+                                    state.listDosages[index].selected ?? false,
                               );
                             },
                           );

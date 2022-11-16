@@ -1,5 +1,4 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
-import 'package:discount_card_app/app/models/card_select_model.dart';
 import 'package:discount_card_app/app/models/filters.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +21,13 @@ class CoverageOptionsState extends State<CoverageOptions> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
       height: 70,
       child: Column(
         children: [
           const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 15.0, right: 0),
+              padding: EdgeInsets.only(left: 15.0),
               child: Text(
                 'COVERAGE',
                 style: TextStyle(fontWeight: FontWeight.w700),
@@ -40,54 +38,43 @@ class CoverageOptionsState extends State<CoverageOptions> {
             height: 5,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width,
             height: 40,
             child: Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
+              padding: const EdgeInsets.only(left: 15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  BlocSelector<FilterOptionsController, FilterOptionsState,
-                      bool>(
-                    bloc: widget.coverageController,
-                    selector: (state) => state.status == SearchStatus.loading,
-                    builder: (context, showLoading) {
-                      if (showLoading) {
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height * .30,
-                          child: Center(
-                            child: LoadingAnimationWidget.fourRotatingDots(
-                                color: context.primaryColor, size: 35),
-                          ),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .9,
-                    child: BlocSelector<FilterOptionsController,
-                            FilterOptionsState, List<CardSelectModel>>(
-                        bloc: widget.coverageController,
-                        selector: (state) => state.listCoverages,
-                        builder: (context, list) {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: list.length,
-                            itemBuilder: (context, index) {
-                              return CardSelect(
-                                widget: Filters.coverage,
-                                controller: widget.coverageController,
-                                index: index,
-                                title: list[index].description ?? '',
-                                selected: list[index].selected ?? false,
-                              );
-                            },
+                    child: BlocBuilder<FilterOptionsController,
+                        FilterOptionsState>(
+                      bloc: widget.coverageController,
+                      builder: (context, state) {
+                        if (state.status == SearchStatus.loading) {
+                          return Center(
+                            child: LoadingAnimationWidget.fourRotatingDots(
+                                color: context.primaryColor, size: 35),
                           );
-                        }),
-                  )
+                        }
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: state.listCoverages.length,
+                          itemBuilder: (context, index) {
+                            return CardSelect(
+                              widget: Filters.coverage,
+                              controller: widget.coverageController,
+                              index: index,
+                              title:
+                                  state.listCoverages[index].description ?? '',
+                              selected:
+                                  state.listCoverages[index].selected ?? false,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

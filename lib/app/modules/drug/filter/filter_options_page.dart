@@ -1,11 +1,11 @@
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
-import 'package:discount_card_app/app/modules/drug/filter/widgets/distance_options.dart';
-import 'package:discount_card_app/app/modules/drug/filter/widgets/dosage_options.dart';
-import 'package:discount_card_app/app/modules/drug/filter/widgets/quantity_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'widgets/coverage_options.dart';
+import 'widgets/distance_options.dart';
+import 'widgets/dosage_options.dart';
+import 'widgets/quantity_options.dart';
 import 'widgets/type_options.dart';
 
 class FilterOptionsPage extends StatefulWidget {
@@ -70,6 +70,7 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
         ),
         body: SafeArea(
           child: ListView(
+            padding: const EdgeInsets.all(0),
             children: [
               CoverageOptions(
                   coverageController: Modular.get<FilterOptionsController>()),

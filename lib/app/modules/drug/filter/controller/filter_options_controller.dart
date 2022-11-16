@@ -117,13 +117,17 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     emit(state.copyWith(status: SearchStatus.loading, listTypes: []));
     listTypes.any((element) => element.selected = false);
     listTypes[index].selected = true;
-    emit(state.copyWith(
-        listTypes: listTypes,
-        listDosages: listDosages,
-        listCoverages: listCoverages,
-        status: SearchStatus.completed));
+    emit(state.copyWith(listTypes: listTypes, status: SearchStatus.completed));
 
     updateDosage(index);
+  }
+
+  void changeDosage(int index) {
+    emit(state.copyWith(status: SearchStatus.loading, listDosages: []));
+    listDosages.any((element) => element.selected = false);
+    listDosages[index].selected = true;
+    emit(state.copyWith(
+        listDosages: listDosages, status: SearchStatus.completed));
   }
 
   updateType(int index) {
@@ -149,11 +153,7 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     emit(state.copyWith(status: SearchStatus.loading, listTypes: []));
     listTypes.any((element) => element.selected = false);
     listTypes[0].selected = true;
-    emit(state.copyWith(
-        listTypes: listCards,
-        listDosages: listDosages,
-        listCoverages: listCoverages,
-        status: SearchStatus.completed));
+    emit(state.copyWith(listTypes: listCards, status: SearchStatus.completed));
   }
 
   updateDosage(int index) {
@@ -178,13 +178,5 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     listDosages[0].selected = true;
     emit(
         state.copyWith(listDosages: listCards, status: SearchStatus.completed));
-  }
-
-  void changeDosage(int index) {
-    emit(state.copyWith(status: SearchStatus.loading, listDosages: []));
-    listDosages.any((element) => element.selected = false);
-    listDosages[index].selected = true;
-    emit(state.copyWith(
-        listDosages: listDosages, status: SearchStatus.completed));
   }
 }
