@@ -12,7 +12,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
       builder: (context, constraints) {
         return Container(
           height: constraints.maxHeight,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           color: Colors.white,
           child: Column(
             children: [
@@ -77,8 +77,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     color: Colors.white,
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Text(
                       'San Francisco, CA',
                       style: TextStyle(

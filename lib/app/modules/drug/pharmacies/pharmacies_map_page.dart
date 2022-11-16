@@ -1,12 +1,14 @@
-import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
 
+import '../../../models/pharmacy_and_prices_model.dart';
+
 class PharmaciesMapPage extends StatefulWidget {
-  const PharmaciesMapPage({Key? key}) : super(key: key);
+  final List<PharmacyAndPricesModel> list;
+  const PharmaciesMapPage({Key? key, required this.list}) : super(key: key);
 
   @override
   State<PharmaciesMapPage> createState() => _PharmaciesMapPageState();
@@ -25,67 +27,7 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   );
 
   List<Marker> allMarkers = [];
-  final List<MarkerData> _markers = [];
   Set<Marker> mark = {};
-
-  final List _pharmacies = [
-    {
-      "latitude": 41.8882523,
-      "longitude": -87.80376609999999,
-      "price": 1.99,
-      "pharmacy": "WallMart",
-      "address": "7251 WEST LAKE ST ",
-    },
-    {
-      "latitude": 41.8881604,
-      "longitude": -87.80669739999999,
-      "price": 2.75,
-      "pharmacy": "Walgreens",
-      "address": "1003 MADISON ST ",
-    },
-    {
-      "latitude": 41.8794785,
-      "longitude": -87.80010539999999,
-      "price": 1.78,
-      "pharmacy": "CVS Pharmacy",
-      "address": "811 MADISON ST ",
-    },
-    {
-      "latitude": 41.8795471,
-      "longitude": -87.79454679999999,
-      "price": 4.01,
-      "pharmacy": "Sears Pharmacy",
-      "address": "7523 W LAKE ST",
-    },
-    {
-      "latitude": 41.888288,
-      "longitude": -87.81315819999999,
-      "price": 3.50,
-      "pharmacy": "WallMart",
-      "address": "",
-    },
-    {
-      "latitude": 41.8801753,
-      "longitude": -87.7863787,
-      "price": 1.99,
-      "pharmacy": "Walgreens",
-      "address": "1003 MADISON ST ",
-    },
-    {
-      "latitude": 41.8796153,
-      "longitude": -87.78349539999999,
-      "price": 2.30,
-      "pharmacy": "CVS Pharmacy",
-      "address": "811 MADISON ST",
-    },
-    {
-      "latitude": 41.8655024,
-      "longitude": -87.78471859999999,
-      "price": 2.60,
-      "pharmacy": "Sears Pharmacy7",
-      "address": "7251 WEST LAKE ST ",
-    },
-  ];
 
   @override
   void initState() {
@@ -94,7 +36,7 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   }
 
   _loadMarkers() async {
-    await _customAddMarker();
+    await _addMarkers();
   }
 
   @override
@@ -118,18 +60,10 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
       body: Column(
         children: [
           Expanded(
-            child: CustomGoogleMapMarkerBuilder(
-              customMarkers: _markers,
-              builder: (BuildContext context, Set<Marker>? markers) {
-                if (markers == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return GoogleMap(
-                  initialCameraPosition: _currentPosition,
-                  markers: markers,
-                  onMapCreated: (GoogleMapController controller) {},
-                );
-              },
+            child: GoogleMap(
+              initialCameraPosition: _currentPosition,
+              mapType: MapType.normal,
+              markers: Set.from(mark.toList()),
             ),
           ),
         ],
@@ -138,70 +72,25 @@ class _PharmaciesMapPageState extends State<PharmaciesMapPage> {
   }
 
   _addMarkers() async {
-    for (int x = 0; x < _pharmacies.length; x++) {
+    for (int x = 0; x < widget.list.length; x++) {
       mark
-          .addLabelMarker(
-        LabelMarker(
-          label: '\$ ' + _pharmacies[x]['price'].toString(),
-          markerId: MarkerId(_pharmacies[x]['latitude'].toString()),
-          position: LatLng(
-            _pharmacies[x]['latitude'],
-            _pharmacies[x]['longitude'],
-          ),
-          backgroundColor: Colors.green,
-          infoWindow: InfoWindow(
-            title: _pharmacies[x]['pharmacy'],
-            snippet: _pharmacies[x]['address'],
-          ),
+          .addLabelMarker(LabelMarker(
+        label: '\$ ' + widget.list[x].medication.price.toStringAsFixed(2),
+        markerId: MarkerId(x.toString()),
+        position: LatLng(
+          widget.list[x].location.latitude,
+          widget.list[x].location.longitude,
         ),
-      )
+        backgroundColor: Colors.green,
+        infoWindow: InfoWindow(
+            title: widget.list[x].pharmacy.name,
+            snippet: widget.list[x].pharmacy.address),
+      ))
           .then(
         (value) {
           setState(() {});
         },
       );
     }
-  }
-
-  _customAddMarker() async {
-    for (int x = 0; x < _pharmacies.length; x++) {
-      _markers.add(
-        MarkerData(
-          marker: Marker(
-              markerId: MarkerId(_pharmacies[x]['latitude'].toString()),
-              position: LatLng(
-                _pharmacies[x]['latitude'],
-                _pharmacies[x]['longitude'],
-              )),
-          child: const _CardPharmacy(),
-        ),
-      );
-    }
-  }
-}
-
-class _CardPharmacy extends StatelessWidget {
-  const _CardPharmacy({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 50,
-        height: 20,
-        color: Colors.grey.withOpacity(0.5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: const [
-              Text(
-                'Pharmacy Name',
-                style: TextStyle(fontSize: 6, color: Colors.black),
-              ),
-              Text(
-                'Address',
-                style: TextStyle(fontSize: 6, color: Colors.black),
-              ),
-            ],
-          ),
-        ));
   }
 }

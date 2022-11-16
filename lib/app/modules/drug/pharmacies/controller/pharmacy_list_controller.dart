@@ -1,11 +1,11 @@
 part of 'pharmacy_list_state.dart';
 
-class PharmacyListController extends Cubit<PharmacyDetailState> {
+class PharmacyListController extends Cubit<PharmacyListState> {
   final PharmacyAndPriceService _service;
 
   PharmacyListController({required PharmacyAndPriceService service})
       : _service = service,
-        super(PharmacyDetailState.initial());
+        super(PharmacyListState.initial());
 
   Future<void> getPharmaciesAndPrices({
     required String gpi14,

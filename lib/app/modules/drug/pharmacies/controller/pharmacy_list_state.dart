@@ -13,16 +13,16 @@ enum SearchStatus {
   failure,
 }
 
-class PharmacyDetailState extends Equatable {
+class PharmacyListState extends Equatable {
   final List<PharmacyAndPricesModel> listPharmacies;
   final SearchStatus status;
 
-  const PharmacyDetailState._({
+  const PharmacyListState._({
     required this.listPharmacies,
     required this.status,
   });
 
-  PharmacyDetailState.initial()
+  PharmacyListState.initial()
       : this._(
           listPharmacies: [],
           status: SearchStatus.initial,
@@ -31,11 +31,11 @@ class PharmacyDetailState extends Equatable {
   @override
   List<Object?> get props => [listPharmacies, status];
 
-  PharmacyDetailState copyWith({
+  PharmacyListState copyWith({
     List<PharmacyAndPricesModel>? listPharmacies,
     SearchStatus? status,
   }) {
-    return PharmacyDetailState._(
+    return PharmacyListState._(
       listPharmacies: listPharmacies ?? this.listPharmacies,
       status: status ?? this.status,
     );

@@ -49,7 +49,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
             delegate: CustomFilterHeader(),
             pinned: true,
           ),
-          BlocSelector<PharmacyListController, PharmacyDetailState, bool>(
+          BlocSelector<PharmacyListController, PharmacyListState, bool>(
             bloc: widget.controller,
             selector: (state) => state.status == SearchStatus.loading,
             builder: (context, showLoading) {
@@ -67,7 +67,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
               );
             },
           ),
-          BlocSelector<PharmacyListController, PharmacyDetailState,
+          BlocSelector<PharmacyListController, PharmacyListState,
               List<PharmacyAndPricesModel>>(
             bloc: widget.controller,
             selector: (state) => state.listPharmacies,
@@ -86,36 +86,43 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
   }
 
   Widget showMap() {
-    return InkWell(
-      onTap: () => Modular.to.pushNamed('/drug/map'),
-      child: Container(
-        height: 50,
-        width: 150,
-        decoration: BoxDecoration(
-            color: context.primaryColor,
-            borderRadius: BorderRadius.circular(25)),
-        child: Row(
-          children: const [
-            SizedBox(
-              width: 10,
+    return BlocSelector<PharmacyListController, PharmacyListState,
+        List<PharmacyAndPricesModel>>(
+      bloc: widget.controller,
+      selector: (state) => state.listPharmacies,
+      builder: (context, state) {
+        return InkWell(
+          onTap: () => Modular.to.pushNamed('/drug/map', arguments: state),
+          child: Container(
+            height: 50,
+            width: 150,
+            decoration: BoxDecoration(
+                color: context.primaryColor,
+                borderRadius: BorderRadius.circular(25)),
+            child: Row(
+              children: const [
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.map,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Center(
+                  child: Text(
+                    'See Result \n  In Map',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            Icon(
-              Icons.map,
-              color: Colors.white,
-              size: 36,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Center(
-              child: Text(
-                'See Result \n  In Map',
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

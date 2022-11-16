@@ -14,7 +14,7 @@ class CardDrugPharmacy extends StatelessWidget {
     return InkWell(
       onTap: () => Modular.to.pushNamed('/drug/details', arguments: model),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
+        margin: const EdgeInsets.fromLTRB(0, 2, 0, 5),
         width: MediaQuery.of(context).size.width,
         height: 80,
         decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),
@@ -36,10 +36,10 @@ class CardDrugPharmacy extends StatelessWidget {
                 children: [
                   Text(
                     model.pharmacy.name.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff04461F),
+                      color: Colors.red.shade900,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

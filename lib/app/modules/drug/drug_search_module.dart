@@ -5,7 +5,6 @@ import 'package:discount_card_app/app/modules/drug/filter/filter_options_page.da
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/pharmacy_detail_page.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_list_drug_page.dart';
-import 'package:discount_card_app/app/modules/drug/pharmacies/pharmacies_map_page.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository.dart';
 import 'package:discount_card_app/app/repositories/drugs/drugs_repository_impl.dart';
 import 'package:discount_card_app/app/repositories/drugs/filter/filter_repository.dart';
@@ -26,6 +25,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
 import 'pharmacies/controller/pharmacy_list_state.dart';
+import 'pharmacies/pharmacies_map_page.dart';
 
 class DrugSearchModule extends Module {
   @override
@@ -81,7 +81,7 @@ class DrugSearchModule extends Module {
         ),
         ChildRoute(
           '/map',
-          child: (args, context) => const PharmaciesMapPage(),
+          child: (_, args) => PharmaciesMapPage(list: args.data),
           duration: const Duration(seconds: 1),
         ),
         ChildRoute(
