@@ -86,8 +86,10 @@ class DrugSearchModule extends Module {
         ),
         ChildRoute(
           '/details',
-          child: (args, context) => PharmacyDetailPage(
-              controller: Modular.get<PharmacyDetailController>()),
+          child: (_, args) => PharmacyDetailPage(
+            controller: Modular.get<PharmacyDetailController>(),
+            model: args.data,
+          ),
           duration: const Duration(seconds: 1),
         ),
       ];

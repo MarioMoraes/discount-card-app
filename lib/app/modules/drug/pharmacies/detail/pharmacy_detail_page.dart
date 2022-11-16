@@ -1,15 +1,20 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/modules/drug/pharmacies/detail/controller/pharmacy_detail_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/widgets/custom_app_bar_title.dart';
+import '../../../../models/pharmacy_and_prices_model.dart';
 
 class PharmacyDetailPage extends StatefulWidget {
+  final PharmacyAndPricesModel model;
   final PharmacyDetailController controller;
 
-  const PharmacyDetailPage({Key? key, required this.controller})
+  const PharmacyDetailPage(
+      {Key? key, required this.controller, required this.model})
       : super(key: key);
 
   @override
@@ -19,7 +24,7 @@ class PharmacyDetailPage extends StatefulWidget {
 class _PharmacyDetailPageState extends State<PharmacyDetailPage> {
   @override
   void initState() {
-    widget.controller.getInfo('1436674');
+    widget.controller.getInfo(widget.model.pharmacy.nabp);
     super.initState();
   }
 
@@ -62,11 +67,26 @@ class _PharmacyDetailPageState extends State<PharmacyDetailPage> {
         ),
       ),
       body: Column(
-        children: const [
-          _DrugDetails(),
-          _PharmacyAddress(),
+        children: [
+          _DrugDetails(model: widget.model, controller: widget.controller),
+          _PharmacyAddress(model: widget.model),
           Expanded(
-            child: _ShowMap(),
+            child: BlocBuilder<PharmacyDetailController, PharmacyDetailState>(
+              bloc: widget.controller,
+              builder: (context, state) {
+                if (state.status == SearchStatus.loading) {
+                  return LoadingAnimationWidget.fourRotatingDots(
+                      color: context.primaryColor, size: 20);
+                }
+
+                if (state.status == SearchStatus.completed) {
+                  return _ShowMap(
+                    state: state,
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ),
         ],
       ),
@@ -75,7 +95,11 @@ class _PharmacyDetailPageState extends State<PharmacyDetailPage> {
 }
 
 class _DrugDetails extends StatelessWidget {
-  const _DrugDetails({Key? key}) : super(key: key);
+  final PharmacyAndPricesModel model;
+  final PharmacyDetailController controller;
+
+  const _DrugDetails({Key? key, required this.model, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +112,19 @@ class _DrugDetails extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Amoxicilin',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .65,
+                child: Text(
+                  model.medication.name,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               Text(
-                '\$1.99',
-                style: TextStyle(
+                model.medication.price.toStringAsFixed(2),
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color(0xff04461F),
@@ -105,12 +134,13 @@ class _DrugDetails extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
-                '30 Tablets 40Mg',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                '${model.medication.quantity.toStringAsFixed(0)} ${model.medication.type} ',
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
               ),
-              Text(
+              const Text(
                 '\$5.0 Bonus Saving',
                 style: TextStyle(
                     fontSize: 12,
@@ -120,37 +150,51 @@ class _DrugDetails extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           Center(
-            child: Image.asset(
-              'assets/images/wal.png',
-              height: 50,
-              width: 130,
-              fit: BoxFit.cover,
+              child: Text(
+            model.pharmacy.name,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.red.shade700,
             ),
-          ),
+          )),
           const SizedBox(
             height: 1,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Open',
-                style: TextStyle(
-                  color: context.primaryColor,
-                ),
+              BlocBuilder<PharmacyDetailController, PharmacyDetailState>(
+                bloc: controller,
+                builder: (context, state) {
+                  if (state.status == SearchStatus.completed) {
+                    return Text(
+                      state.pharmacy!.flag24Hours ? 'Open' : 'Close',
+                      style: TextStyle(
+                        color: context.primaryColor,
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
               const SizedBox(
                 width: 10,
               ),
-              Text(
-                'Until 9:00pm',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.6),
-                ),
+              BlocBuilder<PharmacyDetailController, PharmacyDetailState>(
+                bloc: controller,
+                builder: (context, state) {
+                  return Text(
+                    'Until 9:00pm',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                  );
+                },
               ),
             ],
           )
@@ -161,7 +205,8 @@ class _DrugDetails extends StatelessWidget {
 }
 
 class _PharmacyAddress extends StatelessWidget {
-  const _PharmacyAddress({Key? key}) : super(key: key);
+  final PharmacyAndPricesModel model;
+  const _PharmacyAddress({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -177,25 +222,25 @@ class _PharmacyAddress extends StatelessWidget {
             height: 100,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Located At',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  '1003 MADISON ST',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  model.pharmacy.address,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Phone',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  '700884900',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  model.pharmacy.phoneNumber,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -235,7 +280,8 @@ class _PharmacyAddress extends StatelessWidget {
 }
 
 class _ShowMap extends StatefulWidget {
-  const _ShowMap({Key? key}) : super(key: key);
+  final PharmacyDetailState state;
+  const _ShowMap({Key? key, required this.state}) : super(key: key);
 
   @override
   State<_ShowMap> createState() => _ShowMapState();
@@ -252,8 +298,9 @@ class _ShowMapState extends State<_ShowMap> {
 
   @override
   Widget build(BuildContext context) {
-    const CameraPosition _currentPosition = CameraPosition(
-      target: LatLng(41.8882523, -87.80376609999999),
+    CameraPosition _currentPosition = CameraPosition(
+      target: LatLng(
+          widget.state.pharmacy!.latitude, widget.state.pharmacy!.longitude),
       zoom: 12.4746,
     );
 
@@ -266,10 +313,11 @@ class _ShowMapState extends State<_ShowMap> {
 
   _addMarker() {
     allMarkers.add(
-      const Marker(
-          markerId: MarkerId('idMarker'),
+      Marker(
+          markerId: const MarkerId('idMarker'),
           draggable: true,
-          position: LatLng(41.8882523, -87.80376609999999)),
+          position: LatLng(widget.state.pharmacy!.latitude,
+              widget.state.pharmacy!.longitude)),
     );
   }
 }

@@ -7,15 +7,15 @@ class PharmacyListController extends Cubit<PharmacyDetailState> {
       : _service = service,
         super(PharmacyDetailState.initial());
 
-  Future<void> getPharmaciesAndPrices(
-      {required String gpi14,
-      required String name,
-      required double lat,
-      required double long}) async {
+  Future<void> getPharmaciesAndPrices({
+    required String gpi14,
+    required String name,
+    required double lat,
+    required double long,
+  }) async {
     try {
       emit(state.copyWith(listPharmacies: [], status: SearchStatus.loading));
 
-      /// Call API
       final listPharmacies =
           await _service.getPharmacies(gpi14, name, lat, long);
 

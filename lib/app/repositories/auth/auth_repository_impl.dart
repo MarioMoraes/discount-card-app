@@ -29,7 +29,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       if (response.statusCode == 200) {
-        // Save Token
+        // Return Token
         Map<String, dynamic> map = response.data;
         return map['data']['token'];
       }

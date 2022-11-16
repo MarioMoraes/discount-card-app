@@ -2,22 +2,17 @@ import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CardDrugPharmacy extends StatelessWidget {
-  final String name;
-  final double distance;
-  final double price;
+import '../../../models/pharmacy_and_prices_model.dart';
 
-  const CardDrugPharmacy(
-      {Key? key,
-      required this.name,
-      required this.distance,
-      required this.price})
-      : super(key: key);
+class CardDrugPharmacy extends StatelessWidget {
+  final PharmacyAndPricesModel model;
+
+  const CardDrugPharmacy({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Modular.to.pushNamed('/drug/details'),
+      onTap: () => Modular.to.pushNamed('/drug/details', arguments: model),
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
         width: MediaQuery.of(context).size.width,
@@ -40,7 +35,7 @@ class CardDrugPharmacy extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    name.toString(),
+                    model.pharmacy.name.toString(),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -49,7 +44,7 @@ class CardDrugPharmacy extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '${distance.toStringAsFixed(2)} miles',
+                    '${model.pharmacy.distance.toStringAsFixed(2)} miles',
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -64,7 +59,7 @@ class CardDrugPharmacy extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('\$$price',
+                  Text(model.medication.price.toStringAsFixed(2),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
