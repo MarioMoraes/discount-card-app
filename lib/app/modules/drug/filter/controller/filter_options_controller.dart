@@ -104,8 +104,8 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     listCoverages.any((element) => element.selected = false);
     listCoverages[index].selected = true;
 
-    updateType(index);
-    updateDosage(index);
+    listTypes = updateType(index);
+    listDosages = updateDosage(index);
 
     emit(state.copyWith(
         listCoverages: listCoverages,
@@ -115,11 +115,6 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
   }
 
   changeType(int index) {
-    //emit(state.copyWith(status: SearchStatus.loading));
-    //listTypes.any((element) => element.selected = false);
-    //listTypes[index].selected = true;
-    //emit(state.copyWith(listTypes: listTypes, status: SearchStatus.completed));
-
     listDosages = updateDosage(index);
 
     emit(state.copyWith(status: SearchStatus.loading));
@@ -141,12 +136,9 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
         listDosages: listDosages,
         listTypes: listTypes,
         status: SearchStatus.completed));
-
-//    emit(state.copyWith(
-//        listDosages: listDosages, status: SearchStatus.completed));
   }
 
-  updateType(int index) {
+  List<CardSelectModel> updateType(int index) {
     List<CardSelectModel>? listTypes = [];
 
     final coverage = listCoverages[index].description;
@@ -165,11 +157,7 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
         ),
       );
     }
-
-    emit(state.copyWith(status: SearchStatus.loading));
-    listTypes.any((element) => element.selected = false);
-    listTypes[0].selected = true;
-    emit(state.copyWith(listTypes: listTypes, status: SearchStatus.completed));
+    return listTypes;
   }
 
   List<CardSelectModel> updateDosage(int index) {
