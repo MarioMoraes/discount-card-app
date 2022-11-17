@@ -75,9 +75,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                   builder: (context, list) {
                     return SliverList(
                         delegate: SliverChildListDelegate(list
-                            .map((e) => CardSearchDrug(
-                                  model: e,
-                                ))
+                            .map((e) => CardSearchDrug(model: e))
                             .toList()));
                   })
             ],

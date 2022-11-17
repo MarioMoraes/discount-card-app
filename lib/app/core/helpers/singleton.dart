@@ -5,11 +5,5 @@ class Singleton {
 
   static Singleton get instance => _singleton;
 
-  var tokenData = '';
-  var personCode = '';
-  var carrierCode = '';
-  var groupNum = '';
-  var subscriberNum = '';
-  var planInfo = '';
-  var dateBirth = '';
+  var drugSearchOrderBy = '';
 }

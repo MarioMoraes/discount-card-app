@@ -160,9 +160,18 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     List<CardSelectModel>? listCards = [];
 
     final dosage = listTypes[index].description;
+    var coverage = '';
 
-    final list =
-        [...listComplete].where((element) => element.type == dosage).toList();
+    for (var i = 0; i < listCoverages.length; i++) {
+      if (listCoverages[i].selected) {
+        coverage = listCoverages[i].description;
+      }
+    }
+
+    final list = [...listComplete]
+        .where(
+            (element) => element.type == dosage && element.coverage == coverage)
+        .toList();
 
     for (var i = 0; i < list.length; i++) {
       listCards.add(

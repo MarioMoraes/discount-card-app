@@ -31,24 +31,44 @@ class CardSearchDrug extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .75,
-                  child: Text(
-                    model.name ?? '',
-                    style: const TextStyle(fontSize: 16),
-                    overflow: TextOverflow.ellipsis,
+            Flexible(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .75,
+                    child: Text(
+                      model.name ?? '',
+                      style: const TextStyle(fontSize: 16),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                Text(
-                  model.type ?? '',
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w300),
-                ),
-              ],
+                  Text(
+                    model.dosage ?? '',
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .85,
+                    child: Text(
+                      model.coverage ?? '',
+                      style: const TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             const Icon(
