@@ -12,7 +12,7 @@ class QuantityOptions extends StatefulWidget {
 }
 
 class _QuantityOptionsState extends State<QuantityOptions> {
-  final double _currentSliderValue = 0;
+  final _quantityEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +41,9 @@ class _QuantityOptionsState extends State<QuantityOptions> {
               color: context.primaryColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                label: Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                ),
+            child: Center(
+              child: TextFormField(
+                controller: _quantityEC,
               ),
             ),
           ),

@@ -125,7 +125,7 @@ class _DrugDetails extends StatelessWidget {
               Text(
                 model.medication.price.toStringAsFixed(2),
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Color(0xff04461F),
                 ),
