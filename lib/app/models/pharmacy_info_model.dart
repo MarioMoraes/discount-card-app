@@ -17,7 +17,7 @@ class PharmacyInfoModel {
   String npi;
   int timeZoneOffset;
   List<AddressListModel> addressList;
-  List<HoursOfOperation> hoursOfOperation;
+  List<HoursOfOperation>? hoursOfOperation;
 
   PharmacyInfoModel({
     required this.nabp,
@@ -31,7 +31,7 @@ class PharmacyInfoModel {
     required this.npi,
     required this.timeZoneOffset,
     required this.addressList,
-    required this.hoursOfOperation,
+    this.hoursOfOperation,
   });
 
   Map<String, dynamic> toMap() {
@@ -47,7 +47,7 @@ class PharmacyInfoModel {
       'npi': npi,
       'time_zone_offset': timeZoneOffset,
       'address_list': addressList.map((x) => x.toMap()).toList(),
-      'hours_of_operation': hoursOfOperation.map((x) => x.toMap()).toList(),
+      'hours_of_operation': hoursOfOperation?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -72,11 +72,14 @@ class PharmacyInfoModel {
           (x) => AddressListModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      hoursOfOperation: List<HoursOfOperation>.from(
-        (map['hours_of_operation'] as List<dynamic>).map<HoursOfOperation>(
-          (x) => HoursOfOperation.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      hoursOfOperation: map['hours_of_operation'] != null
+          ? List<HoursOfOperation>.from(
+              (map['hours_of_operation'] as List<dynamic>)
+                  .map<HoursOfOperation?>(
+                (x) => HoursOfOperation.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
     );
   }
 
