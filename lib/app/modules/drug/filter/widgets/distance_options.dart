@@ -12,6 +12,8 @@ class DistanceOptions extends StatefulWidget {
 }
 
 class DistanceOptionsState extends State<DistanceOptions> {
+  final _sliderValue = 0.0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,8 +32,7 @@ class DistanceOptionsState extends State<DistanceOptions> {
           height: 5,
         ),
         Slider(
-          value: 0,
-          //value: widget.distanceController.value,
+          value: _sliderValue,
           max: 100,
           divisions: 5,
           //label: widget.distanceController.value.round().toString(),

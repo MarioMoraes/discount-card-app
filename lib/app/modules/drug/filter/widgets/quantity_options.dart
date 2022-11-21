@@ -15,6 +15,12 @@ class _QuantityOptionsState extends State<QuantityOptions> {
   final _quantityEC = TextEditingController();
 
   @override
+  void initState() {
+    _quantityEC.text = '0';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,8 +48,16 @@ class _QuantityOptionsState extends State<QuantityOptions> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Center(
-              child: TextFormField(
-                controller: _quantityEC,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _quantityEC,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w200,
+                  ),
+                ),
               ),
             ),
           ),
