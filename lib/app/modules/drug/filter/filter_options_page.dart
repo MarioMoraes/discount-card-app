@@ -1,4 +1,5 @@
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
+import 'package:discount_card_app/app/modules/drug/filter/widgets/source_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -90,10 +91,15 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
               QuantityOptions(
                   quantityController: Modular.get<FilterOptionsController>()),
               const SizedBox(
-                height: 15,
+                height: 20,
               ),
               DistanceOptions(
                   distanceController: Modular.get<FilterOptionsController>()),
+              const SizedBox(
+                height: 35,
+              ),
+              SourceLocation(
+                  controller: Modular.get<FilterOptionsController>()),
             ],
           ),
         ),

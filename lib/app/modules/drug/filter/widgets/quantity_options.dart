@@ -54,8 +54,8 @@ class _QuantityOptionsState extends State<QuantityOptions> {
                   controller: _quantityEC,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w200,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
