@@ -7,6 +7,7 @@ import 'package:discount_card_app/app/modules/drug/widgets/card_popular_searches
 import 'package:discount_card_app/app/modules/drug/widgets/card_search_drug.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DrugSearchPage extends StatefulWidget {
@@ -52,13 +53,33 @@ class _DrugSearchPageState extends State<DrugSearchPage>
               ),
               BlocSelector<DrugSearchController, DrugSearchState, bool>(
                 bloc: widget.controller,
+                selector: (state) => state.status != SearchStatus.completed,
+                builder: (context, showLoading) {
+                  return SliverVisibility(
+                    visible: showLoading,
+                    sliver: SliverToBoxAdapter(
+                      child: Center(
+                        child: SizedBox(
+                          width: 200,
+                          height: MediaQuery.of(context).size.height * .5,
+                          child: Center(
+                              child: SvgPicture.asset(
+                                  'assets/images/undraw2.svg')),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              BlocSelector<DrugSearchController, DrugSearchState, bool>(
+                bloc: widget.controller,
                 selector: (state) => state.status == SearchStatus.loading,
                 builder: (context, showLoading) {
                   return SliverVisibility(
                     visible: showLoading,
                     sliver: SliverToBoxAdapter(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * .50,
+                        height: MediaQuery.of(context).size.height * .25,
                         child: Center(
                           child: LoadingAnimationWidget.fourRotatingDots(
                               color: context.primaryColor, size: 35),

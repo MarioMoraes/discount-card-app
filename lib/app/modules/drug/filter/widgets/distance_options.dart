@@ -1,6 +1,5 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DistanceOptions extends StatefulWidget {
@@ -14,7 +13,7 @@ class DistanceOptions extends StatefulWidget {
 }
 
 class DistanceOptionsState extends State<DistanceOptions> {
-  var _sliderValue = 0.0;
+  var _sliderValue = 5.0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class DistanceOptionsState extends State<DistanceOptions> {
           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: CupertinoSlider(
+            child: Slider(
               value: _sliderValue,
               min: 5,
               max: 100,
