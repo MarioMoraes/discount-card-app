@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-//        _authenticated();
+        _authenticated();
       },
     );
     super.initState();

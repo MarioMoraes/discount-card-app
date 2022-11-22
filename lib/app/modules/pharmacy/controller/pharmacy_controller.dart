@@ -5,10 +5,11 @@ class PharmacyController extends Cubit<PharmacyState> {
 
   PharmacyController({required this.service}) : super(PharmacyState.initial());
 
-  Future<void> getAllPharmacies() async {
+  Future<void> getAllPharmacies(
+      {required double latitude, required double longitude}) async {
     try {
       emit(state.copyWith(status: SearchStatus.loading, listPharmacies: []));
-      final listPharmacies = await service.getPharmacies();
+      final listPharmacies = await service.getPharmacies(latitude, longitude);
       emit(state.copyWith(
           status: SearchStatus.completed, listPharmacies: listPharmacies));
     } on Exception {

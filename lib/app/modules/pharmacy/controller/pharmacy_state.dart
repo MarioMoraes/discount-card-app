@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:discount_card_app/app/models/pharmacy.dart';
+import 'package:discount_card_app/app/models/pharmacy_location.dart';
 import 'package:discount_card_app/app/services/pharmacy/pharmacy_list/pharmacy_list_service.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,7 +14,7 @@ enum SearchStatus {
 }
 
 class PharmacyState extends Equatable {
-  final List<Pharmacy> listPharmacies;
+  final List<PharmacyLocation> listPharmacies;
   final SearchStatus status;
 
   const PharmacyState._({
@@ -32,7 +32,7 @@ class PharmacyState extends Equatable {
   List<Object?> get props => [listPharmacies, status];
 
   PharmacyState copyWith({
-    List<Pharmacy>? listPharmacies,
+    List<PharmacyLocation>? listPharmacies,
     SearchStatus? status,
   }) {
     return PharmacyState._(

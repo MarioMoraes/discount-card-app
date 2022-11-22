@@ -1,10 +1,10 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
-import 'package:discount_card_app/app/models/pharmacy.dart';
+import 'package:discount_card_app/app/models/pharmacy_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CardPharmacy extends StatelessWidget {
-  final Pharmacy model;
+  final PharmacyLocation model;
 
   const CardPharmacy({Key? key, required this.model}) : super(key: key);
 

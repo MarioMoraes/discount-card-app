@@ -1,5 +1,5 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
-import 'package:discount_card_app/app/models/pharmacy.dart';
+import 'package:discount_card_app/app/models/pharmacy_location.dart';
 import 'package:discount_card_app/app/modules/pharmacy/controller/pharmacy_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +22,10 @@ class PharmacyListPage extends StatefulWidget {
 class _PharmacyListPageState extends State<PharmacyListPage> {
   @override
   void initState() {
-    widget.controller.getAllPharmacies();
+    widget.controller.getAllPharmacies(
+      latitude: 41.8881604,
+      longitude: -87.80669739999999,
+    );
     super.initState();
   }
 
@@ -70,7 +73,8 @@ class _PharmacyListPageState extends State<PharmacyListPage> {
                 );
               },
             ),
-            BlocSelector<PharmacyController, PharmacyState, List<Pharmacy>>(
+            BlocSelector<PharmacyController, PharmacyState,
+                    List<PharmacyLocation>>(
                 bloc: widget.controller,
                 selector: (state) => state.listPharmacies,
                 builder: (context, list) {
