@@ -11,7 +11,7 @@ class CardPharmacy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Modular.to.pushNamed('/pharmacy/detail'),
+      onTap: () => Modular.to.pushNamed('/pharmacy/detail', arguments: model),
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
         width: MediaQuery.of(context).size.width,
@@ -29,25 +29,47 @@ class CardPharmacy extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/wal.png',
-                  height: 35,
-                  width: 85,
-                  fit: BoxFit.cover,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .50,
+                  child: Text(
+                    model.pharmacy.name.toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red.shade900,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Text(
-                  '1129 Lake ST - OAK PARK',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .5,
+                  child: Text(
+                    model.pharmacy.address,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  '1.81 miles',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
-                )
+                Text(
+                  '${model.pharmacy.distance.toStringAsFixed(2)} miles',
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
               ],
             ),
             const SizedBox(

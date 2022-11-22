@@ -29,7 +29,7 @@ class PharmacyModule extends Module {
         ),
         ChildRoute(
           '/detail',
-          child: (args, context) => const PharmacyDetail(),
+          child: (_, args) => PharmacyDetail(model: args.data),
         ),
       ];
 }

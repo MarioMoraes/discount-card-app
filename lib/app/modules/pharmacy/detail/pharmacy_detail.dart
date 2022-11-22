@@ -1,10 +1,13 @@
+import 'package:discount_card_app/app/models/pharmacy_location.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/widgets/custom_app_bar_title.dart';
 
 class PharmacyDetail extends StatelessWidget {
-  const PharmacyDetail({Key? key}) : super(key: key);
+  final PharmacyLocation model;
+
+  const PharmacyDetail({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +17,17 @@ class PharmacyDetail extends StatelessWidget {
         subtitle: 'Pharmacy Details',
       ),
       body: Column(
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 20,
           ),
-          _PharmacyAddress(),
+          _PharmacyAddress(model: model),
+          const SizedBox(
+            width: 10,
+          ),
           Expanded(
-            child: _ShowMap(),
+            child: _ShowMap(
+                lat: model.location.latitude, long: model.location.longitude),
           ),
         ],
       ),
@@ -29,7 +36,8 @@ class PharmacyDetail extends StatelessWidget {
 }
 
 class _PharmacyAddress extends StatelessWidget {
-  const _PharmacyAddress({Key? key}) : super(key: key);
+  final PharmacyLocation model;
+  const _PharmacyAddress({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,46 +49,50 @@ class _PharmacyAddress extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
-            height: 150,
+            width: MediaQuery.of(context).size.width * .60,
+            height: 200,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Name',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Sears Pharmacy #3223',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  model.pharmacy.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Address',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
-                Text(
-                  '1003 MADISON ST',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
                 SizedBox(
+                  width: MediaQuery.of(context).size.width * .55,
+                  child: Text(
+                    model.pharmacy.address,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Phone',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  '700884900',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  model.pharmacy.phoneNumber,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
           const SizedBox(
-            width: 45,
+            height: 10,
           ),
           SizedBox(
             child: Column(
@@ -114,7 +126,10 @@ class _PharmacyAddress extends StatelessWidget {
 }
 
 class _ShowMap extends StatefulWidget {
-  const _ShowMap({Key? key}) : super(key: key);
+  final double lat;
+  final double long;
+  const _ShowMap({Key? key, required this.lat, required this.long})
+      : super(key: key);
 
   @override
   State<_ShowMap> createState() => _ShowMapState();
@@ -131,8 +146,8 @@ class _ShowMapState extends State<_ShowMap> {
 
   @override
   Widget build(BuildContext context) {
-    const CameraPosition _currentPosition = CameraPosition(
-      target: LatLng(41.8882523, -87.80376609999999),
+    CameraPosition _currentPosition = CameraPosition(
+      target: LatLng(widget.lat, widget.long),
       zoom: 12.4746,
     );
 
@@ -145,10 +160,10 @@ class _ShowMapState extends State<_ShowMap> {
 
   _addMarker() {
     allMarkers.add(
-      const Marker(
-          markerId: MarkerId('idMarker'),
+      Marker(
+          markerId: const MarkerId('idMarker'),
           draggable: true,
-          position: LatLng(41.8882523, -87.80376609999999)),
+          position: LatLng(widget.lat, widget.long)),
     );
   }
 }

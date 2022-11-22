@@ -44,17 +44,6 @@ class _PharmacyListPageState extends State<PharmacyListPage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            const SliverVisibility(
-              visible: false,
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                ),
-              ),
-            ),
             BlocSelector<PharmacyController, PharmacyState, bool>(
               bloc: widget.controller,
               selector: (state) => state.status == SearchStatus.loading,
@@ -63,7 +52,7 @@ class _PharmacyListPageState extends State<PharmacyListPage> {
                   visible: showLoading,
                   sliver: SliverToBoxAdapter(
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * .25,
+                      height: MediaQuery.of(context).size.height * .75,
                       child: Center(
                         child: LoadingAnimationWidget.fourRotatingDots(
                             color: context.primaryColor, size: 35),
