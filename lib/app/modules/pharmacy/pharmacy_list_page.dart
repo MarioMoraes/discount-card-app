@@ -1,20 +1,30 @@
+import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/models/pharmacy.dart';
+import 'package:discount_card_app/app/modules/pharmacy/controller/pharmacy_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'widgets/card_pharmacy.dart';
 
-class PharmacyListPage extends StatelessWidget {
-  PharmacyListPage({Key? key}) : super(key: key);
+class PharmacyListPage extends StatefulWidget {
+  final PharmacyController controller;
 
-  final List<String> list = [
-    'Pharmacy',
-    'Pharmacy 2',
-    'Pharmacy 3',
-    'Pharmacy 4',
-    'Pharmacy 5',
-    'Pharmacy 6',
-    'Pharmacy 6',
-    'Pharmacy 6',
-  ];
+  const PharmacyListPage({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  State<PharmacyListPage> createState() => _PharmacyListPageState();
+}
+
+class _PharmacyListPageState extends State<PharmacyListPage> {
+  @override
+  void initState() {
+    widget.controller.getAllPharmacies();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +41,6 @@ class PharmacyListPage extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            // SliverPersistentHeader(
-            //   delegate: CustomMenuHeader(title: 'Pharmacy Name'),
-            //   pinned: true,
-            // ),
             const SliverVisibility(
               visible: false,
               sliver: SliverToBoxAdapter(
@@ -46,9 +52,32 @@ class PharmacyListPage extends StatelessWidget {
                 ),
               ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate(
-                    list.map((e) => const CardPharmacy()).toList())),
+            BlocSelector<PharmacyController, PharmacyState, bool>(
+              bloc: widget.controller,
+              selector: (state) => state.status == SearchStatus.loading,
+              builder: (context, showLoading) {
+                return SliverVisibility(
+                  visible: showLoading,
+                  sliver: SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * .25,
+                      child: Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                            color: context.primaryColor, size: 35),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            BlocSelector<PharmacyController, PharmacyState, List<Pharmacy>>(
+                bloc: widget.controller,
+                selector: (state) => state.listPharmacies,
+                builder: (context, list) {
+                  return SliverList(
+                      delegate: SliverChildListDelegate(
+                          list.map((e) => CardPharmacy(model: e)).toList()));
+                }),
           ],
         ),
       ),

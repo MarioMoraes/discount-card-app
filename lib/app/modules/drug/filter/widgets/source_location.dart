@@ -59,7 +59,7 @@ class _SourceLocationState extends State<SourceLocation> {
                         child: const Text(
                           'USER DEFINED',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
