@@ -79,7 +79,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                     visible: showLoading,
                     sliver: SliverToBoxAdapter(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height * .25,
                         child: Center(
                           child: LoadingAnimationWidget.fourRotatingDots(
                               color: context.primaryColor, size: 35),
