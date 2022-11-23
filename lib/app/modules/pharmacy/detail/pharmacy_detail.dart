@@ -60,7 +60,12 @@ class _PharmacyAddress extends StatelessWidget {
                 ),
                 Text(
                   model.pharmacy.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red.shade900,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 10,

@@ -54,17 +54,17 @@ class _DrugSearchPageState extends State<DrugSearchPage>
               BlocSelector<DrugSearchController, DrugSearchState, bool>(
                 bloc: widget.controller,
                 selector: (state) => state.status != SearchStatus.completed,
-                builder: (context, showLoading) {
+                builder: (context, show) {
                   return SliverVisibility(
-                    visible: showLoading,
+                    visible: show,
                     sliver: SliverToBoxAdapter(
                       child: Center(
                         child: SizedBox(
-                          width: 200,
+                          width: 150,
                           height: MediaQuery.of(context).size.height * .5,
                           child: Center(
-                              child: SvgPicture.asset(
-                                  'assets/images/undraw2.svg')),
+                            child: SvgPicture.asset('assets/images/search.svg'),
+                          ),
                         ),
                       ),
                     ),
@@ -79,7 +79,7 @@ class _DrugSearchPageState extends State<DrugSearchPage>
                     visible: showLoading,
                     sliver: SliverToBoxAdapter(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * .25,
+                        height: MediaQuery.of(context).size.height,
                         child: Center(
                           child: LoadingAnimationWidget.fourRotatingDots(
                               color: context.primaryColor, size: 35),

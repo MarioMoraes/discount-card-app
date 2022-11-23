@@ -22,7 +22,7 @@ class CustomMenuHeader extends SliverPersistentHeaderDelegate {
           builder: (context, state) {
             return Container(
                 height: constraints.maxHeight,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 color: Colors.white,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

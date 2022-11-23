@@ -17,7 +17,7 @@ class CardSearchDrug extends StatelessWidget {
       onTap: () =>
           Modular.to.pushNamed('/drug/pharmacies-list', arguments: model),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
+        margin: const EdgeInsets.fromLTRB(2, 2, 5, 5),
         width: MediaQuery.of(context).size.width,
         height: 60,
         decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),

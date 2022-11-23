@@ -13,10 +13,10 @@ class CardPharmacy extends StatelessWidget {
     return InkWell(
       onTap: () => Modular.to.pushNamed('/pharmacy/detail', arguments: model),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 2, 10, 5),
+        margin: const EdgeInsets.fromLTRB(2, 2, 4, 5),
         width: MediaQuery.of(context).size.width,
         height: 80,
-        decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),
+        decoration: BoxDecoration(color: Colors.grey.shade200.withOpacity(0.6)),
         child: Row(
           children: [
             Container(
@@ -32,7 +32,7 @@ class CardPharmacy extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * .50,
+                  width: MediaQuery.of(context).size.width * .70,
                   child: Text(
                     model.pharmacy.name.toString(),
                     style: TextStyle(
@@ -44,7 +44,7 @@ class CardPharmacy extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 2,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * .5,
@@ -72,12 +72,11 @@ class CardPharmacy extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              width: 100,
-            ),
-            const Icon(
-              Icons.location_on,
-              size: 30,
+            const Spacer(),
+            Icon(
+              Icons.arrow_forward_ios_outlined,
+              size: 20,
+              color: Colors.grey.shade500,
             )
           ],
         ),
