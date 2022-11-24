@@ -92,7 +92,9 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
       selector: (state) => state.listPharmacies,
       builder: (context, state) {
         return InkWell(
-          onTap: () => Modular.to.pushNamed('/drug/map', arguments: state),
+          onTap: () {
+            Modular.to.pushNamed('/drug/map', arguments: state);
+          },
           child: Container(
             height: 50,
             width: 150,
