@@ -75,8 +75,10 @@ class DrugSearchModule extends Module {
         ),
         ChildRoute(
           '/filters',
-          child: (args, context) => FilterOptionsPage(
-              controller: Modular.get<FilterOptionsController>()),
+          child: (_, args) => FilterOptionsPage(
+            controller: Modular.get<FilterOptionsController>(),
+            model: args.data,
+          ),
           transition: TransitionType.downToUp,
         ),
         ChildRoute(

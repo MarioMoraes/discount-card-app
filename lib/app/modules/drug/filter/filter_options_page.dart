@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/source_location.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,12 @@ import 'widgets/type_options.dart';
 
 class FilterOptionsPage extends StatefulWidget {
   final FilterOptionsController controller;
+  final DrugModel model;
 
   const FilterOptionsPage({
     Key? key,
     required this.controller,
+    required this.model,
   }) : super(key: key);
 
   @override
@@ -24,7 +27,7 @@ class FilterOptionsPage extends StatefulWidget {
 class _FilterOptionsPageState extends State<FilterOptionsPage> {
   @override
   void initState() {
-    widget.controller.getFilter('59250015002020');
+    widget.controller.getFilter(widget.model.gpi14!);
     super.initState();
   }
 

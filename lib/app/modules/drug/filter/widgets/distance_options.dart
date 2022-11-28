@@ -37,7 +37,7 @@ class DistanceOptionsState extends State<DistanceOptions> {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Text(
-                  '$_sliderValue miles',
+                  '${_sliderValue.toStringAsFixed(0)} miles',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: context.primaryColor,
@@ -58,7 +58,6 @@ class DistanceOptionsState extends State<DistanceOptions> {
               value: _sliderValue,
               min: 5,
               max: 100,
-              divisions: 5,
               onChanged: (double value) {
                 setState(() {
                   _sliderValue = value;

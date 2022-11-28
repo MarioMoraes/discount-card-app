@@ -46,7 +46,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: CustomFilterHeader(),
+            delegate: CustomFilterHeader(model: widget.model),
             pinned: true,
           ),
           BlocSelector<PharmacyListController, PharmacyListState, bool>(

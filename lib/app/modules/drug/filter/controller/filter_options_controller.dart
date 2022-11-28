@@ -105,7 +105,7 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     listCoverages[index].selected = true;
 
     listTypes = updateType(index);
-    listDosages = updateDosage(index);
+    listDosages = updateDosage(0);
 
     emit(state.copyWith(
         listCoverages: listCoverages,

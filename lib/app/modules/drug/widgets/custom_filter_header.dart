@@ -1,8 +1,15 @@
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
+import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomFilterHeader extends SliverPersistentHeaderDelegate {
+  final DrugModel model;
+
+  CustomFilterHeader({
+    required this.model,
+  });
+
   final int? _value = 0;
 
   @override
@@ -106,7 +113,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   }
 
   void _showFilterOptions() {
-    Modular.to.pushNamed('/drug/filters');
+    Modular.to.pushNamed('/drug/filters', arguments: model);
   }
 
   void _showOrderyBy(context) {
