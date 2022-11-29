@@ -6,4 +6,7 @@ class Singleton {
   static Singleton get instance => _singleton;
 
   var drugSearchOrderBy = '';
+  var useZipCode = false;
+  var latitude = 0.0;
+  var longitude = 0.0;
 }
