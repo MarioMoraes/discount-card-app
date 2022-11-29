@@ -52,11 +52,26 @@ class _SourceLocationState extends State<SourceLocation> {
                     const SizedBox(
                       width: 15,
                     ),
-                    SizedBox(
+                    Container(
                       height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text(
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 4,
+                            offset: const Offset(
+                                2, 4), // changes position of shadow
+                          ),
+                        ],
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
                           'USER DEFINED',
                           style: TextStyle(
                             color: Colors.black,
