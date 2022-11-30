@@ -63,7 +63,8 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
             ),
           ),
           onPressed: () {
-            getParameters();
+            widget.controller.passParameters();
+            Navigator.of(context).pop();
           },
           icon: const Icon(
             Icons.check,
@@ -110,34 +111,5 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
         ),
       ),
     );
-  }
-
-  void getParameters() {
-    final listC = widget.controller.listCoverages;
-    final listT = widget.controller.listTypes;
-    final listD = widget.controller.listDosages;
-
-    final items =
-        listC.map((element) => element.selected == true).toSet().toList();
-    print('####################################');
-    print(items);
-
-    for (var i = 0; i < listC.length; i++) {
-      if (listC[i].selected) {
-        print(listC[i].description);
-      }
-    }
-
-    for (var i = 0; i < listT.length; i++) {
-      if (listT[i].selected) {
-        print(listT[i].description);
-      }
-    }
-
-    for (var i = 0; i < listD.length; i++) {
-      if (listD[i].selected) {
-        print(listD[i].description);
-      }
-    }
   }
 }

@@ -57,7 +57,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
                 visible: showLoading,
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .50,
+                    height: MediaQuery.of(context).size.height * .55,
                     child: Center(
                       child: LoadingAnimationWidget.fourRotatingDots(
                           color: context.primaryColor, size: 35),
@@ -93,7 +93,9 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            Modular.to.pushNamed('/drug/map', arguments: state);
+            if (state.isNotEmpty) {
+              Modular.to.pushNamed('/drug/map', arguments: state);
+            }
           },
           child: Container(
             height: 50,
@@ -109,7 +111,7 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
                 Icon(
                   Icons.map,
                   color: Colors.white,
-                  size: 36,
+                  size: 30,
                 ),
                 SizedBox(
                   width: 5,

@@ -45,6 +45,7 @@ class _SourceLocationState extends State<SourceLocation> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
+                            fontSize: 12,
                           ),
                         ),
                       ),
@@ -54,7 +55,7 @@ class _SourceLocationState extends State<SourceLocation> {
                     ),
                     Container(
                       height: 40,
-                      width: 150,
+                      width: 120,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
@@ -76,6 +77,7 @@ class _SourceLocationState extends State<SourceLocation> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
+                            fontSize: 12,
                           ),
                         ),
                       ),

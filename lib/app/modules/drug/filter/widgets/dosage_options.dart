@@ -42,7 +42,7 @@ class DosageOptionsState extends State<DosageOptions> {
             width: double.infinity,
             height: 40,
             child: Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
+              padding: const EdgeInsets.only(left: 15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

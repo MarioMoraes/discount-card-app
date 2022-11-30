@@ -29,7 +29,9 @@ class CustomMenuHeader extends SliverPersistentHeaderDelegate {
                     children: [
                       CustomTextFormField(
                         onChange: (value) {
-                          controller.filter(value);
+                          if (value.isNotEmpty) {
+                            controller.filter(value);
+                          }
                         },
                         hint: title,
                         showIcon: true,

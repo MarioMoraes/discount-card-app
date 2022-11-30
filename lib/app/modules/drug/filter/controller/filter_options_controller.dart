@@ -188,4 +188,24 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
 
     return listCards;
   }
+
+  void passParameters() {
+    final coverage = listCoverages
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+
+    final type = listTypes
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+
+    final dosage = listDosages
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+  }
 }

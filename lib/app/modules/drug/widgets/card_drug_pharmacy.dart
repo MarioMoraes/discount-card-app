@@ -16,7 +16,7 @@ class CardDrugPharmacy extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 2, 0, 5),
         width: MediaQuery.of(context).size.width,
-        height: 80,
+        height: 60,
         decoration: BoxDecoration(color: Colors.grey.shade100.withOpacity(0.5)),
         child: Row(
           children: [
@@ -29,7 +29,7 @@ class CardDrugPharmacy extends StatelessWidget {
               width: 10,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * .6,
+              width: MediaQuery.of(context).size.width * .63,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
