@@ -117,6 +117,11 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
     final listT = widget.controller.listTypes;
     final listD = widget.controller.listDosages;
 
+    final items =
+        listC.map((element) => element.selected == true).toSet().toList();
+    print('####################################');
+    print(items);
+
     for (var i = 0; i < listC.length; i++) {
       if (listC[i].selected) {
         print(listC[i].description);
