@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:discount_card_app/app/modules/drug/filter/widgets/source_location.dart';
@@ -64,7 +65,7 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
           ),
           onPressed: () {
             widget.controller.passParameters();
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(widget.controller);
           },
           icon: const Icon(
             Icons.check,

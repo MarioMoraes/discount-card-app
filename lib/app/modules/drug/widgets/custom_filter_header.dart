@@ -3,11 +3,15 @@ import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../pharmacies/controller/pharmacy_list_state.dart';
+
 class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   final DrugModel model;
+  final PharmacyListController controller;
 
   CustomFilterHeader({
     required this.model,
+    required this.controller,
   });
 
   final int? _value = 0;
@@ -46,6 +50,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     selectedColor: const Color(0xff8EB14F),
                     onSelected: (bool selected) {
                       _showFilterOptions();
+                      ////////////////////
                     },
                   ),
                   ChoiceChip(
@@ -112,8 +117,9 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     return true;
   }
 
-  void _showFilterOptions() {
-    Modular.to.pushNamed('/drug/filters', arguments: model);
+  void _showFilterOptions() async {
+    final teste = await Modular.to.pushNamed('/drug/filters', arguments: model);
+    print(teste);
   }
 
   void _showOrderyBy(context) {

@@ -14,10 +14,44 @@ class PharmacyAndPriceRepositoryImpl extends PharmacyAndPriceRepository {
 
   @override
   Future<List<PharmacyAndPricesModel>?> getPharmacies(
-      String gpi14, String name, double lat, double long) async {
+    String gpi14,
+    String name,
+    double lat,
+    double long,
+    int? distance,
+    int? quantity,
+    String? type,
+    String? strength,
+    String? coverage,
+  ) async {
     try {
-      final response = await dio.auth().get('/drugs/$gpi14/pharmacies/prices',
-          queryParameters: {'name': name, 'latitude': lat, 'longitude': long});
+      var query = {
+        'name': name,
+        'latitude': lat,
+        'longitude': long,
+      };
+
+      if (distance != null) {
+        query['distance'] = distance;
+      }
+      if (quantity != null) {
+        query['quantity'] = quantity;
+      }
+      if (type != null) {
+        query['type'] = type;
+      }
+      if (strength != null) {
+        query['strength'] = strength;
+      }
+      if (coverage != null) {
+        query['coverage'] = coverage;
+      }
+
+      print(1);
+
+      final response = await dio
+          .auth()
+          .get('/drugs/$gpi14/pharmacies/prices', queryParameters: query);
 
       if (response.statusCode == 200) {
         return response.data['data']

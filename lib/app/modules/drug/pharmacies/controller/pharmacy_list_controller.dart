@@ -12,12 +12,26 @@ class PharmacyListController extends Cubit<PharmacyListState> {
     required String name,
     required double lat,
     required double long,
+    int? distance,
+    int? quantity,
+    String? type,
+    String? strength,
+    String? coverage,
   }) async {
     try {
       emit(state.copyWith(listPharmacies: [], status: SearchStatus.loading));
 
-      final listPharmacies =
-          await _service.getPharmacies(gpi14, name, lat, long);
+      final listPharmacies = await _service.getPharmacies(
+        gpi14,
+        name,
+        lat,
+        long,
+        distance,
+        quantity,
+        type,
+        strength,
+        coverage,
+      );
 
       emit(state.copyWith(
           listPharmacies: listPharmacies, status: SearchStatus.completed));

@@ -11,6 +11,25 @@ class PharmacyAndPriceServiceImpl extends PharmacyAndPriceService {
 
   @override
   Future<List<PharmacyAndPricesModel>?> getPharmacies(
-          String gpi14, String name, double lat, double long) =>
-      _repository.getPharmacies(gpi14, name, lat, long);
+    String gpi14,
+    String name,
+    double lat,
+    double long,
+    int? distance,
+    int? quantity,
+    String? type,
+    String? strength,
+    String? coverage,
+  ) =>
+      _repository.getPharmacies(
+        gpi14,
+        name,
+        lat,
+        long,
+        distance,
+        quantity,
+        type,
+        strength,
+        coverage,
+      );
 }

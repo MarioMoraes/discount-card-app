@@ -31,7 +31,9 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
         gpi14: widget.model.gpi14 ?? '',
         name: widget.model.name ?? '',
         lat: 41.8881604,
-        long: -87.80669739999999);
+        long: -87.80669739999999,
+        quantity: 1,
+        distance: 5);
 
     super.initState();
   }
@@ -46,7 +48,8 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: CustomFilterHeader(model: widget.model),
+            delegate: CustomFilterHeader(
+                model: widget.model, controller: widget.controller),
             pinned: true,
           ),
           BlocSelector<PharmacyListController, PharmacyListState, bool>(
