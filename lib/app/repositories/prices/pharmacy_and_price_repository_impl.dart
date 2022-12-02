@@ -22,6 +22,7 @@ class PharmacyAndPriceRepositoryImpl extends PharmacyAndPriceRepository {
     int? quantity,
     String? type,
     String? strength,
+    String? strengthUnit,
     String? coverage,
   ) async {
     try {
@@ -43,11 +44,12 @@ class PharmacyAndPriceRepositoryImpl extends PharmacyAndPriceRepository {
       if (strength != null) {
         query['strength'] = strength;
       }
+      if (strengthUnit != null) {
+        query['strength_unit'] = strengthUnit;
+      }
       if (coverage != null) {
         query['coverage'] = coverage;
       }
-
-      print(1);
 
       final response = await dio
           .auth()

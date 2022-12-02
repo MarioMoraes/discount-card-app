@@ -16,6 +16,7 @@ class PharmacyListController extends Cubit<PharmacyListState> {
     int? quantity,
     String? type,
     String? strength,
+    String? strengthUnit,
     String? coverage,
   }) async {
     try {
@@ -30,6 +31,7 @@ class PharmacyListController extends Cubit<PharmacyListState> {
         quantity,
         type,
         strength,
+        strengthUnit,
         coverage,
       );
 

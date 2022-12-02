@@ -10,6 +10,7 @@ abstract class PharmacyAndPriceService {
     int? quantity,
     String? type,
     String? strength,
+    String? strengthUnit,
     String? coverage,
   );
 }

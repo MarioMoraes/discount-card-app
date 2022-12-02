@@ -64,8 +64,8 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
             ),
           ),
           onPressed: () {
-            widget.controller.passParameters();
-            Navigator.of(context).pop(widget.controller);
+            Modular.to.pop(widget.controller);
+            //Navigator.of(context).pop(widget.controller);
           },
           icon: const Icon(
             Icons.check,

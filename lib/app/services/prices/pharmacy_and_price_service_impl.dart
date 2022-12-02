@@ -19,6 +19,7 @@ class PharmacyAndPriceServiceImpl extends PharmacyAndPriceService {
     int? quantity,
     String? type,
     String? strength,
+    String? strengthUnit,
     String? coverage,
   ) =>
       _repository.getPharmacies(
@@ -30,6 +31,7 @@ class PharmacyAndPriceServiceImpl extends PharmacyAndPriceService {
         quantity,
         type,
         strength,
+        strengthUnit,
         coverage,
       );
 }

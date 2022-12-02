@@ -15,6 +15,10 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   });
 
   final int? _value = 0;
+  dynamic filterController;
+  String? _coverage;
+  String? _type;
+  String? _strengthUnit;
 
   @override
   Widget build(
@@ -48,9 +52,21 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     ),
                     selected: _value == 0,
                     selectedColor: const Color(0xff8EB14F),
-                    onSelected: (bool selected) {
-                      _showFilterOptions();
-                      ////////////////////
+                    onSelected: (bool selected) async {
+                      await _showFilterOptions();
+
+                      //! CHANGE LONGITUDE AND LATITUDE FOR DEVICE POINT
+                      controller.getPharmaciesAndPrices(
+                        gpi14: model.gpi14 ?? '',
+                        name: model.name ?? '',
+                        lat: 41.8881604,
+                        long: -87.80669739999999,
+                        quantity: 1,
+                        distance: 5,
+                        coverage: _coverage,
+                        type: _type,
+                        strengthUnit: _strengthUnit,
+                      );
                     },
                   ),
                   ChoiceChip(
@@ -117,9 +133,10 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     return true;
   }
 
-  void _showFilterOptions() async {
-    final teste = await Modular.to.pushNamed('/drug/filters', arguments: model);
-    print(teste);
+  Future _showFilterOptions() async {
+    filterController =
+        await Modular.to.pushNamed('/drug/filters', arguments: model);
+    _getParameters();
   }
 
   void _showOrderyBy(context) {
@@ -207,5 +224,30 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
         );
       },
     );
+  }
+
+  Future<void> _getParameters() async {
+    _coverage = filterController.listCoverages
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+
+    _type = filterController.listTypes
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+
+    _strengthUnit = filterController.listDosages
+        .where((element) => element.selected == true)
+        .toSet()
+        .toList()[0]
+        .description;
+
+    if (_strengthUnit != null) {
+      var strength = _strengthUnit!.split(' ');
+      _strengthUnit = strength[1];
+    }
   }
 }
