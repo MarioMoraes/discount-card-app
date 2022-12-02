@@ -1,16 +1,18 @@
 import 'package:discount_card_app/app/app_module.dart';
 import 'package:discount_card_app/app/app_widget.dart';
+import 'package:discount_card_app/app/core/env/env.dart';
+import 'package:discount_card_app/app/core/helpers/singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-void main() async {
-  await dotenv.load(fileName: ".env");
+Future<void> main() async {
+  await Env.instance.load();
+
+  Singleton.instance.latitude = 41.8881604;
+  Singleton.instance.longitude = -87.80669739999999;
 
   SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-  await Future.delayed(const Duration(seconds: 1));
 
   runApp(ModularApp(
     child: const AppWidget(),

@@ -30,6 +30,7 @@ dependencies:
   top_snackbar_flutter: ^2.1.1
   loading_animation_widget: ^1.2.0+3
   flutter_svg: ^0.22.0
+  flutter_awesome_select: ^6.5.0
 
 dev_dependencies:
   flutter_test:

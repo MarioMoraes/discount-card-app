@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/core/helpers/singleton.dart';
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/models/drug_model.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   String? _coverage;
   String? _type;
   String? _strengthUnit;
+  List<String>? selected;
 
   @override
   Widget build(
@@ -55,12 +57,11 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     onSelected: (bool selected) async {
                       await _showFilterOptions();
 
-                      //! CHANGE LONGITUDE AND LATITUDE FOR DEVICE POINT
                       controller.getPharmaciesAndPrices(
                         gpi14: model.gpi14 ?? '',
                         name: model.name ?? '',
-                        lat: 41.8881604,
-                        long: -87.80669739999999,
+                        lat: Singleton.instance.latitude,
+                        long: Singleton.instance.longitude,
                         quantity: 1,
                         distance: 5,
                         coverage: _coverage,
@@ -75,6 +76,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     selectedShadowColor: const Color(0xff8EB14F),
                     elevation: 2,
                     label: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('ORDER BY',
                             style: TextStyle(
@@ -139,6 +141,38 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     _getParameters();
   }
 
+/*
+  _orderBy(context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: SmartSelect<String>.multiple(
+        title: 'Filtro',
+        selectedValue: selected ?? [],
+        onChange: (selectedValue) {
+        },
+        tileBuilder: (_, state) {
+          return InkWell(
+            onTap: state.showModal,
+            child: _StickerGroupTile(
+              label: state.selected.title?.join(', ') ?? 'Filtro',
+              clearCallBack: () {
+                selected = null;
+              },
+            ),
+          );
+        },
+        choiceItems: S2Choice.listFrom(
+            source: widget.countries.entries
+                .map((e) => {'value': e.key, 'title': e.value})
+                .toList(),
+            value: (index, item) => item['value'] ?? '',
+            title: (index, item) => item['title'] ?? ''),
+        choiceType: S2ChoiceType.chips,
+        modalType: S2ModalType.bottomSheet,
+      ),
+    );
+  }
+*/
   void _showOrderyBy(context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -245,6 +279,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
         .toList()[0]
         .description;
 
+    // Read StrengthUnit Only = 10 Mg => Mg
     if (_strengthUnit != null) {
       var strength = _strengthUnit!.split(' ');
       _strengthUnit = strength[1];

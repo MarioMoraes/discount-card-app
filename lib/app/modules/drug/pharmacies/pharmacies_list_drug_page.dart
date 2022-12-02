@@ -1,3 +1,4 @@
+import 'package:discount_card_app/app/core/helpers/singleton.dart';
 import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/core/widgets/custom_app_bar_title.dart';
 import 'package:discount_card_app/app/models/pharmacy_and_prices_model.dart';
@@ -26,12 +27,11 @@ class PharmaciesListDrugPage extends StatefulWidget {
 class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
   @override
   void initState() {
-    //! CHANGE LONGITUDE AND LATITUDE FOR DEVICE POINT
     widget.controller.getPharmaciesAndPrices(
         gpi14: widget.model.gpi14 ?? '',
         name: widget.model.name ?? '',
-        lat: 41.8881604,
-        long: -87.80669739999999,
+        lat: Singleton.instance.latitude,
+        long: Singleton.instance.longitude,
         quantity: 1,
         distance: 5);
 
@@ -49,7 +49,9 @@ class _PharmaciesListDrugPageState extends State<PharmaciesListDrugPage> {
         slivers: [
           SliverPersistentHeader(
             delegate: CustomFilterHeader(
-                model: widget.model, controller: widget.controller),
+              model: widget.model,
+              controller: widget.controller,
+            ),
             pinned: true,
           ),
           BlocSelector<PharmacyListController, PharmacyListState, bool>(
