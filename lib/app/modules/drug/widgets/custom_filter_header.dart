@@ -23,7 +23,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   String? _coverage;
   String? _type;
   String? _strengthUnit;
-  int? _distance;
+  double? _distance;
   int? _quantity;
 
   @override
