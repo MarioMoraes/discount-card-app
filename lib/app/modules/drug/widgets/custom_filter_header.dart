@@ -257,7 +257,12 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
       _strengthUnit = strength[1];
     }
 
-    _distance = filterController.distance;
+    if (filterController.distance != null) {
+      _distance = filterController.distance;
+    } else {
+      _distance = 5.0;
+    }
+
     _quantity = filterController.quantity;
   }
 }

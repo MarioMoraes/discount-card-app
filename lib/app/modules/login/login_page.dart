@@ -26,12 +26,15 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-//        _authenticated();
-      },
-    );
+    _getUserData();
     super.initState();
+  }
+
+  Future _getUserData() async {
+    var sp = await SharedPreferences.getInstance();
+
+    _emailEC.text = sp.getString('username') ?? '';
+    _passwordEC.text = sp.getString('password') ?? '';
   }
 
   _authenticated() async {

@@ -19,5 +19,10 @@ class AuthServiceImpl implements AuthService {
 
     var sp = await SharedPreferences.getInstance();
     sp.setString('token', token);
+
+    // Save Username For Development
+    // Remove Before Publish
+    sp.setString('username', email);
+    sp.setString('password', password);
   }
 }

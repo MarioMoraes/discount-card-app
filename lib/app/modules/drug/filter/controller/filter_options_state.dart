@@ -31,8 +31,8 @@ class FilterOptionsState extends Equatable {
           listCoverages: [],
           listTypes: [],
           listDosages: [],
-          distance: 0.0,
-          quantity: 0,
+          distance: 5.0,
+          quantity: 1,
           status: SearchStatus.initial,
         );
 
