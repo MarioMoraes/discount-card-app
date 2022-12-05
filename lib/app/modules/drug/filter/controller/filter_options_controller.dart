@@ -20,6 +20,7 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
   var listTypes;
   var listDosages;
   var distance;
+  var quantity;
 
   Future<void> getFilter(String nabp) async {
     try {
@@ -195,5 +196,11 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     emit(state.copyWith(distance: 0.0, status: SearchStatus.loading));
     distance = value;
     emit(state.copyWith(distance: distance, status: SearchStatus.completed));
+  }
+
+  void setQuantity(int value) {
+    emit(state.copyWith(quantity: 0, status: SearchStatus.loading));
+    quantity = value;
+    emit(state.copyWith(quantity: quantity, status: SearchStatus.completed));
   }
 }

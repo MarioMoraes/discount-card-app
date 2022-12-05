@@ -13,6 +13,7 @@ class FilterOptionsState extends Equatable {
   final List<CardSelectModel> listTypes;
   final List<CardSelectModel> listDosages;
   final double distance;
+  final int quantity;
 
   final SearchStatus status;
 
@@ -22,6 +23,7 @@ class FilterOptionsState extends Equatable {
     required this.listDosages,
     required this.status,
     required this.distance,
+    required this.quantity,
   });
 
   FilterOptionsState.initial()
@@ -30,18 +32,20 @@ class FilterOptionsState extends Equatable {
           listTypes: [],
           listDosages: [],
           distance: 0.0,
+          quantity: 0,
           status: SearchStatus.initial,
         );
 
   @override
   List<Object?> get props =>
-      [listCoverages, listTypes, listDosages, distance, status];
+      [listCoverages, listTypes, listDosages, distance, quantity, status];
 
   FilterOptionsState copyWith({
     List<CardSelectModel>? listCoverages,
     List<CardSelectModel>? listTypes,
     List<CardSelectModel>? listDosages,
     double? distance,
+    int? quantity,
     SearchStatus? status,
   }) {
     return FilterOptionsState._(
@@ -49,6 +53,7 @@ class FilterOptionsState extends Equatable {
       listTypes: listTypes ?? this.listTypes,
       listDosages: listDosages ?? this.listDosages,
       distance: distance ?? this.distance,
+      quantity: quantity ?? this.quantity,
       status: status ?? this.status,
     );
   }

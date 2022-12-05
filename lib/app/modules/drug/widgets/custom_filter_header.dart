@@ -24,6 +24,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   String? _type;
   String? _strengthUnit;
   int? _distance;
+  int? _quantity;
 
   @override
   Widget build(
@@ -65,7 +66,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                         name: model.name ?? '',
                         lat: Singleton.instance.latitude,
                         long: Singleton.instance.longitude,
-                        quantity: 1,
+                        quantity: filterController.quantity,
                         distance: filterController.distance.round(),
                         coverage: _coverage,
                         type: _type,
@@ -257,5 +258,6 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     }
 
     _distance = filterController.distance;
+    _quantity = filterController.quantity;
   }
 }

@@ -52,6 +52,10 @@ class _QuantityOptionsState extends State<QuantityOptions> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   controller: _quantityEC,
+                  onTap: () {
+                    widget.quantityController
+                        .setQuantity(int.parse(_quantityEC.text));
+                  },
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 13,
