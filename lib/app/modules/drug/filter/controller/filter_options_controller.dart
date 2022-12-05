@@ -19,10 +19,12 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
   var listCoverages;
   var listTypes;
   var listDosages;
+  var distance;
 
   Future<void> getFilter(String nabp) async {
     try {
       emit(state.copyWith(status: SearchStatus.loading));
+
       listComplete = await service.getFilters(nabp);
 
       listCoverages = createCoverage([...listComplete]);
@@ -187,5 +189,11 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     }
 
     return listCards;
+  }
+
+  void setDistance(double value) {
+    emit(state.copyWith(distance: 0.0, status: SearchStatus.loading));
+    distance = value;
+    emit(state.copyWith(distance: distance, status: SearchStatus.completed));
   }
 }

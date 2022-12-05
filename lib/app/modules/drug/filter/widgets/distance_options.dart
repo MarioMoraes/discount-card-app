@@ -61,6 +61,7 @@ class DistanceOptionsState extends State<DistanceOptions> {
               onChanged: (double value) {
                 setState(() {
                   _sliderValue = value;
+                  widget.distanceController.setDistance(_sliderValue);
                 });
               },
             ),

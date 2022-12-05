@@ -16,11 +16,14 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
   });
 
   final int? _value = 0;
+  List<String>? selected;
+
   dynamic filterController;
+
   String? _coverage;
   String? _type;
   String? _strengthUnit;
-  List<String>? selected;
+  int? _distance;
 
   @override
   Widget build(
@@ -63,7 +66,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                         lat: Singleton.instance.latitude,
                         long: Singleton.instance.longitude,
                         quantity: 1,
-                        distance: 5,
+                        distance: filterController.distance.round(),
                         coverage: _coverage,
                         type: _type,
                         strengthUnit: _strengthUnit,
@@ -141,38 +144,6 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     _getParameters();
   }
 
-/*
-  _orderBy(context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: SmartSelect<String>.multiple(
-        title: 'Filtro',
-        selectedValue: selected ?? [],
-        onChange: (selectedValue) {
-        },
-        tileBuilder: (_, state) {
-          return InkWell(
-            onTap: state.showModal,
-            child: _StickerGroupTile(
-              label: state.selected.title?.join(', ') ?? 'Filtro',
-              clearCallBack: () {
-                selected = null;
-              },
-            ),
-          );
-        },
-        choiceItems: S2Choice.listFrom(
-            source: widget.countries.entries
-                .map((e) => {'value': e.key, 'title': e.value})
-                .toList(),
-            value: (index, item) => item['value'] ?? '',
-            title: (index, item) => item['title'] ?? ''),
-        choiceType: S2ChoiceType.chips,
-        modalType: S2ModalType.bottomSheet,
-      ),
-    );
-  }
-*/
   void _showOrderyBy(context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -284,5 +255,7 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
       var strength = _strengthUnit!.split(' ');
       _strengthUnit = strength[1];
     }
+
+    _distance = filterController.distance;
   }
 }
