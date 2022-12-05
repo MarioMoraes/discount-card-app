@@ -1,6 +1,6 @@
-import 'package:discount_card_app/app/core/ui/theme_extension.dart';
 import 'package:discount_card_app/app/modules/drug/filter/controller/filter_options_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 
 class QuantityOptions extends StatefulWidget {
   final FilterOptionsController quantityController;
@@ -35,35 +35,25 @@ class _QuantityOptionsState extends State<QuantityOptions> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Container(
-            width: 80,
-            height: 35,
-            decoration: BoxDecoration(
-              color: context.primaryColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _quantityEC,
-                  onChanged: (value) => {
-                    widget.quantityController
-                        .setQuantity(int.parse(_quantityEC.text))
-                  },
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
-            ),
+        SizedBox(
+          width: 160,
+          height: 60,
+          child: TouchSpin(
+            min: 1,
+            max: 50,
+            step: 1,
+            value: 1,
+            textStyle:
+                const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            iconSize: 35.0,
+            addIcon: const Icon(Icons.add_circle_outline),
+            subtractIcon: const Icon(Icons.remove_circle_outline),
+            iconActiveColor: Colors.green,
+            iconDisabledColor: Colors.grey,
+            iconPadding: const EdgeInsets.only(left: 15, right: 15),
+            onChanged: (val) {
+              widget.quantityController.setQuantity(val.toInt());
+            },
           ),
         ),
       ],
