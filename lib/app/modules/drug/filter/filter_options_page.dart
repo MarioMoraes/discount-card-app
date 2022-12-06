@@ -45,6 +45,10 @@ class _FilterOptionsPageState extends State<FilterOptionsPage> {
             style: TextStyle(fontSize: 16),
           ),
           actions: [
+            TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.filter_alt_off),
+                label: const Text('Reset')),
             IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
