@@ -37,14 +37,6 @@ class _LoginPageState extends State<LoginPage> with Messages<LoginPage> {
     _passwordEC.text = sp.getString('password') ?? '';
   }
 
-  _authenticated() async {
-    var sp = await SharedPreferences.getInstance();
-    final token = sp.getString('token');
-    if (token != null) {
-      Navigator.of(context).pushNamed('/home');
-    }
-  }
-
   @override
   void dispose() {
     _emailEC.dispose();

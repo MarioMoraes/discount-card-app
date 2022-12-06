@@ -12,14 +12,6 @@ class QuantityOptions extends StatefulWidget {
 }
 
 class _QuantityOptionsState extends State<QuantityOptions> {
-  final _quantityEC = TextEditingController();
-
-  @override
-  void initState() {
-    _quantityEC.text = '0';
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,7 +36,7 @@ class _QuantityOptionsState extends State<QuantityOptions> {
             step: 1,
             value: 1,
             textStyle:
-                const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
             iconSize: 35.0,
             addIcon: const Icon(Icons.add_circle_outline),
             subtractIcon: const Icon(Icons.remove_circle_outline),

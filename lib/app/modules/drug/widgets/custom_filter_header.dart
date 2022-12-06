@@ -61,13 +61,16 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
                     onSelected: (bool selected) async {
                       await _showFilterOptions();
 
+                      final quantity = filterController.quantity ?? 1;
+                      final distance = filterController.distance ?? 5;
+
                       controller.getPharmaciesAndPrices(
                         gpi14: model.gpi14 ?? '',
                         name: model.name ?? '',
                         lat: Singleton.instance.latitude,
                         long: Singleton.instance.longitude,
-                        quantity: filterController.quantity,
-                        distance: filterController.distance.round(),
+                        quantity: quantity,
+                        distance: distance,
                         coverage: _coverage,
                         type: _type,
                         strengthUnit: _strengthUnit,
@@ -251,7 +254,6 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
         .toList()[0]
         .description;
 
-    // Read StrengthUnit Only = 10 Mg => Mg
     if (_strengthUnit != null) {
       var strength = _strengthUnit!.split(' ');
       _strengthUnit = strength[1];
@@ -260,9 +262,13 @@ class CustomFilterHeader extends SliverPersistentHeaderDelegate {
     if (filterController.distance != null) {
       _distance = filterController.distance;
     } else {
-      _distance = 5.0;
+      _distance = 5;
     }
 
-    _quantity = filterController.quantity;
+    if (filterController.quantity != null) {
+      _quantity = filterController.quantity;
+    } else {
+      _quantity = 1;
+    }
   }
 }

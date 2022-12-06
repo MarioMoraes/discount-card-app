@@ -12,7 +12,7 @@ class FilterOptionsState extends Equatable {
   final List<CardSelectModel> listCoverages;
   final List<CardSelectModel> listTypes;
   final List<CardSelectModel> listDosages;
-  final double distance;
+  final int distance;
   final int quantity;
 
   final SearchStatus status;
@@ -31,7 +31,7 @@ class FilterOptionsState extends Equatable {
           listCoverages: [],
           listTypes: [],
           listDosages: [],
-          distance: 5.0,
+          distance: 5,
           quantity: 1,
           status: SearchStatus.initial,
         );
@@ -44,7 +44,7 @@ class FilterOptionsState extends Equatable {
     List<CardSelectModel>? listCoverages,
     List<CardSelectModel>? listTypes,
     List<CardSelectModel>? listDosages,
-    double? distance,
+    int? distance,
     int? quantity,
     SearchStatus? status,
   }) {

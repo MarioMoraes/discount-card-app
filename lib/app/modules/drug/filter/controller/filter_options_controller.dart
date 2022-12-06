@@ -192,14 +192,12 @@ class FilterOptionsController extends Cubit<FilterOptionsState> {
     return listCards;
   }
 
-  void setDistance(double value) {
-    emit(state.copyWith(distance: 0.0, status: SearchStatus.loading));
+  void setDistance(int value) {
     distance = value;
     emit(state.copyWith(distance: distance, status: SearchStatus.completed));
   }
 
   void setQuantity(int value) {
-    emit(state.copyWith(quantity: 0, status: SearchStatus.loading));
     quantity = value;
     emit(state.copyWith(quantity: quantity, status: SearchStatus.completed));
   }
