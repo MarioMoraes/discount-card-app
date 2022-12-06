@@ -16,6 +16,12 @@ class DistanceOptionsState extends State<DistanceOptions> {
   var _sliderValue = 5.0;
 
   @override
+  void initState() {
+    widget.distanceController.setDistance(5);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

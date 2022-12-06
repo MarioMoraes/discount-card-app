@@ -13,6 +13,12 @@ class QuantityOptions extends StatefulWidget {
 
 class _QuantityOptionsState extends State<QuantityOptions> {
   @override
+  void initState() {
+    widget.quantityController.setQuantity(1);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
