@@ -24,9 +24,7 @@ class DrugsRepositoryImpl extends DrugsRepository {
       );
 
       if (response.statusCode == 200) {
-        return response.data['data']
-            .map<DrugModel>((e) => DrugModel.fromMap(e))
-            .toList();
+        return response.data['data'].map(DrugModel.fromMap).toList();
       }
     } on DioError catch (e, s) {
       log('Error Ao Buscar Drugs', error: e, stackTrace: s);
